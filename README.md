@@ -1,36 +1,49 @@
-# Inicijalne upute za prijavu projekta iz Razvoja mobilnih aplikacija i igara
+# AstroMap
+## aplikacija za astronomiju + igra prepoznavanja zvijezda
 
-Poštovane kolegice i kolege, 
+AstroMap aplikacija omogućuje korisnicima da na jednostavan način uče o svemiru. Sadrži informacije o planetima, zvijezdama, galaksijama i zviježđima. Cilj aplikacije je edukacija, ali na zabavan način.
 
-čestitamo vam jer ste uspješno prijavili svoj projektni tim na kolegiju Razvoj mobilnih aplikacija i igara, te je za vas automatski kreiran repozitorij koji ćete koristiti za verzioniranje vašega koda, ali i za pisanje dokumentacije.
+Aplikacija će imati glavnu stranicu s pregledom tema koje korisnik može istraživati. Korisnik može kliknuti na određenu temu (npr. "Sunčev sustav") i dobiti osnovne informacije o planetima, njihovim karakteristikama i zanimljivostima. Slično će biti i s ostalim dijelovima svemira – zvijezdama, crnim rupama, kometima itd.
 
-Ovaj dokument (README.md) predstavlja **osobnu iskaznicu vašeg projekta**. Vaš prvi zadatak je **kratko opisati projektni prijedlog** na način da ćete prijavu vašeg projekta, sukladno uputama danim u ovom tekstu, napisati upravo u ovaj dokument, umjesto ovoga teksta.
+Osim edukativnog dijela, aplikacija će imati i igru. U igri će korisnik morati prepoznati zviježđa tako što će ih povezivati linijama na noćnom nebu. Kada igra započne, na ekranu će se pojaviti nasumične zvijezde, a korisnik će dobiti zadatak pronaći određeno zviježđe (npr. Veliki Medvjed). Ako pravilno spoji zvijezde i formira zadano zviježđe, dobiva bodove i prelazi na sljedeću razinu. Igra može imati različite težine – na početku su zviježđa jednostavnija i lakše ih je prepoznati, dok kasnije postaju složenija.
 
-Za upute o sintaksi koju možete koristiti u ovom dokumentu i kod pisanje vaše projektne dokumentacije pogledajte [ovaj link](https://guides.github.com/features/mastering-markdown/).
-Sav programski kod potrebno je verzionirati u glavnoj **master** grani i **obvezno** smjestiti u mapu Software. Sve artefakte (npr. slike) koje ćete koristiti u vašoj dokumentaciju obvezno verzionirati u posebnoj grani koja je već kreirana i koja se naziva **master-docs** i smjestiti u mapu Documentation.
+## projektni tim
+### bobek-golubic-lazar
 
-Nakon vaše prijave bit će vam dodijeljen mentor s kojim ćete tijekom semestra raditi na ovom projektu. Mentor će vam slati povratne informacije kroz sekciju Discussions također dostupnu na GitHubu vašeg projekta. A sada, vrijeme je da opišete vaš projekt. Za opis vašeg projektnog prijedloga molimo vas koristite **predložak** koji je naveden u nastavku, a započnite tako da kliknete na *olovku* u desnom gornjem kutu ovoga dokumenta :) 
-
-# Naziv projekta
-(u redak iznad navedite kratki proizvoljni naziv projekta prikladan akademskoj zajednici, a ovaj tekst obrišite)
-
-## Projektni tim
-
-Ime i prezime | E-mail adresa (FOI) | JMBAG | Github korisničko ime
+ime i prezime | e-mail adresa (FOI) | JMBAG | Github korisničko ime
 ------------  | ------------------- | ----- | ---------------------
-Ime i prezime | mojaadresa@foi.hr | 000000000 | githubuser
-Ime i prezime | ... | ... | ...
+Kaja Bobek | kbobek22@foi.hr | 0016162684 | kbobek22
+Lana Golubić | lgolubic22@foi.hr | 0016160723 | LanaG7
+Julianne Lazar | jlazar22@foi.hr | 0016159185 | juliannelazar
 
-## Opis domene
-Umjesto ovih uputa opišite domenu ili problem koji pokrivate vašim  projektom. Domena može biti proizvoljna, ali obratite pozornost da sukladno ishodima učenja, domena omogući primjenu zahtijevanih koncepata kako je to navedeno u sljedećem poglavlju. Priložite odgovarajuće skice gdje je to prikladno.
+## opis domene
+Projekt se bavi razvojem aplikacije za astronomiju koja uključuje edukativne sadržaje o svemiru, zvijezdama, planetima i galaksijama. Aplikacija će pružiti korisnicima jednostavan način da nauče o osnovnim astronomskim pojmovima i o strukturama svemira. Dodatni element igre omogućit će korisnicima da testiraju svoje znanje o zviježđima i planetima kroz interaktivnu igru u kojoj će prepoznavati zvijezde i spajati ih u odgovarajuća zviježđa. Aplikacija će imati za cilj povećati znanje o astronomiji među korisnicima, a posebice mladima i studentima, koji žele proširiti svoje znanje o svemiru na zabavan način.
 
-## Specifikacija projekta
+## specifikacija projekta
 Umjesto ovih uputa opišite zahtjeve za funkcionalnošću programskog proizvoda. Pobrojite osnovne funkcionalnosti. Također uzmite u obzir da je u ovom trenutku dovoljno opisati 3 funkcionalnosti, dok će sve funkcionalnoisti biti pobrojane u sklopu rada na projektu i specifikacija zahtjeva. Funkcionalnosti sustava pobrojite u tablici ispod koristeći predložak koji slijedi:
 
-Oznaka | Naziv | Kratki opis 
+oznaka | naziv | kratki opis 
 ------ | ----- | ----------- 
-F01 | Login | Za pristup dnevniku potrebna je autentikacija korisnika pomoću login funkcionalnosti. Korisnik se logira s podacima koji su mu dodijeljeni prilikom ... 
-F02 | Pregled dnevnika | .... 
+F01 | edukacija o svemiru | Aplikacija pruža edukativne sadržaje o planetima, zvijezdama, galaksijama i zviježđima u svemiru. Korisnici mogu učiti kroz tekstove, slike i interaktivne elemente.
+F02 | igra prepoznavanja zviježđa | Korisnici prepoznaju zviježđa na noćnom nebu tako da povezuju zvijezde prema zadanim pravilima, čime testiraju svoje znanje o svemiru.
+F03 | informacije o zvijezdama | Aplikacija prikazuje detaljne informacije o popularnim zvijezdama, uključujući naziv, tip, veličinu i udaljenost od Zemlje.
 
-## Tehnologije i oprema
-Umjesto ovih uputa jasno popišite sve tehnologije, alate i opremu koju ćete koristiti pri implementaciji vašeg rješenja. Projekti se razvijaju koristeći Android razvojne okvire, a vrsta projekta može biti mobilna aplikacija ili mobilna aplikacija s elementima igara. Ne zaboravite planirati korištenje tehnologija u aktivnostima kao što su projektni menadžment ili priprema dokumentacije. Tehnologije koje ćete koristiti bi trebale biti javno dostupne, a ako ih ne budemo obrađivali na vježbama u vašoj dokumentaciji ćete morati navesti način preuzimanja, instaliranja i korištenja onih tehnologija koje su neophodne kako bi se vaš programski proizvod preveo i pokrenuo. Pazite da svi alati koje ćete koristiti moraju imati odgovarajuću licencu. Što se tiče zahtjeva nastavnika, obvezno je koristiti git i GitHub za verzioniranje programskog koda, GitHub Wiki za pisanje tehničke i projektne dokumentacije, a projektne zadatke je potrebno planirati i pratiti u alatu GitHub projects. 
+## tehnologije i oprema
+Za razvoj:
+* Android Studio: razvojno okruženje za razvoj mobilne aplikacije za Android uređaje
+* Kotlin: programski jezik za razvoj aplikacije
+* XML: dizajn korisničkog sučelja
+
+Za verzioniranje i dokumentaciju:
+* Git: praćenje promjena u kodu i verzioniranje
+* GitHub: pohrana koda, korištenje GitHub Wiki za tehničku dokumentaciju i GitHub Projects za praćenje zadataka
+* Jira: upravljanje projektom, planiranje sprintova i praćenje napretka
+
+Za početnih skica:
+* Lucidchart i draw.io
+
+Oprema:
+* računalo s 16GB RAM-a
+* mobilni uređaji s 4GB RAM-a
+* tablet s 6GB RAM-a
+* svi uređaji imaju više od potrebnih 30GB slobodnog prostora memorije
