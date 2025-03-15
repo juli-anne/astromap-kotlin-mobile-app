@@ -17,10 +17,10 @@ Lana Golubić | lgolubic22@foi.hr | 0016160723 | LanaG7
 Julianne Lazar | jlazar22@foi.hr | 0016159185 | juliannelazar
 
 ## opis domene
+
 Projekt se bavi razvojem aplikacije za astronomiju koja uključuje edukativne sadržaje o svemiru, zvijezdama, planetima i galaksijama. Aplikacija će pružiti korisnicima jednostavan način da nauče o osnovnim astronomskim pojmovima i o strukturama svemira. Dodatni element igre omogućit će korisnicima da testiraju svoje znanje o zviježđima i planetima kroz interaktivnu igru u kojoj će prepoznavati zvijezde i spajati ih u odgovarajuća zviježđa. Aplikacija će imati za cilj povećati znanje o astronomiji među korisnicima, a posebice mladima i studentima, koji žele proširiti svoje znanje o svemiru na zabavan način.
 
 ## specifikacija projekta
-Umjesto ovih uputa opišite zahtjeve za funkcionalnošću programskog proizvoda. Pobrojite osnovne funkcionalnosti. Također uzmite u obzir da je u ovom trenutku dovoljno opisati 3 funkcionalnosti, dok će sve funkcionalnoisti biti pobrojane u sklopu rada na projektu i specifikacija zahtjeva. Funkcionalnosti sustava pobrojite u tablici ispod koristeći predložak koji slijedi:
 
 oznaka | naziv | kratki opis 
 ------ | ----- | ----------- 
