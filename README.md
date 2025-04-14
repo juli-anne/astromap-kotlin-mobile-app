@@ -26,7 +26,7 @@ Projekt se bavi razvojem aplikacije za astronomiju koja uključuje edukativne sa
 Oznaka | Naziv | Kratki opis 
 ------ | ----- | ----------- 
 F01 | Edukativni moduli o strukturama svemira | Korisniku će biti omogućen pregled edukativnih sadržaja kroz tematske cjeline (npr. Sunčev sustav, zvijezde, galaksije). Svaka cjelina uključivat će slike i zanimljivosti kroz koje će korisnici moći učiti. Funkcionalnost će obuhvaćati kreiranje interaktivnih edukacijskih stranica te navigaciju kroz teme i dizajn.
-F02 | Interaktivna igra prepoznavanja zviježđa | Korisnik će u igri moći pronaći i povezati zvijezde na noćnom nebu pri čemu će se formirti određeno zviježđe. Implementirat će se logika igre, generiranje zvijezda na ekranu, validacija spojeva te prelazak na iduće levele.
+F02 | Interaktivna igra prepoznavanja zviježđa | Korisnik će u igri moći pronaći i povezati zvijezde na noćnom nebu pri čemu će se formirati određeno zviježđe. Implementirat će se logika igre, generiranje zvijezda na ekranu, validacija spojeva te prelazak na iduće levele.
 F03 | Enciklopedija zvijezda | Baza podataka o poznatim zvijezdama s detaljnim informacijama – tip zvijezde, spektralna klasa, udaljenost od Zemlje, vidljivost tijekom godine, zanimljivosti.Funkcionalnost će obuhvaćati implementaciju baze podataka o zvijezdama, prikaz podataka u UI-u, filtriranje po svojstvima i tražilicu.
 F04 | Integracija neba u stvarnom vremenu | Korisniku će biti prikazano virtualno nebo koje će se mijenjati ovisno o datumu.
 
