@@ -25,10 +25,10 @@ Projekt se bavi razvojem aplikacije za astronomiju koja uključuje edukativne sa
 ### Funkcionalnosti
 Oznaka | Naziv | Kratki opis 
 ------ | ----- | ----------- 
-F01 | Edukativni moduli o strukturama svemira | Korisniku će biti omogućen pregled edukativnih sadržaja kroz tematske cjeline (npr. Sunčev sustav, zvijezde, galaksije). Svaka cjelina uključivat će slike i zanimljivosti kroz koje će korisnici moći učiti. 
-F02 | Interaktivna igra prepoznavanja zviježđa | Igra u kojoj korisnik mora pronaći i povezati zvijezde na noćnom nebu kako bi formirao određeno zviježđe. 
-F03 | Enciklopedija zvijezda | Baza podataka o poznatim zvijezdama s detaljnim informacijama – tip zvijezde, spektralna klasa, udaljenost od Zemlje, vidljivost tijekom godine, zanimljivosti.
-F04 | Integracija neba u stvarnom vremenu | Prikaz virtualnog neba koji se mijenja ovisno o datumu.
+F01 | Edukativni moduli o strukturama svemira | Korisniku će biti omogućen pregled edukativnih sadržaja kroz tematske cjeline (npr. Sunčev sustav, zvijezde, galaksije). Svaka cjelina uključivat će slike i zanimljivosti kroz koje će korisnici moći učiti. Funkcionalnost će obuhvaćati kreiranje interaktivnih edukacijskih stranica te navigaciju kroz teme i dizajn.
+F02 | Interaktivna igra prepoznavanja zviježđa | Korisnik će u igri moći pronaći i povezati zvijezde na noćnom nebu pri čemu će se formirti određeno zviježđe. Implementirat će se logika igre, generiranje zvijezda na ekranu, validacija spojeva te prelazak na iduće levele.
+F03 | Enciklopedija zvijezda | Baza podataka o poznatim zvijezdama s detaljnim informacijama – tip zvijezde, spektralna klasa, udaljenost od Zemlje, vidljivost tijekom godine, zanimljivosti.Funkcionalnost će obuhvaćati implementaciju baze podataka o zvijezdama, prikaz podataka u UI-u, filtriranje po svojstvima i tražilicu.
+F04 | Integracija neba u stvarnom vremenu | Korisniku će biti prikazano virtualno nebo koje će se mijenjati ovisno o datumu.
 
 
 ### Podjela po zadatcima
@@ -36,13 +36,18 @@ F04 | Integracija neba u stvarnom vremenu | Prikaz virtualnog neba koji se mijen
 Oznaka | Naziv | Broj zadatka | Opis zadatka | Zaduženi
 ------ | ----- | -----------  | ------------ | --------
 F01 | Edukativni moduli |1| Dizajn strukture edukativnog sadržaja: odrediti tematske cjeline (npr. Sunčev sustav, galaksije, crne rupe, kometi). Definirati sadržaj za svaku temu (tekstovi, slike, zanimljivosti). | Lana
-F01 | Edukativni moduli |1| Dizajn strukture edukativnog sadržaja: odrediti tematske cjeline (npr. Sunčev sustav, galaksije, crne rupe, kometi). Definirati sadržaj za svaku temu (tekstovi, slike, zanimljivosti). | Lana
+F01 | Edukativni moduli |2| Kreiranje korisničkog sučelja (UI): XML layouti za pregled tema i prikaz sadržaja. Navigacija između tema (npr. preko RecyclerView i Fragmenta). | Lana
+F01 | Edukativni moduli |3| Testiranje i optimizacija: provjera responzivnosti na raznim uređajima. Provjera točnosti prikazanog sadržaja.| Lana
+F02 | Igra prepoznavanja zviježđa |4| Generiranje zvijezda na ekranu: slučajno postavljanje točaka koje predstavljaju zvijezde. Animacija i izgled noćnog neba (Canvas, SurfaceView, ili custom View).| Kaja
+F02 | Igra prepoznavanja zviježđa |5| Zadavanje cilja: na početku igre odabrati zviježđe koje korisnik mora pronaći. Prikaz imena i forme zviježđa koje treba formirati.| Kaja
+F02 | Igra prepoznavanja zviježđa |6| Logika povezivanja zvijezda: implementacija povlačenja linija između zvijezda. Provjera je li korisnik pravilno spojio zadano zviježđe.| Kaja
+F03 | Enciklopedija zvijezda |7| Kreiranje baze podataka (lokalno): korištenje Room baze za pohranu podataka o zvijezdama (naziv, tip, udaljenost, sjajnost, zanimljivosti). Mogućnost buduće nadogradnje s online API-em (ako bude potrebno).| Jualianne
+F03 | Enciklopedija zvijezda |8| UI za prikaz podataka: listanje zvijezda pomoću RecyclerView. Detaljni prikaz nakon odabira (npr. novi Fragment/Activity).| Jualianne
+F03 | Enciklopedija zvijezda |9| Filtriranje i pretraživanje: dodavanje search bara za pretragu zvijezda po imenu. Filtriranje po tipu, udaljenosti itd.| Jualianne
+F04 | Virtualno nebo ovisno o datumu |10| Prikupiti podatke: koristiti lokalno spremljene podatke o vidljivim zviježđima po mjesecima i koordinatama.| Kaja,Jualianne,Lana
+F04 | Virtualno nebo ovisno o datumu |10| Kreirati sučelje za prikaz virtualnog neba: karta neba (2D projekcija) s pomičnim pogledom. Mogućnost skrolanja kroz datume i prikaza zviježđa vidljivih u određeno vrijeme.| Kaja, Jualianne, Lana
+F04 | Virtualno nebo ovisno o datumu |10| Spojiti s edukacijom i igrom: klikom na zviježđe u virtualnom nebu otvoriti edukacijski modul ili pokrenuti igru prepoznavanja.| Kaja, Jualianne, Lana
 
-
-## F01 - Edukativni moduli
-* Dizajn strukture edukativnog sadržaja: odrediti tematske cjeline (npr. Sunčev sustav, galaksije, crne rupe, kometi). Definirati sadržaj za svaku temu (tekstovi, slike, zanimljivosti).
-* Kreiranje korisničkog sučelja (UI): XML layouti za pregled tema i prikaz sadržaja. Navigacija između tema (npr. preko RecyclerView i Fragmenta).
-* Testiranje i optimizacija: provjera responzivnosti na raznim uređajima. Provjera točnosti prikazanog sadržaja.
 
 
 ## Tehnologije i oprema
@@ -56,7 +61,7 @@ Za verzioniranje i dokumentaciju:
 * GitHub: pohrana koda, korištenje GitHub Wiki za tehničku dokumentaciju i GitHub Projects za praćenje zadataka
 * Jira: upravljanje projektom, planiranje sprintova i praćenje napretka
 
-Za početnih skica:
+Za početne skice:
 * Lucidchart i draw.io
 
 Oprema:
