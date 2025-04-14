@@ -36,6 +36,8 @@ F04 | Integracija neba u stvarnom vremenu | Prikaz virtualnog neba koji se mijen
 Oznaka | Naziv | Broj zadatka | Opis zadatka | Zaduženi
 ------ | ----- | -----------  | ------------ | --------
 F01 | Edukativni moduli |1| Dizajn strukture edukativnog sadržaja: odrediti tematske cjeline (npr. Sunčev sustav, galaksije, crne rupe, kometi). Definirati sadržaj za svaku temu (tekstovi, slike, zanimljivosti). | Lana
+F01 | Edukativni moduli |1| Dizajn strukture edukativnog sadržaja: odrediti tematske cjeline (npr. Sunčev sustav, galaksije, crne rupe, kometi). Definirati sadržaj za svaku temu (tekstovi, slike, zanimljivosti). | Lana
+
 
 ## F01 - Edukativni moduli
 * Dizajn strukture edukativnog sadržaja: odrediti tematske cjeline (npr. Sunčev sustav, galaksije, crne rupe, kometi). Definirati sadržaj za svaku temu (tekstovi, slike, zanimljivosti).
