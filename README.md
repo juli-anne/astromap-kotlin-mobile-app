@@ -25,7 +25,7 @@ Projekt se bavi razvojem aplikacije za astronomiju koja uključuje edukativne sa
 ### Funkcionalnosti
 Oznaka | Naziv | Kratki opis 
 ------ | ----- | ----------- 
-F01 | Edukativni moduli o strukturama svemira | Aplikacija pruža korisniku pregled edukativnih sadržaja kroz tematske cjeline (npr. Sunčev sustav, zvijezde, galaksije). Svaka cjelina uključuje slike i zanimljivosti kroz koje korisnici mogu učiti. 
+F01 | Edukativni moduli o strukturama svemira | Korisniku će biti omogućen pregled edukativnih sadržaja kroz tematske cjeline (npr. Sunčev sustav, zvijezde, galaksije). Svaka cjelina uključivat će slike i zanimljivosti kroz koje će korisnici moći učiti. 
 F02 | Interaktivna igra prepoznavanja zviježđa | Igra u kojoj korisnik mora pronaći i povezati zvijezde na noćnom nebu kako bi formirao određeno zviježđe. 
 F03 | Enciklopedija zvijezda | Baza podataka o poznatim zvijezdama s detaljnim informacijama – tip zvijezde, spektralna klasa, udaljenost od Zemlje, vidljivost tijekom godine, zanimljivosti.
 F04 | Integracija neba u stvarnom vremenu | Prikaz virtualnog neba koji se mijenja ovisno o datumu.
@@ -36,9 +36,11 @@ F04 | Integracija neba u stvarnom vremenu | Prikaz virtualnog neba koji se mijen
 Oznaka | Naziv | Broj zadatka | Opis zadatka | Zaduženi
 ------ | ----- | -----------  | ------------ | --------
 F01 | Edukativni moduli |1| Dizajn strukture edukativnog sadržaja: odrediti tematske cjeline (npr. Sunčev sustav, galaksije, crne rupe, kometi). Definirati sadržaj za svaku temu (tekstovi, slike, zanimljivosti). | Lana
-    |        |2| Kreiranje korisničkog sučelja (UI): XML layouti za pregled tema i prikaz sadržaja. Navigacija između tema (npr. preko RecyclerView i Fragmenta). | Lana
 
-  |        |3| Testiranje i optimizacija: provjera responzivnosti na raznim uređajima. Provjera točnosti prikazanog sadržaja. | Lana
+## F01 - Edukativni moduli
+* Dizajn strukture edukativnog sadržaja: odrediti tematske cjeline (npr. Sunčev sustav, galaksije, crne rupe, kometi). Definirati sadržaj za svaku temu (tekstovi, slike, zanimljivosti).
+* Kreiranje korisničkog sučelja (UI): XML layouti za pregled tema i prikaz sadržaja. Navigacija između tema (npr. preko RecyclerView i Fragmenta).
+* Testiranje i optimizacija: provjera responzivnosti na raznim uređajima. Provjera točnosti prikazanog sadržaja.
 
 
 ## Tehnologije i oprema
