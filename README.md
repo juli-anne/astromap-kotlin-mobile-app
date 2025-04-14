@@ -44,9 +44,9 @@ F02 | Igra prepoznavanja zviježđa |6| Logika povezivanja zvijezda: implementac
 F03 | Enciklopedija zvijezda |7| Kreiranje baze podataka (lokalno): korištenje Room baze za pohranu podataka o zvijezdama (naziv, tip, udaljenost, sjajnost, zanimljivosti). Mogućnost buduće nadogradnje s online API-em (ako bude potrebno).| Jualianne
 F03 | Enciklopedija zvijezda |8| UI za prikaz podataka: listanje zvijezda pomoću RecyclerView. Detaljni prikaz nakon odabira (npr. novi Fragment/Activity).| Jualianne
 F03 | Enciklopedija zvijezda |9| Filtriranje i pretraživanje: dodavanje search bara za pretragu zvijezda po imenu. Filtriranje po tipu, udaljenosti itd.| Jualianne
-F04 | Virtualno nebo ovisno o datumu |10| Prikupiti podatke: koristiti lokalno spremljene podatke o vidljivim zviježđima po mjesecima i koordinatama.| Kaja,Jualianne,Lana
-F04 | Virtualno nebo ovisno o datumu |10| Kreirati sučelje za prikaz virtualnog neba: karta neba (2D projekcija) s pomičnim pogledom. Mogućnost skrolanja kroz datume i prikaza zviježđa vidljivih u određeno vrijeme.| Kaja, Jualianne, Lana
-F04 | Virtualno nebo ovisno o datumu |10| Spojiti s edukacijom i igrom: klikom na zviježđe u virtualnom nebu otvoriti edukacijski modul ili pokrenuti igru prepoznavanja.| Kaja, Jualianne, Lana
+F04 | Virtualno nebo ovisno o datumu |10| Prikupiti podatke: koristiti lokalno spremljene podatke o vidljivim zviježđima po mjesecima i koordinatama.| Kaja, Jualianne, Lana
+F04 | Virtualno nebo ovisno o datumu |11| Kreirati sučelje za prikaz virtualnog neba: karta neba (2D projekcija) s pomičnim pogledom. Mogućnost skrolanja kroz datume i prikaza zviježđa vidljivih u određeno vrijeme.| Kaja, Jualianne, Lana
+F04 | Virtualno nebo ovisno o datumu |12| Spojiti s edukacijom i igrom: klikom na zviježđe u virtualnom nebu otvoriti edukacijski modul ili pokrenuti igru prepoznavanja.| Kaja, Jualianne, Lana
 
 
 
