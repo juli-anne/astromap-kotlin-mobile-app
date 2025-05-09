@@ -9,7 +9,7 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/baseline_home_24"
-            android:title="Početna" />
+            android:title="Početna"/>
 
         <item
             android:id="@+id/nav_planets"
@@ -19,7 +19,7 @@
         <item
             android:id="@+id/nav_sun"
             android:icon="@drawable/baseline_circle_24"
-            android:title="Sunce" />
+            android:title="Sunce"/>
 
         <item
             android:id="@+id/nav_moons"

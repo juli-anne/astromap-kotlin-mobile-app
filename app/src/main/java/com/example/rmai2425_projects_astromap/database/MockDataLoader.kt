@@ -17,7 +17,7 @@ object MockDataLoader {
             kratkiOpis = "Merkur je najmanji planet u Sunčevom sustavu i najbliži Suncu. Njegova površina je prekrivena kraterima, slična Mjesecu.",
             detaljanOpis = "Merkur je najbrži planet u Sunčevom sustavu, jer obiđe Sunce za samo 88 dana. Ima gotovo nikakvu atmosferu, pa temperature na njegovoj " +
                             "površini variraju od +430°C na sunčanoj strani do -180°C na tamnoj strani. Merkur ima mnoge sličnosti s Mjesecom, uključujući mnoge " +
-                            "kratre, ali nema mjesece. Zbog svoje blizine Suncu, njegovo kretanje je izuzetno teško pratiti s Zemlje.",
+                            "kratere, ali nema mjesece. Zbog svoje blizine Suncu, njegovo kretanje je izuzetno teško pratiti s Zemlje.",
             povrsinskaTemperaturaDan = "+430°C",
             povrsinskaTemperaturaNoc = "-180°C",
             promjer = 4880.0,
