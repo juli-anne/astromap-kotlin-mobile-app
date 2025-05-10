@@ -12,6 +12,7 @@
     <string name="education_photo"> Edukacija </string>
     <string name="sun_title"> Sunce </string>
     <string name="planet_list_desc">Popis planeta</string>
+    <string name="back_button">Gumb za povratak</string>
 
 
 </resources>

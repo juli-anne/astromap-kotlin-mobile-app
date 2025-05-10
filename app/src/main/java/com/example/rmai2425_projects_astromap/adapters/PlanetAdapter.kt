@@ -1,11 +1,13 @@
 package com.example.rmai2425_projects_astromap.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rmai2425_projects_astromap.PlanetDetailActivity
 import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.database.Planet
 
@@ -35,6 +37,8 @@ class PlanetAdapter(private val planets: List<Planet>) : RecyclerView.Adapter<Pl
         holder.planetInfo.text = planet.kratkiOpis
         holder.planetDiameter.text = "${planet.promjer} km"
 
+        val context = holder.itemView.context
+
         val dummyImage = when (planet.ime.trim().lowercase()) {
             "merkur" -> R.drawable.mercury
             "venera" -> R.drawable.venus
@@ -48,5 +52,19 @@ class PlanetAdapter(private val planets: List<Planet>) : RecyclerView.Adapter<Pl
         }
 
         holder.planetImg.setImageResource(dummyImage)
+
+        // Klik na menu_icon otvara detalje
+        holder.menuIcon.setOnClickListener {
+            val intent = Intent(context, PlanetDetailActivity::class.java).apply {
+                putExtra("ime", planet.ime)
+                putExtra("detaljanOpis", planet.detaljanOpis)
+                putExtra("danTemp", planet.povrsinskaTemperaturaDan)
+                putExtra("nocTemp", planet.povrsinskaTemperaturaNoc)
+                putExtra("promjer", planet.promjer)
+                putExtra("imaMjesec", planet.imaMjesec)
+                putExtra("imgRes", dummyImage)
+            }
+            context.startActivity(intent)
+        }
     }
 }

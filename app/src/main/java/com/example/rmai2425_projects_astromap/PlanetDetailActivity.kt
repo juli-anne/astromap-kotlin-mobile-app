@@ -1,20 +1,41 @@
 package com.example.rmai2425_projects_astromap
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class PlanetDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_planet_detail)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val title: TextView = findViewById(R.id.title_info)
+        val image: ImageView = findViewById(R.id.planet_img_info)
+        val opis: TextView = findViewById(R.id.opis_text)
+        val danTemp: TextView = findViewById(R.id.temp_dan)
+        val nocTemp: TextView = findViewById(R.id.temp_noc)
+        val promjer: TextView = findViewById(R.id.promjer_text)
+        val mjeseci: TextView = findViewById(R.id.mjeseci_text)
+
+        val extras = intent.extras
+        if (extras != null) {
+            title.text = extras.getString("ime")
+            opis.text = extras.getString("detaljanOpis")
+            danTemp.text = "Dan: ${extras.getString("danTemp")} °C"
+            nocTemp.text = "Noć: ${extras.getString("nocTemp")} °C"
+            promjer.text = "Promjer: ${extras.getDouble("promjer")} km"
+            mjeseci.text = if (extras.getBoolean("imaMjesec")) "Ima mjesec(e)" else "Nema mjeseca"
+            image.setImageResource(extras.getInt("imgRes"))
+
+        }
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 }
