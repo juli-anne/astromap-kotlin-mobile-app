@@ -36,7 +36,7 @@ class PlanetsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Pokreni dohvat podataka iz baze
+
         lifecycleScope.launch {
             loadPlanetsFromDatabase()
         }
@@ -44,16 +44,13 @@ class PlanetsFragment : Fragment() {
 
     private suspend fun loadPlanetsFromDatabase() {
         val database = DatabaseProvider.getDatabase(requireContext())
-
-        // Koristimo DAO za dohvat podataka
         val dao = database.entitiesDao()
 
-        // Dohvati sve planete iz baze podataka
         withContext(Dispatchers.IO) {
             planetList = dao.getAllPlanets()
         }
 
-        // Postavi adapter s podacima
+
         planetAdapter = PlanetAdapter(planetList)
         recyclerView.adapter = planetAdapter
     }

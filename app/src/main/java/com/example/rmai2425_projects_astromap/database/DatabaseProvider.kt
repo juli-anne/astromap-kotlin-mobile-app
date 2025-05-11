@@ -14,7 +14,9 @@ object DatabaseProvider {
                 context.applicationContext,
                 AstroMapDatabase::class.java,
                 "astro_map_database"
-            ).build()
+            )
+                .fallbackToDestructiveMigration()
+                .build()
             INSTANCE = instance
             instance
         }
