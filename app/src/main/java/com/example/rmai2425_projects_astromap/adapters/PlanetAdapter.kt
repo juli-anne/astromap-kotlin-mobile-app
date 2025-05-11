@@ -13,7 +13,7 @@ import com.example.rmai2425_projects_astromap.database.Planet
 
 class PlanetAdapter(private val planets: List<Planet>) : RecyclerView.Adapter<PlanetAdapter.MyViewHolder>() {
 
-    private val uniquePlanets = planets.distinctBy { it.id }
+    private val uniquePlanets = planets.distinctBy { it.ime.trim().lowercase() }
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
