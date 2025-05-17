@@ -31,4 +31,9 @@
     <string name="asteroid_menu_icon_desc">Meni za više informacija o asteroidu </string>
     <string name="asteroid_name"> Ceres </string>
 
+    <string name="comet_list_desc">Popis kometa </string>
+    <string name="comet_image_desc">Slika kometa </string>
+    <string name="comet_menu_icon_desc">Meni za više informacija o kometu </string>
+    <string name="comet_name"> Halleyjev komet </string>
+
 </resources>

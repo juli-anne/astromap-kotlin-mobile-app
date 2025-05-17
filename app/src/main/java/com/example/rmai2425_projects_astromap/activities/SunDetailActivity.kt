@@ -24,8 +24,8 @@ class SunDetailActivity : AppCompatActivity() {
         if (extras != null) {
             title.text = extras.getString("ime") ?: "Sunce"
             opis.text = extras.getString("detaljanOpis") ?: "Nema opisa"
-            povrsinskaTemp.text = "Površinska temperatura: ${extras.getDouble("povrsinskaTemp", 0.0)} °C"
-            jezgraTemp.text = "Temperatura jezgre: ${extras.getDouble("jezgraTemp", 0.0)} °C"
+            povrsinskaTemp.text = "Površinska temperatura: ${extras.getString("povrsinskaTemperatura") ?: "Nepoznato"}"
+            jezgraTemp.text = "Temperatura jezgre: ${extras.getString("temperaturaJezgre") ?: "Nepoznato"}"
             masa.text = "Masa: ${extras.getDouble("masa", 0.0)} kg"
             sastav.text = "Sastav: ${extras.getString("sastav") ?: "Nepoznat"}"
             image.setImageResource(extras.getInt("imgRes", R.drawable.sunce))
