@@ -36,4 +36,9 @@
     <string name="comet_menu_icon_desc">Meni za više informacija o kometu </string>
     <string name="comet_name"> Halleyjev komet </string>
 
+    <string name="object_list_desc">Popis objekata </string>
+    <string name="object_image_desc">Slika objekata </string>
+    <string name="object_menu_icon_desc">Meni za više informacija o objektu </string>
+    <string name="object_name"> Pluton </string>
+
 </resources>

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Rmai2425projectsastromap"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ObjectDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.CometDetailActivity"
             android:exported="false" />
         <activity
