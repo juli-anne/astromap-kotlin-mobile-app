@@ -53,7 +53,7 @@ class PlanetAdapter(private val planets: List<Planet>) : RecyclerView.Adapter<Pl
 
         holder.planetImg.setImageResource(dummyImage)
 
-        // Klik na menu_icon otvara detalje
+
         holder.menuIcon.setOnClickListener {
             val intent = Intent(context, PlanetDetailActivity::class.java).apply {
                 putExtra("ime", planet.ime)

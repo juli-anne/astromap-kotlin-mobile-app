@@ -41,7 +41,7 @@ class ConstellationAdapter(constellations: List<Zvijezdje>) :
         holder.title.text = constellation.ime
         holder.constellationInfo.text = constellation.znacaj
 
-        // Ključ za mapiranje slike — samo osnovni naziv
+
         val imageKey = constellation.ime
             .substringBefore("(")
             .trim()
