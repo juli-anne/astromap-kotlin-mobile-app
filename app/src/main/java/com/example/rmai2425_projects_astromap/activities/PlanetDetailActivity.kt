@@ -1,10 +1,11 @@
-package com.example.rmai2425_projects_astromap
+package com.example.rmai2425_projects_astromap.activities
 
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import com.example.rmai2425_projects_astromap.R
 
 class PlanetDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

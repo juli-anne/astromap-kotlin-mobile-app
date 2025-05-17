@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rmai2425_projects_astromap.PlanetDetailActivity
+import com.example.rmai2425_projects_astromap.activities.PlanetDetailActivity
 import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.database.Planet
 

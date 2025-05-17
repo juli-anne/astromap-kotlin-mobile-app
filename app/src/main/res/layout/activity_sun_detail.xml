@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/primary"
     android:orientation="vertical"
-    tools:context=".SunDetailActivity">
+    tools:context=".activities.SunDetailActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/sun_toolbar"

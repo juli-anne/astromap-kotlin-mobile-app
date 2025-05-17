@@ -13,9 +13,16 @@
     <string name="sun_title"> Sunce </string>
     <string name="planet_list_desc">Popis planeta</string>
     <string name="back_button">Gumb za povratak</string>
+
     <string name="sun_image_desc">Sunce </string>
     <string name="sun_list_desc">Popis prikaza podataka o Suncu</string>
     <string name="sun_menu_icon_desc">Meni za više informacija o Suncu</string>
     <string name="sun_name"> Sunce </string>
+
+
+    <string name="constellation_list_desc">Popis zviježđa </string>
+    <string name="constellation_image_desc">Slika zviježđa </string>
+    <string name="constellation_menu_icon_desc">Meni za više informacija o zviježđu </string>
+    <string name="constellation_name"> Orion </string>
 
 </resources>
