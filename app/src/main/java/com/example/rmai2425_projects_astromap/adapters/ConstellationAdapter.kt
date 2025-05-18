@@ -16,7 +16,7 @@ class ConstellationAdapter(constellations: List<Zvijezdje>) :
 
 
     private val uniqueConstellations = constellations.distinctBy {
-        it.ime.substringBefore("(").trim().lowercase()
+        it.imeHr.substringBefore("(").trim().lowercase()
     }
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -38,11 +38,11 @@ class ConstellationAdapter(constellations: List<Zvijezdje>) :
         val constellation = uniqueConstellations[position]
         val context = holder.itemView.context
 
-        holder.title.text = constellation.ime
+        holder.title.text = constellation.imeHr
         holder.constellationInfo.text = constellation.pozicija
 
 
-        val imageKey = constellation.ime
+        val imageKey = constellation.imeHr
             .substringBefore("(")
             .trim()
             .lowercase()
@@ -56,8 +56,8 @@ class ConstellationAdapter(constellations: List<Zvijezdje>) :
             "vaga" -> R.drawable.libra
             "škorpion" -> R.drawable.scorpius
             "strijelac" -> R.drawable.sagittarius
-            "centaurus" -> R.drawable.centaurus
-            "peščani sat" -> R.drawable.hourglass
+            "kentaur" -> R.drawable.centaurus
+            "maglica pješčanog sata" -> R.drawable.hourglass
             else -> R.drawable.orion
         }
 
@@ -65,7 +65,8 @@ class ConstellationAdapter(constellations: List<Zvijezdje>) :
 
         holder.menuIcon.setOnClickListener {
             val intent = Intent(context, ConstellationDetailActivity::class.java).apply {
-                putExtra("ime", constellation.ime)
+                putExtra("ime", constellation.imeHr)
+                putExtra("imeLat", constellation.imeLat)
                 putExtra("pozicija", constellation.pozicija)
                 putExtra("znacaj", constellation.znacaj)
                 putExtra("svjetleZvijezde", constellation.svjetleZvijezde)

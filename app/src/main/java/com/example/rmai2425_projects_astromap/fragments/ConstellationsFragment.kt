@@ -67,7 +67,7 @@ class ConstellationsFragment : Fragment() {
 
         withContext(Dispatchers.IO) {
             val all = dao.getAllZvijezdja()
-            val grouped = all.groupBy { getBaseName(it.ime) }
+            val grouped = all.groupBy { getBaseName(it.imeHr) }
 
             grouped.values.forEach { duplicates ->
                 if (duplicates.size > 1) {
@@ -83,66 +83,76 @@ class ConstellationsFragment : Fragment() {
 
         withContext(Dispatchers.IO) {
             val existing = dao.getAllZvijezdja()
-            val existingNames = existing.map { getBaseName(it.ime) }
+            val existingNames = existing.map { getBaseName(it.imeHr) }
 
             val defaultConstellations = listOf(
                 Zvijezdje(
-                    ime = "Orion",
+                    imeHr = "Lovac",
+                    imeLat = "Orion",
                     pozicija = "Orion je jedno od najpoznatijih i najsvjetlijih zviježđa na nebu, prepoznaje se po 'Orionovom pojasu', grupi od tri svijetle zvijezde " +
                             "koje formiraju središnji dio.",
                     znacaj = "Poznat u mnogim kulturama, u starom Egiptu povezan s bogom Osirisom. Orionova maglica (M42) je jedno od najbližih područja stvaranja novih zvijezda.",
                     svjetleZvijezde = "Betelgeuse, Rigel"
                 ),
                 Zvijezdje(
-                    ime = "Veliki Medvjed (Ursa Major)",
+                    imeHr = "Veliki Medvjed (Ursa Major)",
+                    imeLat = "Ursa Major",
                     pozicija = "Jedno od najvećih i najprepoznatljivijih zviježđa na sjevernom nebu. Najpoznatiji dio je Velika Kolica, grupa sedam svijetlih zvijezda.",
                     znacaj = "Važan za navigaciju jer je Polarna zvijezda (u zviježđu Ursa Minor) usmjerena prema Velikom Medvjedu.",
                     svjetleZvijezde = "Dubhe, Merak"
                 ),
                 Zvijezdje(
-                    ime = "Maleni Medvjed (Ursa Minor)",
+                    imeHr = "Maleni Medvjed (Ursa Minor)",
+                    imeLat = "Ursa Minor",
                     pozicija = "Smješten bliže sjevernom polu, najpoznatiji dio je Polarna zvijezda (Polaris).",
                     znacaj = "Polarna zvijezda je bila ključna za navigaciju jer pokazuje pravi smjer prema sjeveru.",
                     svjetleZvijezde = "Polaris"
                 ),
                 Zvijezdje(
-                    ime = "Kasiopeja",
+                    imeHr = "Kasiopeja",
+                    imeLat = "Cassiopeia",
                     pozicija = "Jedno od najpoznatijih zviježđa u sjevernoj hemisferi, lako se prepoznaje po obliku slova 'W' ili 'M'.",
                     znacaj = "Poznata u mitologiji kao kraljica Etiopije, povezano s njezinom pričom.",
                     svjetleZvijezde = "Schedar, Caph, Ruchbah"
                 ),
                 Zvijezdje(
-                    ime = "Lavi (Leo)",
+                    imeHr = "Lavi",
+                    imeLat = "Leo",
                     pozicija = "Jedno od najsvjetlijih zviježđa na nebu, prepoznaje se po obliku lavljeg tijela.",
                     znacaj = "Povezano s mnogim mitologijama, simbol moći i snage.",
                     svjetleZvijezde = "Regulus, Algieba"
                 ),
                 Zvijezdje(
-                    ime = "Vaga (Libra)",
+                    imeHr = "Vaga",
+                    imeLat = "Libra",
                     pozicija = "Zviježđe Zodijaka, smješteno između Škorpiona i Jarca.",
                     znacaj = "Često povezana s pravdom, predstavlja vagu boginje Temide, simbol pravednosti.",
                     svjetleZvijezde = "Zuben el-Akrab, Zuben el-Shamali"
                 ),
                 Zvijezdje(
-                    ime = "Škorpion (Scorpius)",
+                    imeHr = "Škorpion",
+                    imeLat = "Scorpius",
                     pozicija = "Vrlo prepoznatljivo zviježđe na jugoistočnom dijelu neba.",
                     znacaj = "U mitologiji povezano s opasnostima i borbom protiv zla.",
                     svjetleZvijezde = "Antares"
                 ),
                 Zvijezdje(
-                    ime = "Strijelac (Sagittarius)",
+                    imeHr = "Strijelac",
+                    imeLat = "Sagittarius",
                     pozicija = "Zviježđe Zodijaka, prepoznaje se po obliku strijelca s lukom.",
                     znacaj = "Povezan s lovom i osvajanjima, u mitologiji predstavljalo centaura.",
                     svjetleZvijezde = "Kaus Australis"
                 ),
                 Zvijezdje(
-                    ime = "Centaurus",
+                    imeHr = "Kentaur",
+                    imeLat = "Centaurus",
                     pozicija = "Jedno od najvećih zviježđa na južnoj hemisferi.",
                     znacaj = "Sadrži dvije od najsvjetlijih zvijezda na nebu, važno u navigaciji na južnoj hemisferi.",
                     svjetleZvijezde = "Alpha Centauri, Beta Centauri"
                 ),
                 Zvijezdje(
-                    ime = "Peščani Sat (Hourglass Nebula)",
+                    imeHr = "Maglica pješčanog sata",
+                    imeLat = "Hourglass Nebula",
                     pozicija = "Maglica u zviježđu Sagittariusa.",
                     znacaj = "Jedno od najpoznatijih područja u svemiru zbog prepoznatljive oblika, simbol svemirskih promjena.",
                     svjetleZvijezde = ""
@@ -150,7 +160,7 @@ class ConstellationsFragment : Fragment() {
             )
 
             val toInsert = defaultConstellations.filter {
-                getBaseName(it.ime) !in existingNames
+                getBaseName(it.imeHr) !in existingNames
             }
 
             if (toInsert.isNotEmpty()) {

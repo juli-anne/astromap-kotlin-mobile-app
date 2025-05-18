@@ -13,6 +13,7 @@ class ConstellationDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_constellation_detail)
 
         val title: TextView = findViewById(R.id.constellation_title_info)
+        val imeLat: TextView = findViewById(R.id.constellation_lat_name)
         val image: ImageView = findViewById(R.id.constellation_img_detail)
         val position: TextView = findViewById(R.id.constellation_position)
         val importance: TextView = findViewById(R.id.constellation_importance)
@@ -21,6 +22,7 @@ class ConstellationDetailActivity : AppCompatActivity() {
         val extras = intent.extras
         if (extras != null) {
             title.text = extras.getString("ime")
+            imeLat.text = "Latinski naziv: ${extras.getString("imeLat")}"
             position.text = "Pozicija: ${extras.getString("pozicija")}"
             importance.text = "Značaj: ${extras.getString("znacaj")}"
             stars.text = "Najsjajnije zvijezde: ${extras.getString("svjetleZvijezde")}"
