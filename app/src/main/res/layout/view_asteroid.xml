@@ -91,7 +91,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/asteroid_name"
                 android:textColor="@color/white"
-                android:textSize="28sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

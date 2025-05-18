@@ -71,7 +71,7 @@ class ConstellationsFragment : Fragment() {
 
             grouped.values.forEach { duplicates ->
                 if (duplicates.size > 1) {
-                    // Zadrži samo prvi, ostale briši
+
                     duplicates.drop(1).forEach { dao.deleteZvijezdje(it) }
                 }
             }

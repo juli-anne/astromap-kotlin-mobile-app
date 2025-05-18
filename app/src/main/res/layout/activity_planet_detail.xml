@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:background="@color/black"
     android:orientation="vertical"
     tools:context=".activities.PlanetDetailActivity">
 
@@ -14,7 +14,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/tertiary"
+        android:background="@color/white"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:navigationIcon="@drawable/ic_back"
         app:title="" />
@@ -22,7 +22,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/info"
+        android:src="@drawable/bg_planets"
         android:adjustViewBounds="true"
         android:scaleY="1.2"
         android:scaleX="1.2" />
@@ -47,7 +47,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginTop="-50dp"
-            android:backgroundTint="@color/tertiary"
+            android:backgroundTint="@color/black"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp">
 
@@ -65,7 +65,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/planet_name"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
+                    android:textSize="23sp"
                     android:textStyle="bold" />
 
             </LinearLayout>

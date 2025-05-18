@@ -37,10 +37,10 @@ class ObjectDetailActivity : AppCompatActivity() {
             title.text = extras.getString("ime") ?: "Nepoznato ime"
             image.setImageResource(extras.getInt("imgRes", R.drawable.pluton))
 
+            description.text = "${extras.getString("opis") ?: "Nema opisa"}"
             type.text = "Tip: ${extras.getString("tip") ?: "N/A"}"
             placement.text = "Smještaj: ${extras.getString("smjestaj") ?: "N/A"}"
-            description.text = "Opis: ${extras.getString("opis") ?: "Nema opisa"}"
-            facts.text = "Zanimljivosti: ${extras.getString("zanimljivosti") ?: "N/A"}"
+            facts.text = "Zanimljivost: ${extras.getString("zanimljivosti") ?: "N/A"}"
             size.text = "Veličina: ${extras.getString("velicina") ?: "N/A"}"
             composition.text = "Sastav: ${extras.getString("sastav") ?: "N/A"}"
         }

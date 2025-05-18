@@ -101,6 +101,15 @@
                     android:textColor="@color/white" />
 
                 <TextView
+                    android:id="@+id/object_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_regular" />
+
+                <TextView
                     android:id="@+id/object_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -118,14 +127,7 @@
                     android:textSize="14sp"
                     android:fontFamily="@font/poppins_regular" />
 
-                <TextView
-                    android:id="@+id/object_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/poppins_regular" />
+
 
                 <TextView
                     android:id="@+id/object_facts"

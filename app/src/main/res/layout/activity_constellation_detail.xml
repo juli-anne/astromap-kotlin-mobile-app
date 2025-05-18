@@ -64,7 +64,7 @@ tools:context=".activities.ConstellationDetailActivity">
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/constellation_name"
                 android:textColor="@color/white"
-                android:textSize="28sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
         </LinearLayout>

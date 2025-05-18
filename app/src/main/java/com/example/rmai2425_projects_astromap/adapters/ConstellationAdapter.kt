@@ -39,7 +39,7 @@ class ConstellationAdapter(constellations: List<Zvijezdje>) :
         val context = holder.itemView.context
 
         holder.title.text = constellation.ime
-        holder.constellationInfo.text = constellation.znacaj
+        holder.constellationInfo.text = constellation.pozicija
 
 
         val imageKey = constellation.ime
