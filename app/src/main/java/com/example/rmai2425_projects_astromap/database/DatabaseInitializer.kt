@@ -1,5 +1,6 @@
 package com.example.rmai2425_projects_astromap.database
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -13,8 +14,13 @@ object DatabaseInitializer {
         }
 
         MockDataLoader.getMoonsInfo().forEach { mjesecInfo ->
-            val planetId = planetIds[mjesecInfo.planetIme] ?: return@forEach
+            val planetId = planetIds[mjesecInfo.planetIme]
+            if (planetId == null) {
+                Log.e("DatabaseInitializer", "Planet nije pronađen za mjesec: ${mjesecInfo.ime}")
+                return@forEach
+            }
             val mjesec = Mjesec(
+                ime = mjesecInfo.ime,
                 planetId = planetId,
                 kratkiOpis = mjesecInfo.kratkiOpis,
                 detaljanOpis = mjesecInfo.detaljanOpis,

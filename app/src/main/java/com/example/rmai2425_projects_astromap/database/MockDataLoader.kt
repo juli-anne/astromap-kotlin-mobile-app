@@ -129,7 +129,7 @@ object MockDataLoader {
         ),
         MjesecInfo(
             ime = "Gaimed",
-            planetIme = "Merkur",
+            planetIme = "Jupiter",
             kratkiOpis = "Ganimed je najveći mjesec u Sunčevom sustavu i jedini mjesec koji ima magnetsko polje.",
             detaljanOpis = "Ganimed je veći od Merkura i jedini mjesec u Sunčevom sustavu koji ima vlastito magnetsko polje. Njegova površina je prekrivena slojem " +
                             "leda, a ispod nje se nalazi vjerojatno tekući ocean. Ganimed također ima atmosferu koja je vrlo tanka i sastoji se od kisika, ali je " +
