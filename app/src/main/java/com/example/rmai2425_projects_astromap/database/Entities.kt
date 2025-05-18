@@ -19,8 +19,8 @@ data class Planet(
 @Entity(tableName = "mjeseci")
 data class Mjesec(
     @PrimaryKey(autoGenerate = true)
-    val ime: String,
     val id: Int = 0,
+    val ime: String,
     val planetId: Int,
     val kratkiOpis: String,
     val detaljanOpis: String,
