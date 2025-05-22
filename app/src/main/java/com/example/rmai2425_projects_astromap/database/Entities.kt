@@ -3,6 +3,16 @@ package com.example.rmai2425_projects_astromap.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+@Entity(tableName = "suncev_sustav")
+data class SuncevSustavInfo(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val naslov: String,
+    val kratkiOpis: String,
+    val detaljanOpis: String,
+    val kategorija: String
+)
+
 @Entity(tableName = "planeti")
 data class Planet(
     @PrimaryKey(autoGenerate = true)
