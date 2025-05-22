@@ -1,8 +1,11 @@
 package com.example.rmai2425_projects_astromap
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -25,7 +28,7 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var submitButton: Button
     private lateinit var scoreTextView: TextView
     private lateinit var nextButton: Button
-    private lateinit var quitButton: Button
+    private lateinit var quitButton: ImageButton
 
     private var currentQuestionIndex = 0
     private var score = 0
@@ -36,37 +39,31 @@ class QuizActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
-        // Inicijalizacija UI komponenti
-        questionTextView = findViewById(R.id.questiontext)
-        radioGroup = findViewById(R.id.optionsradiogroup)
+        questionTextView = findViewById(R.id.question_text)
+        radioGroup = findViewById(R.id.options_radiogroup)
         option1 = findViewById(R.id.option1)
         option2 = findViewById(R.id.option2)
         option3 = findViewById(R.id.option3)
         option4 = findViewById(R.id.option4)
-        submitButton = findViewById(R.id.submitbutton)
-        scoreTextView = findViewById(R.id.scoretext)
-        nextButton = findViewById(R.id.nextbutton)
-        quitButton = findViewById(R.id.quitbutton)
+        submitButton = findViewById(R.id.submit_button)
+        scoreTextView = findViewById(R.id.score_text)
+        nextButton = findViewById(R.id.next_button)
+        quitButton = findViewById(R.id.quit_button)
 
-        // Dohvati kategoriju kviza iz intenta
         val category = intent.getStringExtra("category") ?: "Planeti"
 
-        // Postavi naslov aktivnosti
         title = category
 
-        // Učitaj pitanja iz baze
         lifecycleScope.launch {
             loadQuestions(category)
         }
 
-        // Postavi listener za submit button
         submitButton.setOnClickListener {
             checkAnswer()
             submitButton.visibility = View.GONE
             nextButton.visibility = View.VISIBLE
         }
 
-        // Postavi listener za next button
         nextButton.setOnClickListener {
             currentQuestionIndex++
             if (currentQuestionIndex < questions.size) {
@@ -76,17 +73,15 @@ class QuizActivity : AppCompatActivity() {
                 radioGroup.clearCheck()
                 enableOptions(true)
             } else {
-                // Kviz je završen
-                Toast.makeText(
-                    this,
-                    "Kviz završen! Vaš rezultat: $score od ${questions.size}",
-                    Toast.LENGTH_LONG
-                ).show()
-                finish()
+                val resultMessage = "Kviz završen! Vaš rezultat: $score od ${questions.size}"
+                Toast.makeText(this, resultMessage, Toast.LENGTH_LONG).show()
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    finish()
+                }, 2000)
             }
         }
 
-        // Postavi listener za quit button
         quitButton.setOnClickListener {
             finish()
         }
@@ -96,17 +91,17 @@ class QuizActivity : AppCompatActivity() {
         withContext(Dispatchers.IO) {
             val dao = DatabaseProvider.getDatabase(this@QuizActivity).entitiesDao()
             questions = dao.getKvizPitanjaByKategorija(category)
+        }
 
-            // Ne miješamo pitanja - prikazujemo ih sekvencijalno
-            // questions = questions.shuffled()
-
-            withContext(Dispatchers.Main) {
-                if (questions.isNotEmpty()) {
-                    displayQuestion()
-                } else {
-                    Toast.makeText(this@QuizActivity, "Nema dostupnih pitanja za ovu kategoriju", Toast.LENGTH_SHORT).show()
-                    finish()
+        withContext(Dispatchers.Main) {
+            if (questions.isNotEmpty()) {
+                if (questions.size > 10) {
+                    questions = questions.take(10)
                 }
+                displayQuestion()
+            } else {
+                Toast.makeText(this@QuizActivity, "Nema dostupnih pitanja za ovu kategoriju", Toast.LENGTH_SHORT).show()
+                finish()
             }
         }
     }
@@ -115,7 +110,6 @@ class QuizActivity : AppCompatActivity() {
         val currentQuestion = questions[currentQuestionIndex]
         questionTextView.text = currentQuestion.pitanje
 
-        // Kreiraj listu odgovora i promiješaj ih
         val options = mutableListOf(
             currentQuestion.tocniOdgovor,
             currentQuestion.netocniOdgovor1,
@@ -128,7 +122,6 @@ class QuizActivity : AppCompatActivity() {
         option3.text = options[2]
         option4.text = options[3]
 
-        // Ažuriraj prikaz rezultata
         scoreTextView.text = "Rezultat: $score/$answeredQuestions"
     }
 
@@ -149,7 +142,9 @@ class QuizActivity : AppCompatActivity() {
             answeredQuestions++
             scoreTextView.text = "Rezultat: $score/$answeredQuestions"
 
-            // Onemogući opcije nakon odgovora
+            submitButton.visibility = View.GONE
+            nextButton.visibility = View.VISIBLE
+
             enableOptions(false)
         } else {
             Toast.makeText(this, "Molimo odaberite odgovor", Toast.LENGTH_SHORT).show()
