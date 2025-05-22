@@ -12,9 +12,10 @@ import androidx.room.RoomDatabase
         Komet::class,
         ObjektSuncevogSustava::class,
         VezaIzmeduPlanetaMjeseca::class,
-        Zvijezdje::class
+        Zvijezdje::class,
+        SuncevSustavInfo::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AstroMapDatabase : RoomDatabase() {
