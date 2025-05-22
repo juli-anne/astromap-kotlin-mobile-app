@@ -8,6 +8,26 @@ import androidx.room.Delete
 @Dao
 interface EntitiesDao {
 
+    // Sunčev sustav
+    @Insert
+    suspend fun insertSunSystemInfo(info: SuncevSustavInfo)
+
+    @Insert
+    suspend fun insertSunSystemInfos(infos: List<SuncevSustavInfo>): List<Long>
+
+    @Query("SELECT * FROM suncev_sustav WHERE id = :infoId")
+    suspend fun getSunSystemInfoById(infoId: Int): SuncevSustavInfo?
+
+    @Query("SELECT * FROM suncev_sustav")
+    suspend fun getAllSunSystemInfo(): List<SuncevSustavInfo>
+
+    @Query("SELECT * FROM suncev_sustav WHERE kategorija = :kategorija")
+    suspend fun getSunSystemInfoByCategory(kategorija: String): List<SuncevSustavInfo>
+
+    @Delete
+    suspend fun deleteSunSystemInfo(info: SuncevSustavInfo)
+
+
     // Planeti
     @Insert
     suspend fun insertPlanet(planet: Planet): Long
