@@ -47,4 +47,8 @@
     <string name="moon_name"> Mjesec </string>
     <string name="moon_diameter_icon_desc">Ikona promjera mjeseca </string>
 
+    <string name="solarsystem">Sunčev sustav </string>
+    <string name="solar_image_desc">Slika sunčevog sustava </string>
+    <string name="solar_menu_icon_desc">Meni za više informacija o sunčevom sustavu </string>
+    <string name="solar_name"> Sunčev sustav </string>
 </resources>

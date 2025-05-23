@@ -11,12 +11,11 @@ import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.activities.ConstellationDetailActivity
 import com.example.rmai2425_projects_astromap.database.Zvijezdje
 
-class ConstellationAdapter(constellations: List<Zvijezdje>) :
-    RecyclerView.Adapter<ConstellationAdapter.MyViewHolder>() {
+class ConstellationAdapter(constellations: List<Zvijezdje>) : RecyclerView.Adapter<ConstellationAdapter.MyViewHolder>() {
 
 
     private val uniqueConstellations = constellations.distinctBy {
-        it.imeHr.substringBefore("(").trim().lowercase()
+        it.imeHr.trim().lowercase()
     }
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -42,22 +41,18 @@ class ConstellationAdapter(constellations: List<Zvijezdje>) :
         holder.constellationInfo.text = constellation.pozicija
 
 
-        val imageKey = constellation.imeHr
-            .substringBefore("(")
-            .trim()
-            .lowercase()
 
-        val dummyImage = when (imageKey) {
+        val dummyImage = when (constellation.imeHr.trim().lowercase()) {
             "orion" -> R.drawable.orion
             "veliki medvjed" -> R.drawable.ursa_major
             "maleni medvjed" -> R.drawable.ursa_minor
             "kasiopeja" -> R.drawable.cassiopeia
-            "lavi" -> R.drawable.leo
+            "lav" -> R.drawable.leo
             "vaga" -> R.drawable.libra
             "škorpion" -> R.drawable.scorpius
             "strijelac" -> R.drawable.sagittarius
             "kentaur" -> R.drawable.centaurus
-            "maglica pješčanog sata" -> R.drawable.hourglass
+            "pješčani sat" -> R.drawable.hourglass
             else -> R.drawable.orion
         }
 

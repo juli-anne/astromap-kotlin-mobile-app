@@ -24,8 +24,8 @@ class PlanetDetailActivity : AppCompatActivity() {
         if (extras != null) {
             title.text = extras.getString("ime")
             opis.text = extras.getString("detaljanOpis")
-            danTemp.text = "Dan: ${extras.getString("danTemp")} °C"
-            nocTemp.text = "Noć: ${extras.getString("nocTemp")} °C"
+            danTemp.text = "Temperatura danju: ${extras.getString("danTemp")} "
+            nocTemp.text = "Temperatura noću: ${extras.getString("nocTemp")} "
             promjer.text = "Promjer: ${extras.getDouble("promjer")} km"
             mjeseci.text = if (extras.getBoolean("imaMjesec")) "Ima mjesec(e)" else "Nema mjeseca"
             image.setImageResource(extras.getInt("imgRes"))

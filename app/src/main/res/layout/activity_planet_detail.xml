@@ -65,7 +65,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:text="@string/planet_name"
                     android:textColor="@color/white"
-                    android:textSize="23sp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -96,7 +96,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:text="Opis"
                     android:textAllCaps="true"
-                    android:textSize="16sp"
+                    android:textSize="19sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.1"
                     android:textColor="@color/white" />
@@ -106,7 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/poppins_regular" />
 
@@ -115,7 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/poppins_regular" />
 
@@ -124,7 +124,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/poppins_regular" />
 
@@ -133,7 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/poppins_regular" />
 
@@ -142,7 +142,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/poppins_regular" />
 

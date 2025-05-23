@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     android:fontFamily="@font/poppins_regular" />
 
                 <LinearLayout
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:textColor="@color/white"
-                        android:textSize="13sp"
+                        android:textSize="15sp"
                         android:fontFamily="@font/poppins_regular" />
                 </LinearLayout>
             </LinearLayout>
@@ -108,7 +108,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/planet_name"
                 android:textColor="@color/white"
-                android:textSize="23sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

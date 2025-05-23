@@ -36,76 +36,14 @@ class CometsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
-            insertDefaultCometsIfNeeded()
             loadCometsFromDatabase()
         }
     }
 
-    private suspend fun insertDefaultCometsIfNeeded() {
-        val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
-
-        withContext(Dispatchers.IO) {
-            val existingComets = dao.getAllKometi()
-            val existingNames = existingComets.map { it.ime.lowercase() }
-
-            val defaultComets = listOf(
-                Komet(
-                    ime = "Halleyjev komet",
-                    kratkiOpis = "Halleyjev komet je jedan od najpoznatijih kometa u Sunčevom sustavu, a najpoznatiji je zbog toga što je jedini komet koji je vidljiv " +
-                            "iz Zemlje s povremenim intervalima od oko 76 godina.",
-                    orbitalniPeriod = 76,
-                    posljednjiPerihel = "1986.",
-                    sljedeciPerihel = "2061.",
-                    velicinaJezgre = 15.0
-                ),
-                Komet(
-                    ime = "Hale-Bopp",
-                    kratkiOpis = "Hale-Bopp je jedan od najsvjetlijih kometa ikada zabilježenih. Prošao je kroz Sunčev sustav 1997. godine i bio je vidljiv golim okom, " +
-                            "čak i iz gradova.",
-                    orbitalniPeriod = 2533,
-                    posljednjiPerihel = "1997.",
-                    sljedeciPerihel = "4530.",
-                    velicinaJezgre = 40.0
-                ),
-                Komet(
-                    ime = "Neowise",
-                    kratkiOpis = "Neowise je komet koji je postao vrlo poznat tijekom 2020. godine, jer je bio jasno vidljiv golim okom s površine Zemlje.",
-                    orbitalniPeriod = 6766,
-                    posljednjiPerihel = "2020.",
-                    sljedeciPerihel = "8786.",
-                    velicinaJezgre = 5.0
-                ),
-                Komet(
-                    ime = "Tempel 1",
-                    kratkiOpis = "Tempel 1 je komet koji je postao poznat kada je NASA-ina misija 'Deep Impact' 2005. godine ispalila projektile na njegovu površinu " +
-                            "kako bi analizirali materijal ispod nje.",
-                    orbitalniPeriod = 6,
-                    posljednjiPerihel = "2016.",
-                    sljedeciPerihel = "2022.",
-                    velicinaJezgre = 14.0
-                ),
-                Komet(
-                    ime = "Enckeov komet",
-                    kratkiOpis = "Enckeov komet je komet koji ima najkraći poznati orbitalni period od svih kometa, jer mu je potrebno samo oko 3,3 godine da obiđe Sunce.",
-                    orbitalniPeriod = 3,
-                    posljednjiPerihel = "2017.",
-                    sljedeciPerihel = "2020.",
-                    velicinaJezgre = 4.8
-                )
-            )
-
-            val toInsert = defaultComets.filter {
-                it.ime.lowercase() !in existingNames
-            }
-
-            for (comet in toInsert) {
-                dao.insertKomet(comet)
-            }
-        }
-    }
 
     private suspend fun loadCometsFromDatabase() {
-        val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
+        val database = DatabaseProvider.getDatabase(requireContext())
+        val dao = database.entitiesDao()
 
         withContext(Dispatchers.IO) {
             cometList = dao.getAllKometi()

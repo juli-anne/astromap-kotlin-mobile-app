@@ -37,8 +37,8 @@
 
             <ImageView
                 android:id="@+id/comet_menu_icon"
-                android:layout_width="60dp"
-                android:layout_height="58dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="2dp"
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     android:fontFamily="@font/poppins_regular" />
 
                 <LinearLayout
@@ -87,11 +87,11 @@
             <TextView
                 android:id="@+id/comet_title"
                 android:layout_width="125dp"
-                android:layout_height="55dp"
+                android:layout_height="66dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/comet_name"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="23sp"
                 android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
