@@ -25,8 +25,13 @@ class QuizFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val quizCategories = listOf(
-            QuizCategory("Planeti", "Testiraj svoje znanje o planetima Sunčevog sustava", R.drawable.planets_quiz)
-            // ostale kategorije
+            QuizCategory("Planeti", "Testiraj svoje znanje o planetima Sunčevog sustava", R.drawable.planets_quiz),
+            QuizCategory("Sunce", "Testiraj svoje znanje o našoj zvijezdi", R.drawable.sun_quiz),
+            QuizCategory("Mjeseci", "Testiraj svoje znanje o mjesecima Sunčevog sustava", R.drawable.moons_quiz),
+            QuizCategory("Asteroidi", "Testiraj svoje znanje o asteroidima", R.drawable.asteroids_quiz),
+            QuizCategory("Kometi", "Testiraj svoje znanje o kometima", R.drawable.comets_quiz),
+            QuizCategory("Objekti", "Testiraj svoje znanje o objektima Sunčevog sustava", R.drawable.objects_quiz),
+            QuizCategory("Zviježđa", "Testiraj svoje znanje o zviježđima", R.drawable.constellations_quiz)
         )
 
         quizAdapter = QuizCategoryAdapter(quizCategories)

@@ -35,6 +35,26 @@ object DatabaseInitializer {
         MockDataLoader.getComets().forEach { dao.insertKomet(it) }
         MockDataLoader.getObjects().forEach { dao.insertObjekt(it) }
         MockDataLoader.getZvijezdja().forEach { dao.insertZvijezdje(it) }
-        MockDataLoader.getKvizPitanjaOPlanetima().forEach { dao.insertKvizPitanje(it) }
+
+        val planetiPitanja = MockDataLoader.getKvizPitanjaOPlanetima()
+        dao.insertKvizPitanja(planetiPitanja)
+
+        val suncePitanja = MockDataLoader.getKvizPitanjaOSuncu()
+        dao.insertKvizPitanja(suncePitanja)
+
+        val mjeseciPitanja = MockDataLoader.getKvizPitanjaOMjesecima()
+        dao.insertKvizPitanja(mjeseciPitanja)
+
+        val asteroidiPitanja = MockDataLoader.getKvizPitanjaOAsteroidima()
+        dao.insertKvizPitanja(asteroidiPitanja)
+
+        val kometiPitanja = MockDataLoader.getKvizPitanjaOKometima()
+        dao.insertKvizPitanja(kometiPitanja)
+
+        val objektiPitanja = MockDataLoader.getKvizPitanjaOObjektima()
+        dao.insertKvizPitanja(objektiPitanja)
+
+        val zvijezdjaPitanja = MockDataLoader.getKvizPitanjaOZvijezdjima()
+        dao.insertKvizPitanja(zvijezdjaPitanja)
     }
 }

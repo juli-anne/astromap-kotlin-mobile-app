@@ -35,11 +35,11 @@ class QuizCategoryAdapter(private val categories: List<QuizCategory>) :
         holder.quizInfo.text = category.description
         holder.quizImg.setImageResource(category.imageResource)
 
-        // Klik na menuicon otvara kviz
         holder.menuIcon.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, QuizActivity::class.java).apply {
                 putExtra("category", category.title)
+                android.util.Log.d("QuizAdapter", "Starting quiz for category: ${category.title}")
             }
             context.startActivity(intent)
         }

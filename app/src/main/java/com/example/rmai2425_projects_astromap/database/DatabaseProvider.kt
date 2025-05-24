@@ -15,7 +15,7 @@ object DatabaseProvider {
                 AstroMapDatabase::class.java,
                 "astro_map_database"
             )
-                .fallbackToDestructiveMigration()
+                .fallbackToDestructiveMigration(true)
                 .build()
             INSTANCE = instance
             instance

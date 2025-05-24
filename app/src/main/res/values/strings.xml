@@ -17,5 +17,6 @@
     <string name="sun_list_desc">Popis prikaza podataka o Suncu</string>
     <string name="sun_menu_icon_desc">Meni za više informacija o Suncu</string>
     <string name="sun_name"> Sunce </string>
-
+    <string name="quiz_list_desc">Lista kvizova za testiranje znanja</string>
+    <string name="quiz_image_desc">slika kviza</string>
 </resources>
