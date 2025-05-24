@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rmai2425_projects_astromap.R
-import com.example.rmai2425_projects_astromap.SunDetailActivity
+import com.example.rmai2425_projects_astromap.activities.SunDetailActivity
 import com.example.rmai2425_projects_astromap.database.Sunce
 
 class SunAdapter(private val sunca: List<Sunce>) : RecyclerView.Adapter<SunAdapter.MyViewHolder>() {

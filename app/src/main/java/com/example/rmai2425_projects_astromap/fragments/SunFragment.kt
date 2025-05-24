@@ -23,7 +23,8 @@ class SunFragment : Fragment() {
     private var sunList: List<Sunce> = listOf()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_sun, container, false)
@@ -36,31 +37,7 @@ class SunFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
-            insertDefaultSunceIfNeeded()
             loadSunsFromDatabase()
-        }
-    }
-
-    private suspend fun insertDefaultSunceIfNeeded() {
-        val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
-
-        withContext(Dispatchers.IO) {
-            val existing = dao.getAllSunca()
-            val alreadyExists = existing.any { it.ime.equals("Sunce", ignoreCase = true) }
-
-            if (!alreadyExists) {
-                val defaultSunce = Sunce(
-                    ime = "Sunce",
-                    kratkiOpis = "Naša najbliža zvijezda i izvor svjetlosti.",
-                    detaljanOpis = "Sunce je zvijezda spektralnog tipa G2V koja se nalazi u središtu Sunčevog sustava.",
-                    povrsinskaTemperatura = "5,500 °C",
-                    temperaturaJezgre = "15,000,000 °C",
-                    promjer = 1_392_700.0,
-                    masa = 1.989e30,
-                    sastav = "70% vodik, 28% helij, 2% ostali elementi"
-                )
-                dao.insertSunce(defaultSunce)
-            }
         }
     }
 

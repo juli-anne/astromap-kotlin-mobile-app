@@ -2,6 +2,13 @@ package com.example.rmai2425_projects_astromap.database
 
 object MockDataLoader {
 
+    data class SuncevSustavInfo(
+        val naslov: String,
+        val kratkiOpis: String,
+        val detaljanOpis: String,
+        val kategorija: String
+    )
+
     data class MjesecInfo(
         val ime: String,
         val planetIme: String,
@@ -9,6 +16,33 @@ object MockDataLoader {
         val detaljanOpis: String,
         val velicina: Double,
         val zanimljivosti: String
+    )
+
+    fun getSunSystemInfo(): List<SuncevSustavInfo> = listOf(
+        SuncevSustavInfo(
+            naslov = "Sunčev sustav",
+            kratkiOpis = "Gravitacijski vezan sustav star 4,6 milijardi godina",
+            detaljanOpis = "Sunčev sustav je gravitacijski vezan sustav koji se sastoji od Sunca i svih nebeskih tijela koja kruže oko njega. Formiran je prije približno 4,6 milijardi godina iz kolapsa divovske molekularne oblaka. U središtu se nalazi naše Sunce, zvijezda spektralnog tipa G2V koja sadrži 99,86% ukupne mase cijelog sustava.",
+            kategorija = "Opće"
+        ),
+        SuncevSustavInfo(
+            naslov = "Struktura sustava",
+            kratkiOpis = "Podjela na unutarnji i vanjski dio",
+            detaljanOpis = "Sunčev sustav možemo podijeliti na nekoliko glavnih zona. Unutarnji dio čine četiri kamenita planeta - Merkur, Venera, Zemlja i Mars. Ovi planeti su relativno mali, gusti i imaju čvrste površine. Između Marsa i Jupitera nalazi se asteroidni pojas, područje prepuno kamenih ostataka iz vremena formiranja sustava. Vanjski dio dominiraju četiri plinovita diva - Jupiter, Saturn, Uran i Neptun.",
+            kategorija = "Struktura"
+        ),
+        SuncevSustavInfo(
+            naslov = "Raznolikost objekata",
+            kratkiOpis = "Više od 200 mjeseca i milijuni malih tijela",
+            detaljanOpis = "Sustav je dom više od 200 mjeseca, od kojih su neki veći od planeta Merkura. Jupiter predvodi s više od 90 mjeseca, uključujući Europa, Ganimed i Io - neke od najfascinantnijih objekata u sustavu. Kometi i asteroidi predstavljaju ostatke iz ranih dana formiranja sustava.",
+            kategorija = "Objekti"
+        ),
+        SuncevSustavInfo(
+            naslov = "Jedinstvene karakteristike",
+            kratkiOpis = "Svaki objekt ima svoju priču",
+            detaljanOpis = "Svaki objekt u Sunčevom sustavu ima svoju jedinstvenu priču - od vulkanske aktivnosti na Io do spektakularnih prstenova Saturna, od polarnih kapa na Marsu do gejzira leda na Europi. Ova raznolikost čini naš sustav jednim od najfascinantnijih mjesta za istraživanje u svemiru.",
+            kategorija = "Zanimljivosti"
+        )
     )
 
     fun getPlanets(): List<Planet> = listOf(
@@ -128,7 +162,7 @@ object MockDataLoader {
                             "iz 2005. godine omogućila je spuštanje na Titan i prva je napravila analize njegove površine."
         ),
         MjesecInfo(
-            ime = "Gaimed",
+            ime = "Ganimed",
             planetIme = "Jupiter",
             kratkiOpis = "Ganimed je najveći mjesec u Sunčevom sustavu i jedini mjesec koji ima magnetsko polje.",
             detaljanOpis = "Ganimed je veći od Merkura i jedini mjesec u Sunčevom sustavu koji ima vlastito magnetsko polje. Njegova površina je prekrivena slojem " +
@@ -183,7 +217,7 @@ object MockDataLoader {
                             "Zemlju. Sastoji se uglavnom od vodika i helija, a generira energiju kroz proces nuklearne fuzije u svojoj jezgri. Proces fuzije, koji " +
                             "spaja vodik u helij, oslobađa ogromnu količinu energije koja se širi kroz Sunce i dolazi do Zemlje u obliku svjetlosti i topline.",
             povrsinskaTemperatura = "5500°C",
-            temperaturaJezgre = "15,000,000°C",
+            temperaturaJezgre = "15.000.000°C",
             promjer = 1391000.0,
             masa = 1.989e30,
             sastav = "Vodik: 74%, Helij: 24%, Ostali elementi: 2%"
@@ -270,8 +304,8 @@ object MockDataLoader {
             kratkiOpis = "Tempel 1 je komet koji je postao poznat kada je NASA-ina misija 'Deep Impact' 2005. godine ispalila projektile na njegovu površinu " +
                          "kako bi analizirali materijal ispod nje.",
             orbitalniPeriod = 6,
-            posljednjiPerihel = "2016.",
-            sljedeciPerihel = "2022.",
+            posljednjiPerihel = "2022.",
+            sljedeciPerihel = "2028.",
             velicinaJezgre = 14.0
         ),
         Komet(
@@ -356,14 +390,14 @@ object MockDataLoader {
             svjetleZvijezde = "Betelgeuse, Rigel"
         ),
         Zvijezdje(
-            imeHr = "Veliki Medvjed (Ursa Major)",
+            imeHr = "Veliki Medvjed",
             imeLat = "Ursa Major",
             pozicija = "Jedno od najvećih i najprepoznatljivijih zviježđa na sjevernom nebu. Najpoznatiji dio je Velika Kolica, grupa sedam svijetlih zvijezda.",
             znacaj = "Važan za navigaciju jer je Polarna zvijezda (u zviježđu Ursa Minor) usmjerena prema Velikom Medvjedu.",
             svjetleZvijezde = "Dubhe, Merak"
         ),
         Zvijezdje(
-            imeHr = "Maleni Medvjed (Ursa Minor)",
+            imeHr = "Maleni Medvjed",
             imeLat = "Ursa Minor",
             pozicija = "Smješten bliže sjevernom polu, najpoznatiji dio je Polarna zvijezda (Polaris).",
             znacaj = "Polarna zvijezda je bila ključna za navigaciju jer pokazuje pravi smjer prema sjeveru.",
@@ -377,7 +411,7 @@ object MockDataLoader {
             svjetleZvijezde = "Schedar, Caph, Ruchbah"
         ),
         Zvijezdje(
-            imeHr = "Lavi",
+            imeHr = "Lav",
             imeLat = "Leo",
             pozicija = "Jedno od najsvjetlijih zviježđa na nebu, prepoznaje se po obliku lavljeg tijela.",
             znacaj = "Povezano s mnogim mitologijama, simbol moći i snage.",
@@ -412,7 +446,7 @@ object MockDataLoader {
             svjetleZvijezde = "Alpha Centauri, Beta Centauri"
         ),
         Zvijezdje(
-            imeHr = "Maglica pješčanog sata",
+            imeHr = "Pješčani sat",
             imeLat = "Hourglass Nebula",
             pozicija = "Maglica u zviježđu Sagittariusa.",
             znacaj = "Jedno od najpoznatijih područja u svemiru zbog prepoznatljive oblika, simbol svemirskih promjena.",

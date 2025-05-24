@@ -1,4 +1,4 @@
-package com.example.rmai2425_projects_astromap
+package com.example.rmai2425_projects_astromap.activities
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
+import com.example.rmai2425_projects_astromap.R
 import kotlinx.coroutines.launch
 import com.example.rmai2425_projects_astromap.database.DatabaseProvider
 import com.example.rmai2425_projects_astromap.database.DatabaseInitializer
@@ -52,7 +53,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
-        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav)
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar,
+            R.string.open_nav,
+            R.string.close_nav
+        )
         drawerLayout.addDrawerListener(toggle)
 
         drawerLayout.post {
