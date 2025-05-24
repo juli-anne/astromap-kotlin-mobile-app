@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rmai2425_projects_astromap.PlanetDetailActivity
+import com.example.rmai2425_projects_astromap.activities.PlanetDetailActivity
 import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.database.Planet
 
@@ -53,7 +53,7 @@ class PlanetAdapter(private val planets: List<Planet>) : RecyclerView.Adapter<Pl
 
         holder.planetImg.setImageResource(dummyImage)
 
-        // Klik na menu_icon otvara detalje
+
         holder.menuIcon.setOnClickListener {
             val intent = Intent(context, PlanetDetailActivity::class.java).apply {
                 putExtra("ime", planet.ime)

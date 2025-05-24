@@ -52,7 +52,7 @@
                 app:tint="@color/white" />
 
             <LinearLayout
-                android:id="@+id/card_content"
+                android:id="@+id/card_content_sun"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/sun_menu_icon"
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     android:fontFamily="@font/poppins_regular" />
 
                 <LinearLayout
@@ -94,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:textColor="@color/white"
-                        android:textSize="13sp"
+                        android:textSize="15sp"
                         android:fontFamily="@font/poppins_regular" />
                 </LinearLayout>
             </LinearLayout>
@@ -107,7 +107,7 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="@string/sun_name"
                 android:textColor="@color/white"
-                android:textSize="28sp"
+                android:textSize="26sp"
                 android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
