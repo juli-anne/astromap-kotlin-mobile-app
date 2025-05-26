@@ -48,8 +48,10 @@
             android:id="@+id/nav_game"
             android:icon="@drawable/baseline_circle_24"
             android:title="Igra" />
-
-
+        <item
+            android:id="@+id/navquiz"
+            android:icon="@drawable/baseline_circle_24"
+            android:title="Kvizovi" />
     </group>
 
 

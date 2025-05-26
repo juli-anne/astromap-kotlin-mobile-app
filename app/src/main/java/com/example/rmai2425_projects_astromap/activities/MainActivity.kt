@@ -25,7 +25,9 @@ import com.example.rmai2425_projects_astromap.fragments.MoonsFragment
 import com.example.rmai2425_projects_astromap.fragments.ObjectsFragment
 import com.example.rmai2425_projects_astromap.fragments.PlanetsFragment
 import com.example.rmai2425_projects_astromap.fragments.SunFragment
+import com.example.rmai2425_projects_astromap.fragments.QuizFragment
 import com.google.android.material.navigation.NavigationView
+import androidx.activity.OnBackPressedCallback
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -61,17 +63,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             toggle.syncState()
         }
 
+        onBackPressedDispatcher.addCallback(this, object : androidx.activity.OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                } else {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
+
 
         if(savedInstanceState == null){
             replaceFragment(HomeFragment())
             navigationView.setCheckedItem(R.id.nav_home)
         }
 
-
-
-        val db = DatabaseProvider.getDatabase(this)
-        val dao = db.entitiesDao()
         lifecycleScope.launch {
+            val dao = DatabaseProvider.getDatabase(this@MainActivity).entitiesDao()
             DatabaseInitializer.initDatabase(dao)
         }
     }
@@ -114,6 +124,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 replaceFragment(GameFragment())
                 supportActionBar?.title = "Igra"
             }
+            R.id.navquiz -> {
+                replaceFragment(QuizFragment())
+                supportActionBar?.title = "Kvizovi"
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -124,14 +138,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)
         transaction.commit()
-    }
-
-    override fun onBackPressed(){
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-
     }
 }

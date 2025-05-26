@@ -171,7 +171,7 @@ object MockDataLoader {
                             "njegovom površinom, zbog geotermalne energije koja može održavati tekuću vodu.",
             velicina = 5268.0,
             zanimljivosti = "Ganimed je jedini mjesec u Sunčevom sustavu koji ima magnetsko polje, što ga čini jedinstvenim među mjesecima. Misije poput \"JUICE\" " +
-                            "(JUpiter ICy moons Explorer) planiraju detaljnije istražiti Ganimed u budućnosti."
+                            "(Jupiter Icy Moons Explorer) planiraju detaljnije istražiti Ganimed u budućnosti."
         ),
         MjesecInfo(
             ime = "Io",
@@ -451,6 +451,587 @@ object MockDataLoader {
             pozicija = "Maglica u zviježđu Sagittariusa.",
             znacaj = "Jedno od najpoznatijih područja u svemiru zbog prepoznatljive oblika, simbol svemirskih promjena.",
             svjetleZvijezde = ""
+        )
+    )
+
+    fun getKvizPitanjaOPlanetima(): List<KvizPitanje> = listOf(
+        KvizPitanje(
+            kategorija = "Planeti",
+            pitanje = "Koji je najmanji planet u Sunčevom sustavu?",
+            tocniOdgovor = "Merkur",
+            netocniOdgovor1 = "Mars",
+            netocniOdgovor2 = "Venera",
+            netocniOdgovor3 = "Zemlja"
+        ),
+        KvizPitanje(
+            kategorija = "Planeti",
+            pitanje = "Koji planet ima najgušću atmosferu u Sunčevom sustavu?",
+            tocniOdgovor = "Venera",
+            netocniOdgovor1 = "Jupiter",
+            netocniOdgovor2 = "Saturn",
+            netocniOdgovor3 = "Mars"
+        ),
+        KvizPitanje(
+            kategorija = "Planeti",
+            pitanje = "Koji je jedini planet na kojem je potvrđeno postojanje života?",
+            tocniOdgovor = "Zemlja",
+            netocniOdgovor1 = "Mars",
+            netocniOdgovor2 = "Venera",
+            netocniOdgovor3 = "Europa"
+        ),
+        KvizPitanje(
+            kategorija = "Planeti",
+            pitanje = "Koji planet je poznat kao 'Crveni planet'?",
+            tocniOdgovor = "Mars",
+            netocniOdgovor1 = "Venera",
+            netocniOdgovor2 = "Jupiter",
+            netocniOdgovor3 = "Merkur"
+        ),
+        KvizPitanje(
+            kategorija = "Planeti",
+            pitanje = "Koji je najveći planet u Sunčevom sustavu?",
+            tocniOdgovor = "Jupiter",
+            netocniOdgovor1 = "Saturn",
+            netocniOdgovor2 = "Neptun",
+            netocniOdgovor3 = "Uran"
+        ),
+        KvizPitanje(
+            kategorija = "Planeti",
+            pitanje = "Koji planet je poznat po svojim spektakularnim prstenovima?",
+            tocniOdgovor = "Saturn",
+            netocniOdgovor1 = "Jupiter",
+            netocniOdgovor2 = "Uran",
+            netocniOdgovor3 = "Neptun"
+        ),
+        KvizPitanje(
+            kategorija = "Planeti",
+            pitanje = "Koji planet ima os rotacije koja je gotovo vodoravna u odnosu na svoju orbitu?",
+            tocniOdgovor = "Uran",
+            netocniOdgovor1 = "Saturn",
+            netocniOdgovor2 = "Neptun",
+            netocniOdgovor3 = "Jupiter"
+        ),
+        KvizPitanje(
+            kategorija = "Planeti",
+            pitanje = "Koji planet ima najjače vjetrove u Sunčevom sustavu?",
+            tocniOdgovor = "Neptun",
+            netocniOdgovor1 = "Jupiter",
+            netocniOdgovor2 = "Saturn",
+            netocniOdgovor3 = "Uran"
+        ),
+        KvizPitanje(
+            kategorija = "Planeti",
+            pitanje = "Koja je prosječna površinska temperatura na Veneri?",
+            tocniOdgovor = "460°C",
+            netocniOdgovor1 = "100°C",
+            netocniOdgovor2 = "250°C",
+            netocniOdgovor3 = "1000°C"
+        ),
+        KvizPitanje(
+            kategorija = "Planeti",
+            pitanje = "Koji planet ima najveći broj poznatih mjeseca?",
+            tocniOdgovor = "Jupiter",
+            netocniOdgovor1 = "Saturn",
+            netocniOdgovor2 = "Uran",
+            netocniOdgovor3 = "Neptun"
+        )
+    )
+
+    fun getKvizPitanjaOSuncu(): List<KvizPitanje> = listOf(
+        KvizPitanje(
+            kategorija = "Sunce",
+            pitanje = "Kolika je temperatura na površini Sunca?",
+            tocniOdgovor = "5500°C",
+            netocniOdgovor1 = "3000°C",
+            netocniOdgovor2 = "8000°C",
+            netocniOdgovor3 = "10000°C"
+        ),
+        KvizPitanje(
+            kategorija = "Sunce",
+            pitanje = "Kolika je temperatura u jezgri Sunca?",
+            tocniOdgovor = "15,000,000°C",
+            netocniOdgovor1 = "5,000,000°C",
+            netocniOdgovor2 = "10,000,000°C",
+            netocniOdgovor3 = "20,000,000°C"
+        ),
+        KvizPitanje(
+            kategorija = "Sunce",
+            pitanje = "Od čega se uglavnom sastoji Sunce?",
+            tocniOdgovor = "Vodik i helij",
+            netocniOdgovor1 = "Kisik i dušik",
+            netocniOdgovor2 = "Ugljik i kisik",
+            netocniOdgovor3 = "Helij i neon"
+        ),
+        KvizPitanje(
+            kategorija = "Sunce",
+            pitanje = "Koji proces omogućava Suncu da proizvodi energiju?",
+            tocniOdgovor = "Nuklearna fuzija",
+            netocniOdgovor1 = "Nuklearna fisija",
+            netocniOdgovor2 = "Kemijska reakcija",
+            netocniOdgovor3 = "Gravitacijska kompresija"
+        ),
+        KvizPitanje(
+            kategorija = "Sunce",
+            pitanje = "Koliko posto vodika sadržava Sunce?",
+            tocniOdgovor = "74%",
+            netocniOdgovor1 = "50%",
+            netocniOdgovor2 = "85%",
+            netocniOdgovor3 = "60%"
+        ),
+        KvizPitanje(
+            kategorija = "Sunce",
+            pitanje = "Koliko posto helija sadržava Sunce?",
+            tocniOdgovor = "24%",
+            netocniOdgovor1 = "15%",
+            netocniOdgovor2 = "30%",
+            netocniOdgovor3 = "40%"
+        ),
+        KvizPitanje(
+            kategorija = "Sunce",
+            pitanje = "Koliki je promjer Sunca?",
+            tocniOdgovor = "1,391,000 km",
+            netocniOdgovor1 = "696,000 km",
+            netocniOdgovor2 = "2,000,000 km",
+            netocniOdgovor3 = "500,000 km"
+        ),
+        KvizPitanje(
+            kategorija = "Sunce",
+            pitanje = "Koliko je puta Sunce veće od Zemlje?",
+            tocniOdgovor = "109 puta",
+            netocniOdgovor1 = "50 puta",
+            netocniOdgovor2 = "200 puta",
+            netocniOdgovor3 = "75 puta"
+        ),
+        KvizPitanje(
+            kategorija = "Sunce",
+            pitanje = "Koji je tip zvijezde Sunce?",
+            tocniOdgovor = "G2V",
+            netocniOdgovor1 = "M5V",
+            netocniOdgovor2 = "K1V",
+            netocniOdgovor3 = "F8V"
+        ),
+        KvizPitanje(
+            kategorija = "Sunce",
+            pitanje = "Koliko vremena treba svjetlosti da stigne od Sunca do Zemlje?",
+            tocniOdgovor = "8 minuta",
+            netocniOdgovor1 = "4 minute",
+            netocniOdgovor2 = "15 minuta",
+            netocniOdgovor3 = "1 sat"
+        )
+    )
+
+    fun getKvizPitanjaOMjesecima(): List<KvizPitanje> = listOf(
+        KvizPitanje(
+            kategorija = "Mjeseci",
+            pitanje = "Koji je najveći mjesec u Sunevom sustavu?",
+            tocniOdgovor = "Ganimed",
+            netocniOdgovor1 = "Titan",
+            netocniOdgovor2 = "Mjesec",
+            netocniOdgovor3 = "Europa"
+        ),
+        KvizPitanje(
+            kategorija = "Mjeseci",
+            pitanje = "Koji mjesec ima najgušću atmosferu u Sunevom sustavu?",
+            tocniOdgovor = "Titan",
+            netocniOdgovor1 = "Europa",
+            netocniOdgovor2 = "Ganimed",
+            netocniOdgovor3 = "Io"
+        ),
+        KvizPitanje(
+            kategorija = "Mjeseci",
+            pitanje = "Koji mjesec je poznat po svojoj vulkanskoj aktivnosti?",
+            tocniOdgovor = "Io",
+            netocniOdgovor1 = "Europa",
+            netocniOdgovor2 = "Titan",
+            netocniOdgovor3 = "Ganimed"
+        ),
+        KvizPitanje(
+            kategorija = "Mjeseci",
+            pitanje = "Koji mjesec ima retrogradnu orbitu?",
+            tocniOdgovor = "Triton",
+            netocniOdgovor1 = "Titan",
+            netocniOdgovor2 = "Europa",
+            netocniOdgovor3 = "Ganimed"
+        ),
+        KvizPitanje(
+            kategorija = "Mjeseci",
+            pitanje = "Koji mjesec ima vlastito magnetsko polje?",
+            tocniOdgovor = "Ganimed",
+            netocniOdgovor1 = "Europa",
+            netocniOdgovor2 = "Titan",
+            netocniOdgovor3 = "Io"
+        ),
+        KvizPitanje(
+            kategorija = "Mjeseci",
+            pitanje = "Na kojem mjesecu su ljudi prvi put hodali?",
+            tocniOdgovor = "Mjesec",
+            netocniOdgovor1 = "Mars",
+            netocniOdgovor2 = "Europa",
+            netocniOdgovor3 = "Titan"
+        ),
+        KvizPitanje(
+            kategorija = "Mjeseci",
+            pitanje = "Koji mjesec ima tekuće ugljikovodike na površini?",
+            tocniOdgovor = "Titan",
+            netocniOdgovor1 = "Europa",
+            netocniOdgovor2 = "Ganimed",
+            netocniOdgovor3 = "Io"
+        ),
+        KvizPitanje(
+            kategorija = "Mjeseci",
+            pitanje = "Koji mjesec se smatra najzanimljivijim za potragu za životom?",
+            tocniOdgovor = "Europa",
+            netocniOdgovor1 = "Titan",
+            netocniOdgovor2 = "Ganimed",
+            netocniOdgovor3 = "Io"
+        ),
+        KvizPitanje(
+            kategorija = "Mjeseci",
+            pitanje = "Koliko mjeseca ima Mars?",
+            tocniOdgovor = "2",
+            netocniOdgovor1 = "1",
+            netocniOdgovor2 = "3",
+            netocniOdgovor3 = "4"
+        ),
+        KvizPitanje(
+            kategorija = "Mjeseci",
+            pitanje = "Koji planet ima najveći broj mjeseca?",
+            tocniOdgovor = "Jupiter",
+            netocniOdgovor1 = "Saturn",
+            netocniOdgovor2 = "Uran",
+            netocniOdgovor3 = "Neptun"
+        )
+    )
+
+    fun getKvizPitanjaOAsteroidima(): List<KvizPitanje> = listOf(
+        KvizPitanje(
+            kategorija = "Asteroidi",
+            pitanje = "Koji je najveći asteroid u asteroidnom pojasu?",
+            tocniOdgovor = "Ceres",
+            netocniOdgovor1 = "Vesta",
+            netocniOdgovor2 = "Pallas",
+            netocniOdgovor3 = "Eros"
+        ),
+        KvizPitanje(
+            kategorija = "Asteroidi",
+            pitanje = "Gdje se nalazi asteroidni pojas?",
+            tocniOdgovor = "Između Marsa i Jupitera",
+            netocniOdgovor1 = "Između Zemlje i Marsa",
+            netocniOdgovor2 = "Između Jupitera i Saturna",
+            netocniOdgovor3 = "Između Venere i Zemlje"
+        ),
+        KvizPitanje(
+            kategorija = "Asteroidi",
+            pitanje = "Koji asteroid je bio prva destinacija misije Dawn?",
+            tocniOdgovor = "Vesta",
+            netocniOdgovor1 = "Ceres",
+            netocniOdgovor2 = "Eros",
+            netocniOdgovor3 = "Itokawa"
+        ),
+        KvizPitanje(
+            kategorija = "Asteroidi",
+            pitanje = "Koji asteroid je poznat po svojoj duguljastoj formi?",
+            tocniOdgovor = "Itokawa",
+            netocniOdgovor1 = "Vesta",
+            netocniOdgovor2 = "Ceres",
+            netocniOdgovor3 = "Pallas"
+        ),
+        KvizPitanje(
+            kategorija = "Asteroidi",
+            pitanje = "Kada je otkriven prvi asteroid Ceres?",
+            tocniOdgovor = "1801. godine",
+            netocniOdgovor1 = "1802. godine",
+            netocniOdgovor2 = "1898. godine",
+            netocniOdgovor3 = "1900. godine"
+        ),
+        KvizPitanje(
+            kategorija = "Asteroidi",
+            pitanje = "Koji asteroid je bio cilj misije NEAR Shoemaker?",
+            tocniOdgovor = "Eros",
+            netocniOdgovor1 = "Vesta",
+            netocniOdgovor2 = "Ceres",
+            netocniOdgovor3 = "Itokawa"
+        ),
+        KvizPitanje(
+            kategorija = "Asteroidi",
+            pitanje = "Koja je japanska misija uspješno vratila uzorke s asteroida?",
+            tocniOdgovor = "Hayabusa",
+            netocniOdgovor1 = "Dawn",
+            netocniOdgovor2 = "NEAR Shoemaker",
+            netocniOdgovor3 = "Deep Impact"
+        ),
+        KvizPitanje(
+            kategorija = "Asteroidi",
+            pitanje = "Koji asteroid je treći po veličini u Sunevom sustavu?",
+            tocniOdgovor = "Pallas",
+            netocniOdgovor1 = "Vesta",
+            netocniOdgovor2 = "Eros",
+            netocniOdgovor3 = "Itokawa"
+        ),
+        KvizPitanje(
+            kategorija = "Asteroidi",
+            pitanje = "Od čega se uglavnom sastoje asteroidi?",
+            tocniOdgovor = "Stijene i metali",
+            netocniOdgovor1 = "Led i plin",
+            netocniOdgovor2 = "Samo metal",
+            netocniOdgovor3 = "Samo led"
+        ),
+        KvizPitanje(
+            kategorija = "Asteroidi",
+            pitanje = "Koji status ima Ceres od 2006. godine?",
+            tocniOdgovor = "Patuljasti planet",
+            netocniOdgovor1 = "Asteroid",
+            netocniOdgovor2 = "Planet",
+            netocniOdgovor3 = "Komet"
+        )
+    )
+
+    fun getKvizPitanjaOKometima(): List<KvizPitanje> = listOf(
+        KvizPitanje(
+            kategorija = "Kometi",
+            pitanje = "Koji je najpoznatiji komet koji je vidljiv s Zemlje svakih 76 godina?",
+            tocniOdgovor = "Halleyjev komet",
+            netocniOdgovor1 = "Hale-Bopp",
+            netocniOdgovor2 = "Neowise",
+            netocniOdgovor3 = "Enckeov komet"
+        ),
+        KvizPitanje(
+            kategorija = "Kometi",
+            pitanje = "Koji komet ima najkraći orbitalni period od samo 3 godine?",
+            tocniOdgovor = "Enckeov komet",
+            netocniOdgovor1 = "Halleyjev komet",
+            netocniOdgovor2 = "Tempel 1",
+            netocniOdgovor3 = "Neowise"
+        ),
+        KvizPitanje(
+            kategorija = "Kometi",
+            pitanje = "Koji komet je bio vrlo vidljiv tijekom 2020. godine?",
+            tocniOdgovor = "Neowise",
+            netocniOdgovor1 = "Hale-Bopp",
+            netocniOdgovor2 = "Halleyjev komet",
+            netocniOdgovor3 = "Enckeov komet"
+        ),
+        KvizPitanje(
+            kategorija = "Kometi",
+            pitanje = "Koji komet je bio cilj NASA-ine misije Deep Impact 2005. godine?",
+            tocniOdgovor = "Tempel 1",
+            netocniOdgovor1 = "Halleyjev komet",
+            netocniOdgovor2 = "Hale-Bopp",
+            netocniOdgovor3 = "Neowise"
+        ),
+        KvizPitanje(
+            kategorija = "Kometi",
+            pitanje = "Koji komet je bio jedan od najsvjetlijih ikada zabilježenih i prošao kroz Sunčev sustav 1997. godine?",
+            tocniOdgovor = "Hale-Bopp",
+            netocniOdgovor1 = "Halleyjev komet",
+            netocniOdgovor2 = "Neowise",
+            netocniOdgovor3 = "Enckeov komet"
+        ),
+        KvizPitanje(
+            kategorija = "Kometi",
+            pitanje = "Koliki je orbitalni period Halleyjevog kometa?",
+            tocniOdgovor = "76 godina",
+            netocniOdgovor1 = "50 godina",
+            netocniOdgovor2 = "100 godina",
+            netocniOdgovor3 = "25 godina"
+        ),
+        KvizPitanje(
+            kategorija = "Kometi",
+            pitanje = "Kada je Halleyjev komet zadnji put bio u perihelu?",
+            tocniOdgovor = "1986. godine",
+            netocniOdgovor1 = "1990. godine",
+            netocniOdgovor2 = "1980. godine",
+            netocniOdgovor3 = "1995. godine"
+        ),
+        KvizPitanje(
+            kategorija = "Kometi",
+            pitanje = "Kada će Halleyjev komet sljedeći put biti u perihelu?",
+            tocniOdgovor = "2061. godine",
+            netocniOdgovor1 = "2055. godine",
+            netocniOdgovor2 = "2070. godine",
+            netocniOdgovor3 = "2050. godine"
+        ),
+        KvizPitanje(
+            kategorija = "Kometi",
+            pitanje = "Koji komet ima najveću jezgru od navedenih?",
+            tocniOdgovor = "Hale-Bopp",
+            netocniOdgovor1 = "Halleyjev komet",
+            netocniOdgovor2 = "Neowise",
+            netocniOdgovor3 = "Enckeov komet"
+        ),
+        KvizPitanje(
+            kategorija = "Kometi",
+            pitanje = "Koliki je orbitalni period kometa Hale-Bopp?",
+            tocniOdgovor = "2533 godine",
+            netocniOdgovor1 = "1000 godina",
+            netocniOdgovor2 = "5000 godina",
+            netocniOdgovor3 = "500 godina"
+        )
+    )
+
+    fun getKvizPitanjaOObjektima(): List<KvizPitanje> = listOf(
+        KvizPitanje(
+            kategorija = "Objekti",
+            pitanje = "Koji je status Plutona od 2006. godine?",
+            tocniOdgovor = "Patuljasti planet",
+            netocniOdgovor1 = "Planet",
+            netocniOdgovor2 = "Asteroid",
+            netocniOdgovor3 = "Komet"
+        ),
+        KvizPitanje(
+            kategorija = "Objekti",
+            pitanje = "Gdje se nalazi Pluton?",
+            tocniOdgovor = "Kuiperov pojas",
+            netocniOdgovor1 = "Asteroidni pojas",
+            netocniOdgovor2 = "Između Marsa i Jupitera",
+            netocniOdgovor3 = "Između Zemlje i Marsa"
+        ),
+        KvizPitanje(
+            kategorija = "Objekti",
+            pitanje = "Koji je najveći mjesec Plutona?",
+            tocniOdgovor = "Charon",
+            netocniOdgovor1 = "Titan",
+            netocniOdgovor2 = "Europa",
+            netocniOdgovor3 = "Ganimed"
+        ),
+        KvizPitanje(
+            kategorija = "Objekti",
+            pitanje = "Koliko mjeseca ima Pluton?",
+            tocniOdgovor = "5",
+            netocniOdgovor1 = "3",
+            netocniOdgovor2 = "7",
+            netocniOdgovor3 = "1"
+        ),
+        KvizPitanje(
+            kategorija = "Objekti",
+            pitanje = "Kolika je približna temperatura na Plutonu?",
+            tocniOdgovor = "-230°C",
+            netocniOdgovor1 = "-100°C",
+            netocniOdgovor2 = "-180°C",
+            netocniOdgovor3 = "-300°C"
+        ),
+        KvizPitanje(
+            kategorija = "Objekti",
+            pitanje = "Što se događa kada meteoroid uđe u Zemljinu atmosferu?",
+            tocniOdgovor = "Postaje meteor",
+            netocniOdgovor1 = "Postaje meteorit",
+            netocniOdgovor2 = "Nestaje",
+            netocniOdgovor3 = "Postaje asteroid"
+        ),
+        KvizPitanje(
+            kategorija = "Objekti",
+            pitanje = "Kako se naziva meteoroid koji padne na Zemljinu površinu?",
+            tocniOdgovor = "Meteorit",
+            netocniOdgovor1 = "Meteor",
+            netocniOdgovor2 = "Asteroid",
+            netocniOdgovor3 = "Komet"
+        ),
+        KvizPitanje(
+            kategorija = "Objekti",
+            pitanje = "Koji je najveći poznati meteorit?",
+            tocniOdgovor = "Hoba",
+            netocniOdgovor1 = "Tunguska",
+            netocniOdgovor2 = "Chelyabinsk",
+            netocniOdgovor3 = "Barringer"
+        ),
+        KvizPitanje(
+            kategorija = "Objekti",
+            pitanje = "Koliko teži najveći poznati meteorit Hoba?",
+            tocniOdgovor = "60 tona",
+            netocniOdgovor1 = "30 tona",
+            netocniOdgovor2 = "100 tona",
+            netocniOdgovor3 = "15 tona"
+        ),
+        KvizPitanje(
+            kategorija = "Objekti",
+            pitanje = "Od čega se uglavnom sastoje meteoroidi?",
+            tocniOdgovor = "Stijene i metal",
+            netocniOdgovor1 = "Samo led",
+            netocniOdgovor2 = "Samo plin",
+            netocniOdgovor3 = "Samo prašina"
+        )
+    )
+
+    fun getKvizPitanjaOZvijezdjima(): List<KvizPitanje> = listOf(
+        KvizPitanje(
+            kategorija = "Zviježđa",
+            pitanje = "Koje zviježđe je poznato po Orionovom pojasu?",
+            tocniOdgovor = "Orion",
+            netocniOdgovor1 = "Ursa Major",
+            netocniOdgovor2 = "Cassiopeia",
+            netocniOdgovor3 = "Leo"
+        ),
+        KvizPitanje(
+            kategorija = "Zviježđa",
+            pitanje = "Koje zviježđe sadrži Polarnu zvijezdu?",
+            tocniOdgovor = "Ursa Minor",
+            netocniOdgovor1 = "Ursa Major",
+            netocniOdgovor2 = "Orion",
+            netocniOdgovor3 = "Cassiopeia"
+        ),
+        KvizPitanje(
+            kategorija = "Zviježđa",
+            pitanje = "Koje zviježđe se prepoznaje po obliku slova W ili M?",
+            tocniOdgovor = "Cassiopeia",
+            netocniOdgovor1 = "Orion",
+            netocniOdgovor2 = "Leo",
+            netocniOdgovor3 = "Libra"
+        ),
+        KvizPitanje(
+            kategorija = "Zviježđa",
+            pitanje = "Koje zviježđe je poznato kao Veliki Medvjed?",
+            tocniOdgovor = "Ursa Major",
+            netocniOdgovor1 = "Ursa Minor",
+            netocniOdgovor2 = "Leo",
+            netocniOdgovor3 = "Scorpius"
+        ),
+        KvizPitanje(
+            kategorija = "Zviježđa",
+            pitanje = "Koje zviježđe se prepoznaje po obliku lavljeg tijela?",
+            tocniOdgovor = "Leo",
+            netocniOdgovor1 = "Orion",
+            netocniOdgovor2 = "Sagittarius",
+            netocniOdgovor3 = "Centaurus"
+        ),
+        KvizPitanje(
+            kategorija = "Zviježđa",
+            pitanje = "Koje zviježđe predstavlja vagu boginje Temide?",
+            tocniOdgovor = "Libra",
+            netocniOdgovor1 = "Leo",
+            netocniOdgovor2 = "Scorpius",
+            netocniOdgovor3 = "Sagittarius"
+        ),
+        KvizPitanje(
+            kategorija = "Zviježđa",
+            pitanje = "Koje zviježđe sadrži zvijezdu Antares?",
+            tocniOdgovor = "Scorpius",
+            netocniOdgovor1 = "Leo",
+            netocniOdgovor2 = "Sagittarius",
+            netocniOdgovor3 = "Centaurus"
+        ),
+        KvizPitanje(
+            kategorija = "Zviježđa",
+            pitanje = "Koje zviježđe se prepoznaje po obliku strijelca s lukom?",
+            tocniOdgovor = "Sagittarius",
+            netocniOdgovor1 = "Orion",
+            netocniOdgovor2 = "Centaurus",
+            netocniOdgovor3 = "Scorpius"
+        ),
+        KvizPitanje(
+            kategorija = "Zviježđa",
+            pitanje = "Koje zviježđe sadrži Alpha Centauri i Beta Centauri?",
+            tocniOdgovor = "Centaurus",
+            netocniOdgovor1 = "Sagittarius",
+            netocniOdgovor2 = "Scorpius",
+            netocniOdgovor3 = "Libra"
+        ),
+        KvizPitanje(
+            kategorija = "Zviježđa",
+            pitanje = "Koje zviježđe sadrži Orionovu maglicu M42?",
+            tocniOdgovor = "Orion",
+            netocniOdgovor1 = "Ursa Major",
+            netocniOdgovor2 = "Leo",
+            netocniOdgovor3 = "Cassiopeia"
         )
     )
 }

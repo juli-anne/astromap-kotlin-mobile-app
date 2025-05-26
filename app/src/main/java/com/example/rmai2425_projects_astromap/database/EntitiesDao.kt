@@ -134,4 +134,24 @@ interface EntitiesDao {
 
     @Delete
     suspend fun deleteZvijezdje(zvijezdje: Zvijezdje)
+
+    // Kviz pitanja
+    @Insert
+    suspend fun insertKvizPitanje(kvizPitanje: KvizPitanje)
+
+    @Insert
+    suspend fun insertKvizPitanja(kvizPitanja: List<KvizPitanje>): List<Long>
+
+    @Query("SELECT * FROM kviz_pitanja WHERE id = :pitanjeId")
+    suspend fun getKvizPitanjeById(pitanjeId: Int): KvizPitanje?
+
+    @Query("SELECT * FROM kviz_pitanja WHERE kategorija = :kategorija")
+    suspend fun getKvizPitanjaByKategorija(kategorija: String): List<KvizPitanje>
+
+    @Query("SELECT * FROM kviz_pitanja")
+    suspend fun getAllKvizPitanja(): List<KvizPitanje>
+
+    @Delete
+    suspend fun deleteKvizPitanje(kvizPitanje: KvizPitanje)
+
 }

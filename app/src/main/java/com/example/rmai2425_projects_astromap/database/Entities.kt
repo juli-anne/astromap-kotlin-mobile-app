@@ -106,3 +106,15 @@ data class Zvijezdje(
     val znacaj: String,
     val svjetleZvijezde: String
 )
+
+@Entity(tableName = "kviz_pitanja")
+data class KvizPitanje(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val kategorija: String,
+    val pitanje: String,
+    val tocniOdgovor: String,
+    val netocniOdgovor1: String,
+    val netocniOdgovor2: String,
+    val netocniOdgovor3: String
+)
