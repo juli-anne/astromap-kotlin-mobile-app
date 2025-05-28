@@ -14,9 +14,10 @@ import androidx.room.RoomDatabase
         VezaIzmeduPlanetaMjeseca::class,
         Zvijezdje::class,
         KvizPitanje::class,
-        SuncevSustavInfo::class
+        SuncevSustavInfo::class,
+        Korisnik::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class AstroMapDatabase : RoomDatabase() {

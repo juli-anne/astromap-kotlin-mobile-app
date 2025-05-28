@@ -4,4 +4,9 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+
+    <style name="PlaceholderStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColorHint">#888888</item>
+        <item name="android:textStyle">italic</item>
+    </style>
 </resources>

@@ -1,4 +1,5 @@
 package com.example.rmai2425_projects_astromap.activities
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
@@ -124,9 +125,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 replaceFragment(GameFragment())
                 supportActionBar?.title = "Igra"
             }
-            R.id.navquiz -> {
+            R.id.nav_quiz -> {
                 replaceFragment(QuizFragment())
                 supportActionBar?.title = "Kvizovi"
+            }
+            R.id.nav_login -> {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                supportActionBar?.title = "Prijava"
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

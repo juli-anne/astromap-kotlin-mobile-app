@@ -6,7 +6,5 @@
     <color name="primary"> #1c1a30 </color>
     <color name="secondary">#3c386e</color>
     <color name= "tertiary"> #5e1434 </color>
-    <color name="subtext"> #DDDBDB </color> #272447
-
-
+    <color name="subtext"> #DDDBDB </color>
 </resources>

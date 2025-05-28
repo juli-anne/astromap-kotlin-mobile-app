@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 
 object DatabaseProvider {
-
     @Volatile
     private var INSTANCE: AstroMapDatabase? = null
 
@@ -13,9 +12,9 @@ object DatabaseProvider {
             val instance = Room.databaseBuilder(
                 context.applicationContext,
                 AstroMapDatabase::class.java,
-                "astro_map_database"
+                "astromap_database"
             )
-                .fallbackToDestructiveMigration(true)
+                .fallbackToDestructiveMigration()
                 .build()
             INSTANCE = instance
             instance
