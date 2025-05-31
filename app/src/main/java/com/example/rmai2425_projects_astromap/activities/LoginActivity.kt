@@ -3,7 +3,6 @@ package com.example.rmai2425_projects_astromap.activities
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,13 +11,18 @@ import androidx.lifecycle.lifecycleScope
 import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.database.DatabaseProvider
 import com.example.rmai2425_projects_astromap.utils.UserManager
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var emailEditText: EditText
-    private lateinit var passwordEditText: EditText
+    private lateinit var emailInputLayout: TextInputLayout
+    private lateinit var passwordInputLayout: TextInputLayout
+
+    private lateinit var emailEditText: TextInputEditText
+    private lateinit var passwordEditText: TextInputEditText
     private lateinit var loginButton: Button
     private lateinit var registerLink: TextView
     private lateinit var userManager: UserManager
@@ -42,6 +46,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        emailInputLayout = findViewById(R.id.email_input_layout)
+        passwordInputLayout = findViewById(R.id.password_input_layout)
+
         emailEditText = findViewById(R.id.email_edit_text)
         passwordEditText = findViewById(R.id.password_edit_text)
         loginButton = findViewById(R.id.login_button)
@@ -51,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
-            val password = passwordEditText.text.toString().trim() // ISPRAVKA: koristimo "password" umjesto "lozinka"
+            val password = passwordEditText.text.toString().trim()
 
             if (validateInput(email, password)) {
                 performLogin(email, password)
@@ -65,18 +72,21 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validateInput(email: String, password: String): Boolean {
+        emailInputLayout.error = null
+        passwordInputLayout.error = null
+
         if (email.isEmpty()) {
-            emailEditText.error = "Email je obavezan"
+            emailInputLayout.error = "Email je obavezan"
             return false
         }
 
         if (password.isEmpty()) {
-            passwordEditText.error = "Lozinka je obavezna"
+            passwordInputLayout.error = "Lozinka je obavezna"
             return false
         }
 
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailEditText.error = "Unesite valjan email"
+            emailInputLayout.error = "Unesite valjan email"
             return false
         }
 

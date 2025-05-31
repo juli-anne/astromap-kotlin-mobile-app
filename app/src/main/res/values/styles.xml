@@ -5,8 +5,10 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
-    <style name="PlaceholderStyle" parent="Widget.AppCompat.EditText">
-        <item name="android:textColorHint">#888888</item>
-        <item name="android:textStyle">italic</item>
+    <style name="PlaceholderTextStyle" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/placeholder_text</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:alpha">0.7</item>
     </style>
 </resources>
