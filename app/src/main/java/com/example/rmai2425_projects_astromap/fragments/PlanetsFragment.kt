@@ -32,7 +32,7 @@ class PlanetsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_planets, container, false)
 
         userManager = UserManager(requireContext())
-        recyclerView = view.findViewById(R.id.recycler_view)
+        recyclerView = view.findViewById(R.id.recycler_view_planet)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         return view
@@ -55,7 +55,7 @@ class PlanetsFragment : Fragment() {
 
         planetAdapter = PlanetAdapter(
             planetList,
-            userManager.isLoggedIn()
+            userManager.isUserLoggedIn()
         ) { planetName ->
             showCompletionMessage("Naučili ste sve o planetu $planetName!")
         }

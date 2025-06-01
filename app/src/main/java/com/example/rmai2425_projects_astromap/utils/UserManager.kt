@@ -24,7 +24,7 @@ class UserManager(context: Context) {
         }
     }
 
-    fun isLoggedIn(): Boolean = prefs.getBoolean(KEY_IS_LOGGED_IN, false)
+    fun isUserLoggedIn(): Boolean = prefs.getBoolean(KEY_IS_LOGGED_IN, false)
 
     fun getCurrentUserId(): Int = prefs.getInt(KEY_USER_ID, -1)
 

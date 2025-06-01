@@ -30,7 +30,7 @@ class PlanetAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.view, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.view_planet, parent, false)
         return MyViewHolder(itemView)
     }
 
