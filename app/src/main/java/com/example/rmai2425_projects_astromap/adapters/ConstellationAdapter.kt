@@ -11,8 +11,11 @@ import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.activities.ConstellationDetailActivity
 import com.example.rmai2425_projects_astromap.database.Zvijezdje
 
-class ConstellationAdapter(constellations: List<Zvijezdje>) : RecyclerView.Adapter<ConstellationAdapter.MyViewHolder>() {
-
+class ConstellationAdapter(
+    constellations: List<Zvijezdje>,
+    private val isUserLoggedIn: Boolean,
+    private val onModuleComplete: (String) -> Unit
+) : RecyclerView.Adapter<ConstellationAdapter.MyViewHolder>() {
 
     private val uniqueConstellations = constellations.distinctBy {
         it.imeHr.trim().lowercase()
@@ -23,6 +26,7 @@ class ConstellationAdapter(constellations: List<Zvijezdje>) : RecyclerView.Adapt
         val constellationImg: ImageView = view.findViewById(R.id.constellation_img)
         val menuIcon: ImageView = view.findViewById(R.id.constellation_menu_icon)
         val constellationInfo: TextView = view.findViewById(R.id.constellationinfo)
+        val completionButton: TextView = view.findViewById(R.id.completion_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -39,8 +43,6 @@ class ConstellationAdapter(constellations: List<Zvijezdje>) : RecyclerView.Adapt
 
         holder.title.text = constellation.imeHr
         holder.constellationInfo.text = constellation.pozicija
-
-
 
         val dummyImage = when (constellation.imeHr.trim().lowercase()) {
             "orion" -> R.drawable.orion
@@ -68,6 +70,21 @@ class ConstellationAdapter(constellations: List<Zvijezdje>) : RecyclerView.Adapt
                 putExtra("imgRes", dummyImage)
             }
             context.startActivity(intent)
+        }
+
+        if (isUserLoggedIn) {
+            holder.completionButton.visibility = View.VISIBLE
+            holder.completionButton.text = "Označi kao dovršeno"
+            holder.completionButton.setTextColor(context.getColor(R.color.white))
+            holder.completionButton.isEnabled = true
+            holder.completionButton.setOnClickListener {
+                holder.completionButton.text = "Dovršeno"
+                holder.completionButton.setTextColor(context.getColor(R.color.success_green))
+                holder.completionButton.isEnabled = false
+                onModuleComplete(constellation.imeHr)
+            }
+        } else {
+            holder.completionButton.visibility = View.GONE
         }
     }
 }

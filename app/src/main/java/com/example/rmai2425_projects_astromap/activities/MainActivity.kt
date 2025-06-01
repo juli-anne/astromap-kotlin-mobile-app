@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val menu = navigationView.menu
         val loginMenuItem = menu.findItem(R.id.nav_login)
 
-        if (userManager.isLoggedIn()) {
+        if (userManager.isUserLoggedIn()) {
             loginMenuItem?.title = "Moj profil"
             loginMenuItem?.setIcon(R.drawable.baseline_person_24)
         } else {
@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 supportActionBar?.title = "Kvizovi"
             }
             R.id.nav_login -> {
-                if (userManager.isLoggedIn()) {
+                if (userManager.isUserLoggedIn()) {
                     replaceFragment(ProfileFragment())
                     supportActionBar?.title = "Moj profil"
                 } else {
