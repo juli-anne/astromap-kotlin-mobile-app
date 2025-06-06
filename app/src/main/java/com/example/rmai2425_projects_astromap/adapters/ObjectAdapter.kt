@@ -11,8 +11,11 @@ import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.activities.ObjectDetailActivity
 import com.example.rmai2425_projects_astromap.database.ObjektSuncevogSustava
 
-class ObjectAdapter(private val objekti: List<ObjektSuncevogSustava>) :
-    RecyclerView.Adapter<ObjectAdapter.MyViewHolder>() {
+class ObjectAdapter(
+    private val objekti: List<ObjektSuncevogSustava>,
+    private val isUserLoggedIn: Boolean,
+    private val onModuleComplete: (String) -> Unit
+) : RecyclerView.Adapter<ObjectAdapter.MyViewHolder>() {
 
     private val uniqueObjects = objekti.distinctBy { it.ime.trim().lowercase() }
 
@@ -21,6 +24,7 @@ class ObjectAdapter(private val objekti: List<ObjektSuncevogSustava>) :
         val objectImg: ImageView = view.findViewById(R.id.object_img)
         val menuIcon: ImageView = view.findViewById(R.id.object_menu_icon)
         val objectInfo: TextView = view.findViewById(R.id.objectinfo)
+        val completionButton: TextView = view.findViewById(R.id.completion_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -62,6 +66,21 @@ class ObjectAdapter(private val objekti: List<ObjektSuncevogSustava>) :
                 putExtra("imgRes", imageRes)
             }
             context.startActivity(intent)
+        }
+
+        if (isUserLoggedIn) {
+            holder.completionButton.visibility = View.VISIBLE
+            holder.completionButton.text = "Označi kao dovršeno"
+            holder.completionButton.setTextColor(context.getColor(R.color.white))
+            holder.completionButton.isEnabled = true
+            holder.completionButton.setOnClickListener {
+                holder.completionButton.text = "Dovršeno"
+                holder.completionButton.setTextColor(context.getColor(R.color.success_green))
+                holder.completionButton.isEnabled = false
+                onModuleComplete(objekt.ime)
+            }
+        } else {
+            holder.completionButton.visibility = View.GONE
         }
     }
 }

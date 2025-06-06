@@ -44,4 +44,14 @@
     <string name="solar_image_desc">Slika sunčevog sustava</string>
     <string name="solar_menu_icon_desc">Meni za više informacija o sunčevom sustavu</string>
     <string name="solar_name">Sunčev sustav</string>
+    <string name="login_title">Prijava</string>
+    <string name="register_title">Registracija</string>
+    <string name="email_hint">Email adresa</string>
+    <string name="password_hint">Lozinka</string>
+    <string name="name_hint">Ime i prezime</string>
+    <string name="confirm_password_hint">Potvrdi lozinku</string>
+    <string name="login_button">Prijavi se</string>
+    <string name="register_button">Registriraj se</string>
+    <string name="no_account">Nemate račun? Registrirajte se</string>
+    <string name="have_account">Već imate račun? Prijavite se</string>
 </resources>

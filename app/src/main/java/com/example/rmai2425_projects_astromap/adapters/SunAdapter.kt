@@ -11,7 +11,11 @@ import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.activities.SunDetailActivity
 import com.example.rmai2425_projects_astromap.database.Sunce
 
-class SunAdapter(private val sunca: List<Sunce>) : RecyclerView.Adapter<SunAdapter.MyViewHolder>() {
+class SunAdapter(
+    private val sunca: List<Sunce>,
+    private val isUserLoggedIn: Boolean,
+    private val onModuleComplete: (String) -> Unit
+) : RecyclerView.Adapter<SunAdapter.MyViewHolder>() {
 
     private val uniqueSunca = sunca.distinctBy { it.ime.trim().lowercase() }
 
@@ -22,8 +26,8 @@ class SunAdapter(private val sunca: List<Sunce>) : RecyclerView.Adapter<SunAdapt
         val sunInfo: TextView = view.findViewById(R.id.suninfo)
         val diameterIcon: ImageView = view.findViewById(R.id.sun_diameter_icon)
         val sunDiameter: TextView = view.findViewById(R.id.sun_diameter)
+        val completionButton: TextView = view.findViewById(R.id.completion_button)
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.view_sun, parent, false)
@@ -55,6 +59,21 @@ class SunAdapter(private val sunca: List<Sunce>) : RecyclerView.Adapter<SunAdapt
                 putExtra("imgRes", imageResource)
             }
             context.startActivity(intent)
+        }
+
+        if (isUserLoggedIn) {
+            holder.completionButton.visibility = View.VISIBLE
+            holder.completionButton.text = "Označi kao dovršeno"
+            holder.completionButton.setTextColor(context.getColor(R.color.white))
+            holder.completionButton.isEnabled = true
+            holder.completionButton.setOnClickListener {
+                holder.completionButton.text = "Dovršeno"
+                holder.completionButton.setTextColor(context.getColor(R.color.success_green))
+                holder.completionButton.isEnabled = false
+                onModuleComplete(sunce.ime)
+            }
+        } else {
+            holder.completionButton.visibility = View.GONE
         }
     }
 }

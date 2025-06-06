@@ -13,7 +13,9 @@ import com.example.rmai2425_projects_astromap.database.Mjesec
 
 class MoonAdapter(
     private val moons: List<Mjesec>,
-    private val planetIdToNameMap: Map<Int, String>
+    private val planetIdToNameMap: Map<Int, String>,
+    private val isUserLoggedIn: Boolean,
+    private val onModuleComplete: (String) -> Unit
 ) : RecyclerView.Adapter<MoonAdapter.MyViewHolder>() {
 
     private val uniqueMoons = moons.distinctBy { it.ime.trim().lowercase() }
@@ -25,10 +27,12 @@ class MoonAdapter(
         val moonInfo: TextView = view.findViewById(R.id.mooninfo)
         val diameterIcon: ImageView = view.findViewById(R.id.size_icon)
         val moonDiameter: TextView = view.findViewById(R.id.moon_size)
+        val completionButton: TextView = view.findViewById(R.id.completion_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.view_moon, parent, false)
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.view_moon, parent, false)
         return MyViewHolder(itemView)
     }
 
@@ -57,7 +61,6 @@ class MoonAdapter(
 
         holder.menuIcon.setOnClickListener {
             val planetIme = planetIdToNameMap[moon.planetId] ?: "Nepoznato"
-
             val intent = Intent(context, MoonDetailActivity::class.java).apply {
                 putExtra("ime", moon.ime)
                 putExtra("planetIme", planetIme)
@@ -68,6 +71,20 @@ class MoonAdapter(
             }
             context.startActivity(intent)
         }
+
+        if (isUserLoggedIn) {
+            holder.completionButton.visibility = View.VISIBLE
+            holder.completionButton.text = "Označi kao dovršeno"
+            holder.completionButton.setTextColor(context.getColor(R.color.white))
+            holder.completionButton.isEnabled = true
+            holder.completionButton.setOnClickListener {
+                holder.completionButton.text = "Dovršeno"
+                holder.completionButton.setTextColor(context.getColor(R.color.success_green))
+                holder.completionButton.isEnabled = false
+                onModuleComplete(moon.ime)
+            }
+        } else {
+            holder.completionButton.visibility = View.GONE
+        }
     }
 }
-

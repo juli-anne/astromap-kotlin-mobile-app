@@ -49,9 +49,13 @@
             android:icon="@drawable/baseline_circle_24"
             android:title="Igra" />
         <item
-            android:id="@+id/navquiz"
+            android:id="@+id/nav_quiz"
             android:icon="@drawable/baseline_circle_24"
             android:title="Kvizovi" />
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/baseline_login_24"
+            android:title="Prijavi se" />
     </group>
 
 

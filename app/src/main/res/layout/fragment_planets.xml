@@ -9,7 +9,7 @@
     tools:context=".fragments.PlanetsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recycler_view_planet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
@@ -17,4 +17,3 @@
         android:scrollbars="vertical"
         android:contentDescription="@string/planet_list_desc" />
 </LinearLayout>
-
