@@ -8,10 +8,11 @@ AstroMap je mobilna aplikacija koja omogućuje korisnicima da na jednostavan i z
 
 ### Glavne značajke
 
-- **Edukativni moduli** - informacije o planetima, zvijezdama, galaksijama i zviježđima
-- **Interaktivna igra** - prepoznavanje i povezivanje zviježđa na noćnom nebu
-- **Enciklopedija svemira** - detaljna baza podataka o astronomskim objektima
-- **Sustav postignuća** - praćenje napretka korisnika
+- **edukativni moduli** - informacije o planetima, mjesecima i ostalim objektima Sunčevog sustava
+- **interaktivna igra** - prepoznavanje zviježđa na noćnom nebu
+- **enciklopedija svemira** - detaljna baza podataka o astronomskim objektima
+- **kvizovi** - usavršavanje naučenog iz modula riješavanjem kratkih kvizova
+- **sustav postignuća** - praćenje napretka korisnika, prikazivanje postignuća na profilu
 
 ## Sadržaj
 - [Opis projekta](#-opis-projekta)
@@ -30,7 +31,7 @@ AstroMap je mobilna aplikacija koja omogućuje korisnicima da na jednostavan i z
 | F01 | Edukativni moduli o strukturama svemira | Korisnicima je omogućen pregled edukativnih sadržaja kroz tematske cjeline s interaktivnim slikama i zanimljivostima. |
 | F02 | Interaktivna igra prepoznavanja zviježđa | Igra u kojoj korisnici pronalaze i povezuju zvijezde na noćnom nebu formirajući zviježđa, s postupnim povećanjem težine. |
 | F03 | Enciklopedija struktura svemira | Opsežna baza podataka o zviježđima, planetima i drugim strukturama svemira s detaljnim informacijama. |
-| F04 | Sustav postignuća | Praćenje napretka korisnika kroz aplikaciju i bilježenje ostvarenih rezultata. |
+| F04 | Sustav postignuća | Praćenje napretka korisnika kroz aplikaciju, bilježenje ostvarenih rezultata te prikaz na korisničkom profilu (za prijavljene korisnike), registracija i prijava korisnika. |
 
 ## Tehnologije i alati
 
@@ -44,6 +45,7 @@ AstroMap je mobilna aplikacija koja omogućuje korisnicima da na jednostavan i z
   - GitHub
   - Jira
   - Confluence
+  - GitHub Wiki
 
 ### Instalacija
 
@@ -61,7 +63,7 @@ AstroMap je mobilna aplikacija koja omogućuje korisnicima da na jednostavan i z
 
 ## Opis domene
 
-Projekt se bavi razvojem aplikacije za astronomiju koja uključuje edukativne sadržaje o svemiru, zvijezdama, planetima i galaksijama. Aplikacija će pružiti korisnicima jednostavan način da nauče o osnovnim astronomskim pojmovima i o strukturama svemira. Trenutna verzija aplikacije bazira se samo na Sunčev sustav i zviježđa, ali ima puno prostora za nadogradnju i proširenje na ostale sustave i galaksije.
+Projekt se bavi razvojem aplikacije za astronomiju koja uključuje edukativne sadržaje o svemiru, zvijezdama, planetima i ostalim objektima Sunčevog sustava. Aplikacija će pružiti korisnicima jednostavan način da nauče o osnovnim astronomskim pojmovima i o strukturama svemira. Trenutna verzija aplikacije bazira se samo na Sunčev sustav i zviježđa, ali ima puno prostora za nadogradnju i proširenje na ostale sustave i galaksije.
 
 Dodatni element igre omogućit će korisnicima da testiraju svoje znanje o zviježđima kroz interaktivnu igru u kojoj će prepoznavati zvijezde i spajati ih u odgovarajuća zviježđa. Aplikacija ima za cilj povećati znanje o astronomiji među korisnicima. Svoje znanje korisnici također mogu usavršiti rješavanjem kratkim kvizova koji su bazirani na tematskim cjelinama modula (npr. kviz o planetima, kviz o mjesecima itd.).
 
@@ -77,6 +79,12 @@ Dodatni element igre omogućit će korisnicima da testiraju svoje znanje o zvije
 | F02 | Igra prepoznavanja zviježđa | 6 | Logika povezivanja zvijezda | Kaja |
 | F03 | Enciklopedija struktura svemira | 7 | Kreiranje baze podataka | Julianne |
 | F04 | Sustav postignuća | 8 | Registracija i prijava korisnika | Julianne |
-| F04 | Sustav postignuća | 9 | Prikaz postignuća riješavanja kvizeva | Julianne |
-| F04 | Sustav postignuća | 10 | Prikaz postignuća riješavanja modula | Lana |
-| F04 | Sustav postignuća | 11 | Bilježenje prijeđenih razina | Kaja |
+| F04 | Sustav postignuća | 9 | Kreiranje korisničkog profila | Lana |
+| F04 | Sustav postignuća | 10  Prilagodba aplikacije za prijavljene korisnike | Julianne |
+| F04 | Sustav postignuća | 11 | Prikaz postignuća riješavanja kvizeva i modula | Julianne |
+| F04 | Sustav postignuća | 12 | Prikaz postignuća na profilu | Lana |
+| F04 | Sustav postignuća | 13 | Bilježenje prijeđenih razina igre | Kaja |
+| x | Prilagodba aplikacije | 16 | Finalna prilagodba i promjena primjećenih nedostataka. | Julianne |
+| x | Testiranje aplikacije | 14 | Detaljno testiranje igre i dodatna prilagodba prema potrebi ili zahtjevima. | Kaja |
+| x | Testiranje aplikacije | 15 | Detaljno testiranje modula i dodatna prilagodba prema potrebi ili zahtjevima. | Lana |
+| x | Testiranje aplikacije | 16 | Detaljno testiranje kvizova i baze te dodatna prilagodba prema potrebi ili zahtjevima. | Julianne |
