@@ -34,6 +34,9 @@
             android:name=".activities.PlanetDetailActivity"
             android:exported="false" />
         <activity
+            android:name="GameFragment"
+            android:exported="false" />
+        <activity
             android:name=".activities.MainActivity"
             android:exported="true" >
             <intent-filter>
