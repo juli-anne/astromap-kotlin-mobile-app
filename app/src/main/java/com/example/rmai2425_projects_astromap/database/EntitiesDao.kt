@@ -27,7 +27,6 @@ interface EntitiesDao {
     @Delete
     suspend fun deleteSunSystemInfo(info: SuncevSustavInfo)
 
-
     // Planeti
     @Insert
     suspend fun insertPlanet(planet: Planet): Long
@@ -134,4 +133,42 @@ interface EntitiesDao {
 
     @Delete
     suspend fun deleteZvijezdje(zvijezdje: Zvijezdje)
+
+    // Kviz pitanja
+    @Insert
+    suspend fun insertKvizPitanje(kvizPitanje: KvizPitanje)
+
+    @Insert
+    suspend fun insertKvizPitanja(kvizPitanja: List<KvizPitanje>): List<Long>
+
+    @Query("SELECT * FROM kviz_pitanja WHERE id = :pitanjeId")
+    suspend fun getKvizPitanjeById(pitanjeId: Int): KvizPitanje?
+
+    @Query("SELECT * FROM kviz_pitanja WHERE kategorija = :kategorija")
+    suspend fun getKvizPitanjaByKategorija(kategorija: String): List<KvizPitanje>
+
+    @Query("SELECT * FROM kviz_pitanja")
+    suspend fun getAllKvizPitanja(): List<KvizPitanje>
+
+    @Delete
+    suspend fun deleteKvizPitanje(kvizPitanje: KvizPitanje)
+
+    // Korisnici
+    @Insert
+    suspend fun insertUser(korisnik: Korisnik): Long
+
+    @Query("SELECT * FROM korisnici WHERE email = :email AND password = :password")
+    suspend fun getUserByEmailAndPassword(email: String, password: String): Korisnik?
+
+    @Query("SELECT * FROM korisnici WHERE email = :email")
+    suspend fun getUserByEmail(email: String): Korisnik?
+
+    @Query("SELECT * FROM korisnici WHERE id = :userId")
+    suspend fun getUserById(userId: Int): Korisnik?
+
+    @Query("SELECT * FROM korisnici")
+    suspend fun getAllUsers(): List<Korisnik>
+
+    @Delete
+    suspend fun deleteUser(korisnik: Korisnik)
 }

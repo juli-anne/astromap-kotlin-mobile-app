@@ -11,7 +11,11 @@ import com.example.rmai2425_projects_astromap.activities.PlanetDetailActivity
 import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.database.Planet
 
-class PlanetAdapter(private val planets: List<Planet>) : RecyclerView.Adapter<PlanetAdapter.MyViewHolder>() {
+class PlanetAdapter(
+    private val planets: List<Planet>,
+    private val isUserLoggedIn: Boolean,
+    private val onModuleComplete: (String) -> Unit
+) : RecyclerView.Adapter<PlanetAdapter.MyViewHolder>() {
 
     private val uniquePlanets = planets.distinctBy { it.ime.trim().lowercase() }
 
@@ -22,10 +26,11 @@ class PlanetAdapter(private val planets: List<Planet>) : RecyclerView.Adapter<Pl
         val planetInfo: TextView = view.findViewById(R.id.planetinfo)
         val diameterIcon: ImageView = view.findViewById(R.id.diameter_icon)
         val planetDiameter: TextView = view.findViewById(R.id.planet_diameter)
+        val completionButton: TextView = view.findViewById(R.id.completion_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.view, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.view_planet, parent, false)
         return MyViewHolder(itemView)
     }
 
@@ -53,7 +58,6 @@ class PlanetAdapter(private val planets: List<Planet>) : RecyclerView.Adapter<Pl
 
         holder.planetImg.setImageResource(dummyImage)
 
-
         holder.menuIcon.setOnClickListener {
             val intent = Intent(context, PlanetDetailActivity::class.java).apply {
                 putExtra("ime", planet.ime)
@@ -65,6 +69,24 @@ class PlanetAdapter(private val planets: List<Planet>) : RecyclerView.Adapter<Pl
                 putExtra("imgRes", dummyImage)
             }
             context.startActivity(intent)
+        }
+
+        if (isUserLoggedIn) {
+            holder.completionButton.visibility = View.VISIBLE
+
+            holder.completionButton.text = "Označi kao dovršeno"
+            holder.completionButton.setTextColor(context.getColor(R.color.white))
+            holder.completionButton.isEnabled = true
+
+            holder.completionButton.setOnClickListener {
+                holder.completionButton.text = "✓ Dovršeno"
+                holder.completionButton.setTextColor(context.getColor(R.color.success_green))
+                holder.completionButton.isEnabled = false
+
+                onModuleComplete(planet.ime)
+            }
+        } else {
+            holder.completionButton.visibility = View.GONE
         }
     }
 }

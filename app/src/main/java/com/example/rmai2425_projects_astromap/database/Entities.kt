@@ -2,6 +2,9 @@ package com.example.rmai2425_projects_astromap.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.Date
 
 @Entity(tableName = "suncev_sustav")
 data class SuncevSustavInfo(
@@ -105,4 +108,26 @@ data class Zvijezdje(
     val pozicija: String,
     val znacaj: String,
     val svjetleZvijezde: String
+)
+
+@Entity(tableName = "kviz_pitanja")
+data class KvizPitanje(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val kategorija: String,
+    val pitanje: String,
+    val tocniOdgovor: String,
+    val netocniOdgovor1: String,
+    val netocniOdgovor2: String,
+    val netocniOdgovor3: String
+)
+
+@Entity(tableName = "korisnici")
+data class Korisnik(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val ime: String,
+    val email: String,
+    val password: String,
+    val datumRegistracije: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 )

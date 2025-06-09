@@ -8,14 +8,13 @@ object DatabaseInitializer {
 
     suspend fun initDatabase(dao: EntitiesDao) {
         withContext(Dispatchers.IO) {
-            // Inicijalizacija planeta
+
             val planetIds = mutableMapOf<String, Int>()
             MockDataLoader.getPlanets().forEach { planet ->
                 val id = dao.insertPlanet(planet).toInt()
                 planetIds[planet.ime] = id
             }
 
-            // Inicijalizacija mjeseca
             MockDataLoader.getMoonsInfo().forEach { mjesecInfo ->
                 val planetId = planetIds[mjesecInfo.planetIme]
                 if (planetId == null) {
@@ -33,24 +32,34 @@ object DatabaseInitializer {
                 dao.insertMjesec(mjesec)
             }
 
-            // Inicijalizacija Sunca
             MockDataLoader.getSunce().forEach { dao.insertSunce(it) }
-
-            // Inicijalizacija asteroida
             MockDataLoader.getAsteroids().forEach { dao.insertAsteroid(it) }
-
-            // Inicijalizacija kometa
             MockDataLoader.getComets().forEach { dao.insertKomet(it) }
-
-            // Inicijalizacija objekata
             MockDataLoader.getObjects().forEach { dao.insertObjekt(it) }
-
-            // Inicijalizacija zvijezđa
             MockDataLoader.getZvijezdja().forEach { dao.insertZvijezdje(it) }
 
-            // Inicijalizacija podataka o Sunčevom sustavu
+            val planetiPitanja = MockDataLoader.getKvizPitanjaOPlanetima()
+            dao.insertKvizPitanja(planetiPitanja)
+
+            val suncePitanja = MockDataLoader.getKvizPitanjaOSuncu()
+            dao.insertKvizPitanja(suncePitanja)
+
+            val mjeseciPitanja = MockDataLoader.getKvizPitanjaOMjesecima()
+            dao.insertKvizPitanja(mjeseciPitanja)
+
+            val asteroidiPitanja = MockDataLoader.getKvizPitanjaOAsteroidima()
+            dao.insertKvizPitanja(asteroidiPitanja)
+
+            val kometiPitanja = MockDataLoader.getKvizPitanjaOKometima()
+            dao.insertKvizPitanja(kometiPitanja)
+
+            val objektiPitanja = MockDataLoader.getKvizPitanjaOObjektima()
+            dao.insertKvizPitanja(objektiPitanja)
+
+            val zvijezdjaPitanja = MockDataLoader.getKvizPitanjaOZvijezdjima()
+            dao.insertKvizPitanja(zvijezdjaPitanja)
+
             initSunSystemInfo(dao)
-            
         }
     }
 

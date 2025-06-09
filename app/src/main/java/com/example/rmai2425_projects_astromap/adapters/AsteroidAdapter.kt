@@ -11,8 +11,11 @@ import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.activities.AsteroidDetailActivity
 import com.example.rmai2425_projects_astromap.database.Asteroid
 
-class AsteroidAdapter(private val asteroids: List<Asteroid>) :
-    RecyclerView.Adapter<AsteroidAdapter.MyViewHolder>() {
+class AsteroidAdapter(
+    private val asteroids: List<Asteroid>,
+    private val isUserLoggedIn: Boolean,
+    private val onModuleComplete: (String) -> Unit
+) : RecyclerView.Adapter<AsteroidAdapter.MyViewHolder>() {
 
     private val uniqueAsteroids = asteroids.distinctBy { it.ime.trim().lowercase() }
 
@@ -21,6 +24,7 @@ class AsteroidAdapter(private val asteroids: List<Asteroid>) :
         val asteroidImg: ImageView = view.findViewById(R.id.asteroid_img)
         val menuIcon: ImageView = view.findViewById(R.id.asteroid_menu_icon)
         val asteroidInfo: TextView = view.findViewById(R.id.asteroidinfo)
+        val completionButton: TextView = view.findViewById(R.id.completion_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -49,7 +53,6 @@ class AsteroidAdapter(private val asteroids: List<Asteroid>) :
 
         holder.asteroidImg.setImageResource(dummyImage)
 
-
         holder.menuIcon.setOnClickListener {
             val intent = Intent(context, AsteroidDetailActivity::class.java).apply {
                 putExtra("ime", asteroid.ime)
@@ -59,6 +62,21 @@ class AsteroidAdapter(private val asteroids: List<Asteroid>) :
                 putExtra("imgRes", dummyImage)
             }
             context.startActivity(intent)
+        }
+
+        if (isUserLoggedIn) {
+            holder.completionButton.visibility = View.VISIBLE
+            holder.completionButton.text = "Označi kao dovršeno"
+            holder.completionButton.setTextColor(context.getColor(R.color.white))
+            holder.completionButton.isEnabled = true
+            holder.completionButton.setOnClickListener {
+                holder.completionButton.text = "Dovršeno"
+                holder.completionButton.setTextColor(context.getColor(R.color.success_green))
+                holder.completionButton.isEnabled = false
+                onModuleComplete(asteroid.ime)
+            }
+        } else {
+            holder.completionButton.visibility = View.GONE
         }
     }
 }
