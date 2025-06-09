@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.rmai2425_projects_astromap.activities.MainActivity
 
 class GameOver : AppCompatActivity() {
 
@@ -14,13 +15,13 @@ class GameOver : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_over)
 
-        val points = intent.extras?.getInt("points") ?: 0
-        tvPoints = findViewById(R.id.tvPoints)
+        val points = intent.getIntExtra("points", 0)
         tvPoints.text = points.toString()
     }
 
     fun restart(v: View) {
-        val intent = Intent(this, GameFragment::class.java)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("restart_game", true)
         startActivity(intent)
         finish()
     }

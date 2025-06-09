@@ -6,10 +6,7 @@ import android.graphics.BitmapFactory
 import java.util.Random
 
 class Comet(private val context: Context) {
-
-    private var comet: Bitmap =
-        BitmapFactory.decodeResource(context.resources, R.drawable.earth)
-
+    private var comet: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.earth)
     var x: Int = 0
     var y: Int = 0
     var isAlive: Boolean = true
@@ -17,20 +14,18 @@ class Comet(private val context: Context) {
     private val random = Random()
 
     init {
+        requireNotNull(comet) { "Bitmap resource R.drawable.earth not found!" }
+        require(comet.width > 0 && comet.height > 0) { "Comet image has invalid dimensions!" }
+        comet = Bitmap.createScaledBitmap(comet, 100, 100, true)
         resetComet()
     }
 
-    fun getComet(): Bitmap {
-        return comet
-    }
+    fun getComet(): Bitmap = comet
+    fun getCometWidth(): Int = comet.width
 
-    fun getCometWidth(): Int {
-        return comet.width
-    }
-
-    private fun resetComet() {
-        x = random.nextInt(SpaceShooter.screenWidth)
-        y = SpaceShooter.screenHeight - comet.height
-        cometVelocity = 10 + random.nextInt(6)
+    fun resetComet() {
+        x = (SpaceShooter.screenWidth - comet.width) / 2
+        y = SpaceShooter.screenHeight - comet.height - 30
+        cometVelocity = 0
     }
 }

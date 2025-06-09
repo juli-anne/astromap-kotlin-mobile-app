@@ -61,18 +61,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             toggle.syncState()
         }
 
-
         if(savedInstanceState == null){
             replaceFragment(HomeFragment())
             navigationView.setCheckedItem(R.id.nav_home)
         }
 
-
-
         val db = DatabaseProvider.getDatabase(this)
         val dao = db.entitiesDao()
         lifecycleScope.launch {
             DatabaseInitializer.initDatabase(dao)
+        }
+
+        if (intent.getBooleanExtra("restart_game", false)) {
+            replaceFragment(GameFragment())
+            supportActionBar?.title = "Igra"
         }
     }
 
@@ -119,13 +121,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-
     private fun replaceFragment(fragment: Fragment) {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)
         transaction.commit()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed(){
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)

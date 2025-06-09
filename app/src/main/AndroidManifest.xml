@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Rmai2425projectsastromap"
-        tools:targetApi="31" >
+        tools:targetApi="31"
+        android:enableOnBackInvokedCallback="true"
+        android:hardwareAccelerated="true">
         <activity
             android:name=".activities.MoonDetailActivity"
             android:exported="false" />
@@ -32,9 +34,6 @@
             android:exported="false" />
         <activity
             android:name=".activities.PlanetDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name="GameFragment"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
