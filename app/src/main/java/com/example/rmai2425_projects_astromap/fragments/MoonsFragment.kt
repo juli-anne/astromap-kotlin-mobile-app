@@ -13,13 +13,16 @@ import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.adapters.MoonAdapter
 import com.example.rmai2425_projects_astromap.database.DatabaseProvider
 import com.example.rmai2425_projects_astromap.database.Mjesec
+import com.example.rmai2425_projects_astromap.database.DovrseniModul
 import com.example.rmai2425_projects_astromap.utils.UserManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MoonsFragment : Fragment() {
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var moonAdapter: MoonAdapter
     private lateinit var userManager: UserManager
@@ -37,18 +40,26 @@ class MoonsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch { loadMoonsFromDatabase() }
+        lifecycleScope.launch {
+            loadMoonsFromDatabase()
+        }
     }
 
     private suspend fun loadMoonsFromDatabase() {
-        val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
+        val database = DatabaseProvider.getDatabase(requireContext())
         val userId = userManager.getCurrentUserId()
+
         withContext(Dispatchers.IO) {
-            moonList = dao.getAllMjeseci()
-            val allPlanets = dao.getAllPlanets()
+            moonList = database.mjesecDao().getAll()
+            val allPlanets = database.planetDao().getAll()
             planetIdToNameMap = allPlanets.associateBy({ it.id }, { it.ime })
-            completedModules = if (userId != -1) dao.getDovrseneModule(userId).map { it.modulId }.toSet() else emptySet()
+            completedModules = if (userId != -1) {
+                database.dovrseniModulDao().getByUserId(userId).map { it.modulId }.toSet()
+            } else {
+                emptySet()
+            }
         }
+
         moonAdapter = MoonAdapter(
             moonList,
             planetIdToNameMap,
@@ -57,12 +68,15 @@ class MoonsFragment : Fragment() {
         ) { moonName ->
             showCompletionMessage("Naučili ste sve o mjesecu $moonName!")
             lifecycleScope.launch {
-                dao.insertDovrseniModul(
-                    com.example.rmai2425_projects_astromap.database.DovrseniModul(
-                        userId = userId,
-                        modulId = moonName
+                withContext(Dispatchers.IO) {
+                    database.dovrseniModulDao().insert(
+                        DovrseniModul(
+                            userId = userId,
+                            modulId = moonName,
+                            datumDovrsenja = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                        )
                     )
-                )
+                }
                 moonAdapter.markModuleCompleted(moonName)
             }
         }

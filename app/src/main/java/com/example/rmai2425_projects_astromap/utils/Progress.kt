@@ -1,51 +1,68 @@
 package com.example.rmai2425_projects_astromap.utils
 
+import androidx.lifecycle.lifecycleScope
+import com.example.rmai2425_projects_astromap.database.DatabaseProvider
 import com.example.rmai2425_projects_astromap.database.DovrseniModul
 import com.example.rmai2425_projects_astromap.database.KvizRezultat
-import com.example.rmai2425_projects_astromap.database.EntitiesDao
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-class Progress(
-    private val dao: EntitiesDao,
-    private val userManager: UserManager
-) {
+class Progress(private val context: android.content.Context) {
 
-    suspend fun oznaciModulDovrsen(modulId: String) {
-        val userId = userManager.getCurrentUserId()
-        if (userId != -1) {
-            val dovrseni = dao.getDovrseneModule(userId)
-            val postoji = dovrseni.any { it.modulId == modulId }
-            if (!postoji) {
-                dao.insertDovrseniModul(
-                    DovrseniModul(
-                        userId = userId,
-                        modulId = modulId
-                    )
-                )
-            }
+    fun getDovrseneModule(userId: Int, callback: (List<DovrseniModul>) -> Unit) {
+        (context as androidx.lifecycle.LifecycleOwner).lifecycleScope.launch {
+            val database = DatabaseProvider.getDatabase(context)
+            val moduli = database.dovrseniModulDao().getByUserId(userId)
+            callback(moduli)
         }
     }
 
-    suspend fun spremiKvizRezultat(kvizId: String, rezultat: Int) {
-        val userId = userManager.getCurrentUserId()
-        if (userId != -1) {
-            val sviRezultati = dao.getKvizRezultate(userId)
-            val postojeci = sviRezultati.firstOrNull { it.kvizId == kvizId }
-            if (postojeci == null || rezultat > postojeci.najboljiRezultat) {
-                if (postojeci != null) {
-                    dao.updateKvizRezultat(userId, kvizId, rezultat)
-                } else {
-                    dao.insertKvizRezultat(
-                        KvizRezultat(
-                            userId = userId,
-                            kvizId = kvizId,
-                            najboljiRezultat = rezultat
-                        )
-                    )
-                }
-            }
+    fun insertDovrseniModul(userId: Int, modulId: String) {
+        (context as androidx.lifecycle.LifecycleOwner).lifecycleScope.launch {
+            val database = DatabaseProvider.getDatabase(context)
+            val modul = DovrseniModul(
+                userId = userId,
+                modulId = modulId,
+                datumDovrsenja = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+            )
+            database.dovrseniModulDao().insert(modul)
         }
     }
 
-    suspend fun getDovrseneModule(userId: Int) = dao.getDovrseneModule(userId)
-    suspend fun getKvizRezultate(userId: Int) = dao.getKvizRezultate(userId)
+    fun getKvizRezultate(userId: Int, callback: (List<KvizRezultat>) -> Unit) {
+        (context as androidx.lifecycle.LifecycleOwner).lifecycleScope.launch {
+            val database = DatabaseProvider.getDatabase(context)
+            val rezultati = database.kvizRezultatDao().getByUserId(userId)
+            callback(rezultati)
+        }
+    }
+
+    fun insertKvizRezultat(userId: Int, kvizId: String, rezultat: Int) {
+        (context as androidx.lifecycle.LifecycleOwner).lifecycleScope.launch {
+            val database = DatabaseProvider.getDatabase(context)
+            val kvizRezultat = KvizRezultat(
+                userId = userId,
+                kvizId = kvizId,
+                najboljiRezultat = rezultat,
+                datum = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+            )
+            database.kvizRezultatDao().insert(kvizRezultat)
+        }
+    }
+
+    fun updateKvizRezultat(userId: Int, kvizId: String, noviRezultat: Int) {
+        (context as androidx.lifecycle.LifecycleOwner).lifecycleScope.launch {
+            val database = DatabaseProvider.getDatabase(context)
+            database.kvizRezultatDao().updateRezultat(userId, kvizId, noviRezultat)
+        }
+    }
+
+    fun spremiKvizRezultat(kvizId: String, rezultat: Int) {
+        val userManager = UserManager(context)
+        if (userManager.isUserLoggedIn()) {
+            insertKvizRezultat(userManager.getCurrentUserId(), kvizId, rezultat)
+        }
+    }
 }

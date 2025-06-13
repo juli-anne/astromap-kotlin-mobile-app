@@ -22,7 +22,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class QuizActivity : AppCompatActivity() {
-
     private lateinit var questionTextView: TextView
     private lateinit var radioGroup: RadioGroup
     private lateinit var option1: RadioButton
@@ -47,8 +46,7 @@ class QuizActivity : AppCompatActivity() {
         setContentView(R.layout.activity_quiz)
 
         userManager = UserManager(this)
-        val dao = DatabaseProvider.getDatabase(this).entitiesDao()
-        progress = Progress(dao, userManager)
+        progress = Progress(this)
 
         questionTextView = findViewById(R.id.question_text)
         radioGroup = findViewById(R.id.options_radiogroup)
@@ -94,9 +92,10 @@ class QuizActivity : AppCompatActivity() {
 
     private suspend fun loadQuestions(category: String) {
         withContext(Dispatchers.IO) {
-            val dao = DatabaseProvider.getDatabase(this@QuizActivity).entitiesDao()
-            questions = dao.getKvizPitanjaByKategorija(category)
+            val database = DatabaseProvider.getDatabase(this@QuizActivity)
+            questions = database.kvizPitanjeDao().getByKategorija(category)
         }
+
         withContext(Dispatchers.Main) {
             if (questions.isNotEmpty()) {
                 if (questions.size > 10) {
@@ -159,7 +158,7 @@ class QuizActivity : AppCompatActivity() {
 
         if (userManager.isUserLoggedIn()) {
             lifecycleScope.launch {
-                progress.spremiKvizRezultat(category, score)
+                progress.insertKvizRezultat(userManager.getCurrentUserId(), category, score)
             }
         }
 
