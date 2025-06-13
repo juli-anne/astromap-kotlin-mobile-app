@@ -24,11 +24,9 @@ class ObjectsFragment : Fragment() {
     private lateinit var objectAdapter: ObjectAdapter
     private lateinit var userManager: UserManager
     private var objectList: List<ObjektSuncevogSustava> = listOf()
+    private var completedModules: Set<String> = emptySet()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_objects, container, false)
         userManager = UserManager(requireContext())
         recyclerView = view.findViewById(R.id.recycler_view_object)
@@ -38,26 +36,32 @@ class ObjectsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        lifecycleScope.launch {
-            loadObjectsFromDatabase()
-        }
+        lifecycleScope.launch { loadObjectsFromDatabase() }
     }
 
     private suspend fun loadObjectsFromDatabase() {
         val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
-
+        val userId = userManager.getCurrentUserId()
         withContext(Dispatchers.IO) {
             objectList = dao.getAllObjekti()
+            completedModules = if (userId != -1) dao.getDovrseneModule(userId).map { it.modulId }.toSet() else emptySet()
         }
-
         objectAdapter = ObjectAdapter(
             objectList,
             userManager.isUserLoggedIn(),
-            { objectName ->
-                showCompletionMessage("Naučili ste sve o objektu $objectName!")
+            completedModules
+        ) { objectName ->
+            showCompletionMessage("Naučili ste sve o objektu $objectName!")
+            lifecycleScope.launch {
+                dao.insertDovrseniModul(
+                    com.example.rmai2425_projects_astromap.database.DovrseniModul(
+                        userId = userId,
+                        modulId = objectName
+                    )
+                )
+                objectAdapter.markModuleCompleted(objectName)
             }
-        )
+        }
         recyclerView.adapter = objectAdapter
     }
 

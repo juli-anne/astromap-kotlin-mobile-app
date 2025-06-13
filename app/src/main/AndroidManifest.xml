@@ -16,7 +16,7 @@
         android:hardwareAccelerated="true">
 
         <activity
-            android:name=".QuizActivity"
+            android:name=".activities.QuizActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MoonDetailActivity"

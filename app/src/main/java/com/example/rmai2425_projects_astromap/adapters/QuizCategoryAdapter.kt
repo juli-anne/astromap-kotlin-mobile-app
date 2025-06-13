@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rmai2425_projects_astromap.QuizActivity
-import com.example.rmai2425_projects_astromap.QuizCategory
+import com.example.rmai2425_projects_astromap.activities.QuizActivity
+import com.example.rmai2425_projects_astromap.utils.QuizCategory
 import com.example.rmai2425_projects_astromap.R
 
 class QuizCategoryAdapter(private val categories: List<QuizCategory>) :

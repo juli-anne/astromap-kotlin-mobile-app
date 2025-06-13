@@ -24,12 +24,10 @@ class MoonsFragment : Fragment() {
     private lateinit var moonAdapter: MoonAdapter
     private lateinit var userManager: UserManager
     private var moonList: List<Mjesec> = listOf()
+    private var completedModules: Set<String> = emptySet()
+    private var planetIdToNameMap: Map<Int, String> = emptyMap()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_moons, container, false)
         userManager = UserManager(requireContext())
         recyclerView = view.findViewById(R.id.recycler_view_moon)
@@ -39,29 +37,36 @@ class MoonsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch {
-            loadMoonsFromDatabase()
-        }
+        lifecycleScope.launch { loadMoonsFromDatabase() }
     }
 
     private suspend fun loadMoonsFromDatabase() {
         val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
+        val userId = userManager.getCurrentUserId()
         withContext(Dispatchers.IO) {
             moonList = dao.getAllMjeseci()
             val allPlanets = dao.getAllPlanets()
-            val planetIdToNameMap = allPlanets.associateBy({ it.id }, { it.ime })
-
-            withContext(Dispatchers.Main) {
-                moonAdapter = MoonAdapter(
-                    moonList,
-                    planetIdToNameMap,
-                    userManager.isUserLoggedIn()
-                ) { moonName ->
-                    showCompletionMessage("Naučili ste sve o mjesecu $moonName!")
-                }
-                recyclerView.adapter = moonAdapter
+            planetIdToNameMap = allPlanets.associateBy({ it.id }, { it.ime })
+            completedModules = if (userId != -1) dao.getDovrseneModule(userId).map { it.modulId }.toSet() else emptySet()
+        }
+        moonAdapter = MoonAdapter(
+            moonList,
+            planetIdToNameMap,
+            userManager.isUserLoggedIn(),
+            completedModules
+        ) { moonName ->
+            showCompletionMessage("Naučili ste sve o mjesecu $moonName!")
+            lifecycleScope.launch {
+                dao.insertDovrseniModul(
+                    com.example.rmai2425_projects_astromap.database.DovrseniModul(
+                        userId = userId,
+                        modulId = moonName
+                    )
+                )
+                moonAdapter.markModuleCompleted(moonName)
             }
         }
+        recyclerView.adapter = moonAdapter
     }
 
     private fun showCompletionMessage(message: String) {

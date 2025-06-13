@@ -24,11 +24,9 @@ class ConstellationsFragment : Fragment() {
     private lateinit var constellationAdapter: ConstellationAdapter
     private lateinit var userManager: UserManager
     private var constellationList: List<Zvijezdje> = listOf()
+    private var completedModules: Set<String> = emptySet()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_constellations, container, false)
         userManager = UserManager(requireContext())
         recyclerView = view.findViewById(R.id.recycler_view_constellation)
@@ -38,27 +36,32 @@ class ConstellationsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        lifecycleScope.launch {
-            loadConstellationsFromDatabase()
-        }
+        lifecycleScope.launch { loadConstellationsFromDatabase() }
     }
 
     private suspend fun loadConstellationsFromDatabase() {
-        val database = DatabaseProvider.getDatabase(requireContext())
-        val dao = database.entitiesDao()
-
+        val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
+        val userId = userManager.getCurrentUserId()
         withContext(Dispatchers.IO) {
             constellationList = dao.getAllZvijezdja()
+            completedModules = if (userId != -1) dao.getDovrseneModule(userId).map { it.modulId }.toSet() else emptySet()
         }
-
         constellationAdapter = ConstellationAdapter(
             constellationList,
             userManager.isUserLoggedIn(),
-            { constellationName ->
-                showCompletionMessage("Naučili ste sve o zviježđu $constellationName!")
+            completedModules
+        ) { constellationName ->
+            showCompletionMessage("Naučili ste sve o zviježđu $constellationName!")
+            lifecycleScope.launch {
+                dao.insertDovrseniModul(
+                    com.example.rmai2425_projects_astromap.database.DovrseniModul(
+                        userId = userId,
+                        modulId = constellationName
+                    )
+                )
+                constellationAdapter.markModuleCompleted(constellationName)
             }
-        )
+        }
         recyclerView.adapter = constellationAdapter
     }
 

@@ -24,9 +24,11 @@ class CometsFragment : Fragment() {
     private lateinit var cometAdapter: CometAdapter
     private lateinit var userManager: UserManager
     private var cometList: List<Komet> = listOf()
+    private var completedModules: Set<String> = emptySet()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_comets, container, false)
@@ -38,30 +40,34 @@ class CometsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        lifecycleScope.launch {
-            loadCometsFromDatabase()
-        }
+        lifecycleScope.launch { loadCometsFromDatabase() }
     }
 
     private suspend fun loadCometsFromDatabase() {
-        val database = DatabaseProvider.getDatabase(requireContext())
-        val dao = database.entitiesDao()
-
+        val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
+        val userId = userManager.getCurrentUserId()
         withContext(Dispatchers.IO) {
             cometList = dao.getAllKometi()
+            completedModules = if (userId != -1) dao.getDovrseneModule(userId).map { it.modulId }.toSet() else emptySet()
         }
-
         cometAdapter = CometAdapter(
             cometList,
             userManager.isUserLoggedIn(),
-            { cometName ->
-                showCompletionMessage("Naučili ste sve o kometu $cometName!")
+            completedModules
+        ) { cometName ->
+            showCompletionMessage("Naučili ste sve o kometu $cometName!")
+            lifecycleScope.launch {
+                dao.insertDovrseniModul(
+                    com.example.rmai2425_projects_astromap.database.DovrseniModul(
+                        userId = userId,
+                        modulId = cometName
+                    )
+                )
+                cometAdapter.markModuleCompleted(cometName)
             }
-        )
+        }
         recyclerView.adapter = cometAdapter
     }
-
 
     private fun showCompletionMessage(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()

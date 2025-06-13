@@ -34,6 +34,7 @@ import com.example.rmai2425_projects_astromap.utils.UserManager
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var userManager: UserManager
     private lateinit var navigationView: NavigationView
@@ -52,11 +53,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         drawerLayout = findViewById(R.id.drawer_layout)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Sunčev sustav"
 
-        navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
         val toggle = ActionBarDrawerToggle(
@@ -77,20 +78,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
 
+        updateNavigationMenu()
+
         if (savedInstanceState == null) {
             replaceFragment(HomeFragment())
             navigationView.setCheckedItem(R.id.nav_home)
         }
-
-        updateNavigationMenu()
 
         lifecycleScope.launch {
             val dao = DatabaseProvider.getDatabase(this@MainActivity).entitiesDao()
             DatabaseInitializer.initDatabase(dao)
         }
 
-        // Podrška za restart igre iz GameOver ekrana
-        if (intent.getBooleanExtra("restart_game", false)) {
+        if (intent.getBooleanExtra("restartgame", false)) {
             replaceFragment(GameFragment())
             supportActionBar?.title = "Igra"
         }
@@ -104,7 +104,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun updateNavigationMenu() {
         val menu = navigationView.menu
         val loginMenuItem = menu.findItem(R.id.nav_login)
-
         if (userManager.isUserLoggedIn()) {
             loginMenuItem?.title = "Moj profil"
             loginMenuItem?.setIcon(R.drawable.baseline_person_24)
@@ -146,7 +145,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_constellations -> {
                 replaceFragment(ConstellationsFragment())
-                supportActionBar?.title = "Zvijezđa"
+                supportActionBar?.title = "Zviježđa"
             }
             R.id.nav_game -> {
                 replaceFragment(GameFragment())

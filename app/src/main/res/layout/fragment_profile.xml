@@ -1,96 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         android:padding="24dp">
 
         <ImageView
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginBottom="24dp"
-            android:src="@drawable/baseline_person_24"
             android:background="@drawable/circle_background"
             android:contentDescription="Profile icon"
+            android:src="@drawable/baseline_person_24"
             app:tint="@android:color/black" />
 
         <TextView
-            android:id="@+id/tv_user_name"
+            android:id="@+id/tv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ime Prezime"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/poppins_semibold"
+            android:text="Ime Prezime"
             android:textColor="@color/text_primary"
-            android:layout_marginBottom="8dp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_user_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="email@example.com"
-            android:textSize="16sp"
+            android:layout_marginBottom="16dp"
             android:fontFamily="@font/poppins_regular"
+            android:text="email@example.com"
             android:textColor="@color/text_secondary"
-            android:layout_marginBottom="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_registration_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:fontFamily="@font/poppins_regular"
             android:text="Registriran: --"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_regular"
             android:textColor="@color/text_secondary"
-            android:layout_marginBottom="32dp" />
+            android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/tv_education_level"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_dovrseni_moduli"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dovršeni edukativni moduli: --"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/text_secondary"
-            android:layout_marginBottom="32dp" />
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Riješeni moduli:"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tv_quiz_level"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_kviz_rezultati"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Riješeni kvizevi --"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/text_secondary"
-            android:layout_marginBottom="32dp" />
-
-        <TextView
-            android:id="@+id/tv_quiz_results"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rezultati kvizeva: --"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/text_secondary"
-            android:layout_marginBottom="32dp" />
-
-
+            android:layout_marginBottom="32dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Rezultati kvizova:"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Odjavi se"
             android:backgroundTint="@color/primary"
+            android:text="Odjavi se"
             android:textColor="@android:color/white" />
+
     </LinearLayout>
 </ScrollView>
-

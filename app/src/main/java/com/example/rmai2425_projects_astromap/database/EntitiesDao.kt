@@ -4,6 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Delete
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Dao
 interface EntitiesDao {
@@ -171,4 +174,23 @@ interface EntitiesDao {
 
     @Delete
     suspend fun deleteUser(korisnik: Korisnik)
+
+    // Dovršeni moduli
+    @Insert
+    suspend fun insertDovrseniModul(modul: DovrseniModul)
+
+    @Query("SELECT * FROM dovrseni_moduli WHERE userId = :userId")
+    suspend fun getDovrseneModule(userId: Int): List<DovrseniModul>
+
+    // Kviz rezultati
+    @Insert
+    suspend fun insertKvizRezultat(rezultat: KvizRezultat)
+
+    @Query("SELECT * FROM kviz_rezultati WHERE userId = :userId")
+    suspend fun getKvizRezultate(userId: Int): List<KvizRezultat>
+
+    @Query("UPDATE kviz_rezultati SET najboljiRezultat = :noviRezultat, datum = :datum WHERE userId = :userId AND kvizId = :kvizId")
+    suspend fun updateKvizRezultat(userId: Int, kvizId: String, noviRezultat: Int, datum: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(
+        Date()
+    ))
 }

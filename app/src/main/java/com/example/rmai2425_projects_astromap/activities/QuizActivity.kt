@@ -1,4 +1,4 @@
-package com.example.rmai2425_projects_astromap
+package com.example.rmai2425_projects_astromap.activities
 
 import android.os.Bundle
 import android.os.Handler
@@ -12,13 +12,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.database.DatabaseProvider
 import com.example.rmai2425_projects_astromap.database.KvizPitanje
+import com.example.rmai2425_projects_astromap.utils.UserManager
+import com.example.rmai2425_projects_astromap.utils.Progress
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class QuizActivity : AppCompatActivity() {
+
     private lateinit var questionTextView: TextView
     private lateinit var radioGroup: RadioGroup
     private lateinit var option1: RadioButton
@@ -29,15 +33,22 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var scoreTextView: TextView
     private lateinit var nextButton: Button
     private lateinit var quitButton: ImageButton
+    private lateinit var userManager: UserManager
+    private lateinit var progress: Progress
 
     private var currentQuestionIndex = 0
     private var score = 0
     private var questions: List<KvizPitanje> = listOf()
     private var answeredQuestions = 0
+    private var category = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
+
+        userManager = UserManager(this)
+        val dao = DatabaseProvider.getDatabase(this).entitiesDao()
+        progress = Progress(dao, userManager)
 
         questionTextView = findViewById(R.id.question_text)
         radioGroup = findViewById(R.id.options_radiogroup)
@@ -50,8 +61,7 @@ class QuizActivity : AppCompatActivity() {
         nextButton = findViewById(R.id.next_button)
         quitButton = findViewById(R.id.quit_button)
 
-        val category = intent.getStringExtra("category") ?: "Planeti"
-
+        category = intent.getStringExtra("category") ?: "Planeti"
         title = category
 
         lifecycleScope.launch {
@@ -73,12 +83,7 @@ class QuizActivity : AppCompatActivity() {
                 radioGroup.clearCheck()
                 enableOptions(true)
             } else {
-                val resultMessage = "Kviz završen! Vaš rezultat: $score od ${questions.size}"
-                Toast.makeText(this, resultMessage, Toast.LENGTH_LONG).show()
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    finish()
-                }, 2000)
+                finishQuiz()
             }
         }
 
@@ -92,7 +97,6 @@ class QuizActivity : AppCompatActivity() {
             val dao = DatabaseProvider.getDatabase(this@QuizActivity).entitiesDao()
             questions = dao.getKvizPitanjaByKategorija(category)
         }
-
         withContext(Dispatchers.Main) {
             if (questions.isNotEmpty()) {
                 if (questions.size > 10) {
@@ -141,14 +145,27 @@ class QuizActivity : AppCompatActivity() {
 
             answeredQuestions++
             scoreTextView.text = "Rezultat: $score/$answeredQuestions"
-
             submitButton.visibility = View.GONE
             nextButton.visibility = View.VISIBLE
-
             enableOptions(false)
         } else {
             Toast.makeText(this, "Molimo odaberite odgovor", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun finishQuiz() {
+        val resultMessage = "Kviz završen! Vaš rezultat: $score od ${questions.size}"
+        Toast.makeText(this, resultMessage, Toast.LENGTH_LONG).show()
+
+        if (userManager.isUserLoggedIn()) {
+            lifecycleScope.launch {
+                progress.spremiKvizRezultat(category, score)
+            }
+        }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            finish()
+        }, 2000)
     }
 
     private fun enableOptions(enable: Boolean) {
