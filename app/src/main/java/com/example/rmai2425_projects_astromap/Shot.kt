@@ -7,7 +7,7 @@ import android.graphics.BitmapFactory
 class Shot(context: Context, var x: Int, var y: Int) {
     private val shot: Bitmap = Bitmap.createScaledBitmap(
         BitmapFactory.decodeResource(context.resources, R.drawable.shot),
-        32, 32, true
+        70, 70, true
     )
     fun getShot(): Bitmap = shot
 }

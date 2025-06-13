@@ -10,7 +10,9 @@
         android:layout_height="75dp"
         android:layout_gravity="center"
         android:text="Play game"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"/>
 
     <FrameLayout
         android:id="@+id/gameContainer"
