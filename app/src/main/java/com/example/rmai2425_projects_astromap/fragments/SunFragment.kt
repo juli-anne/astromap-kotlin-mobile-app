@@ -24,12 +24,9 @@ class SunFragment : Fragment() {
     private lateinit var sunAdapter: SunAdapter
     private lateinit var userManager: UserManager
     private var sunList: List<Sunce> = listOf()
+    private var completedModules: Set<String> = emptySet()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_sun, container, false)
         userManager = UserManager(requireContext())
         recyclerView = view.findViewById(R.id.recycler_view_sun)
@@ -39,29 +36,34 @@ class SunFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch {
-            loadSunsFromDatabase()
-        }
+        lifecycleScope.launch { loadSunsFromDatabase() }
     }
 
     private suspend fun loadSunsFromDatabase() {
-        val database = DatabaseProvider.getDatabase(requireContext())
-        val dao = database.entitiesDao()
-
+        val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
+        val userId = userManager.getCurrentUserId()
         withContext(Dispatchers.IO) {
             sunList = dao.getAllSunca()
+            completedModules = if (userId != -1) dao.getDovrseneModule(userId).map { it.modulId }.toSet() else emptySet()
         }
-
         sunAdapter = SunAdapter(
             sunList,
             userManager.isUserLoggedIn(),
-            { sunName ->
-                showCompletionMessage("Naučili ste sve o suncu $sunName!")
+            completedModules
+        ) { sunName ->
+            showCompletionMessage("Naučili ste sve o suncu $sunName!")
+            lifecycleScope.launch {
+                dao.insertDovrseniModul(
+                    com.example.rmai2425_projects_astromap.database.DovrseniModul(
+                        userId = userId,
+                        modulId = sunName
+                    )
+                )
+                sunAdapter.markModuleCompleted(sunName)
             }
-        )
+        }
         recyclerView.adapter = sunAdapter
     }
-
 
     private fun showCompletionMessage(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()

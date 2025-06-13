@@ -24,11 +24,9 @@ class AsteroidsFragment : Fragment() {
     private lateinit var asteroidAdapter: AsteroidAdapter
     private lateinit var userManager: UserManager
     private var asteroidList: List<Asteroid> = listOf()
+    private var completedModules: Set<String> = emptySet()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_asteroids, container, false)
         userManager = UserManager(requireContext())
         recyclerView = view.findViewById(R.id.recycler_view_asteroid)
@@ -38,26 +36,32 @@ class AsteroidsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        lifecycleScope.launch {
-            loadAsteroidsFromDatabase()
-        }
+        lifecycleScope.launch { loadAsteroidsFromDatabase() }
     }
 
     private suspend fun loadAsteroidsFromDatabase() {
         val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
-
+        val userId = userManager.getCurrentUserId()
         withContext(Dispatchers.IO) {
             asteroidList = dao.getAllAsteroidi()
+            completedModules = if (userId != -1) dao.getDovrseneModule(userId).map { it.modulId }.toSet() else emptySet()
         }
-
         asteroidAdapter = AsteroidAdapter(
             asteroidList,
             userManager.isUserLoggedIn(),
-            { asteroidName ->
-                showCompletionMessage("Naučili ste sve o asteroidu $asteroidName!")
+            completedModules
+        ) { asteroidName ->
+            showCompletionMessage("Naučili ste sve o asteroidu $asteroidName!")
+            lifecycleScope.launch {
+                dao.insertDovrseniModul(
+                    com.example.rmai2425_projects_astromap.database.DovrseniModul(
+                        userId = userId,
+                        modulId = asteroidName
+                    )
+                )
+                asteroidAdapter.markModuleCompleted(asteroidName)
             }
-        )
+        }
         recyclerView.adapter = asteroidAdapter
     }
 

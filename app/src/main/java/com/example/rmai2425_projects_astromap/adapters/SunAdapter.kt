@@ -14,10 +14,12 @@ import com.example.rmai2425_projects_astromap.database.Sunce
 class SunAdapter(
     private val sunca: List<Sunce>,
     private val isUserLoggedIn: Boolean,
+    completedModules: Set<String>,
     private val onModuleComplete: (String) -> Unit
 ) : RecyclerView.Adapter<SunAdapter.MyViewHolder>() {
 
     private val uniqueSunca = sunca.distinctBy { it.ime.trim().lowercase() }
+    private val completedModules: MutableSet<String> = completedModules.toMutableSet()
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.sun_title)
@@ -30,7 +32,8 @@ class SunAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.view_sun, parent, false)
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.view_sun, parent, false)
         return MyViewHolder(itemView)
     }
 
@@ -41,12 +44,9 @@ class SunAdapter(
         holder.title.text = sunce.ime
         holder.sunInfo.text = sunce.kratkiOpis
         holder.sunDiameter.text = "${sunce.promjer} km"
-
         val context = holder.itemView.context
         val imageResource = R.drawable.sunce
-
         holder.sunImg.setImageResource(imageResource)
-
         holder.menuIcon.setOnClickListener {
             val intent = Intent(context, SunDetailActivity::class.java).apply {
                 putExtra("ime", sunce.ime)
@@ -63,17 +63,29 @@ class SunAdapter(
 
         if (isUserLoggedIn) {
             holder.completionButton.visibility = View.VISIBLE
-            holder.completionButton.text = "Označi kao dovršeno"
-            holder.completionButton.setTextColor(context.getColor(R.color.white))
-            holder.completionButton.isEnabled = true
-            holder.completionButton.setOnClickListener {
+            if (completedModules.contains(sunce.ime)) {
                 holder.completionButton.text = "Dovršeno"
                 holder.completionButton.setTextColor(context.getColor(R.color.success_green))
                 holder.completionButton.isEnabled = false
-                onModuleComplete(sunce.ime)
+            } else {
+                holder.completionButton.text = "Označi kao dovršeno"
+                holder.completionButton.setTextColor(context.getColor(R.color.white))
+                holder.completionButton.isEnabled = true
+                holder.completionButton.setOnClickListener {
+                    onModuleComplete(sunce.ime)
+                    markModuleCompleted(sunce.ime)
+                }
             }
         } else {
             holder.completionButton.visibility = View.GONE
+        }
+    }
+
+    fun markModuleCompleted(moduleName: String) {
+        val index = uniqueSunca.indexOfFirst { it.ime == moduleName }
+        if (index != -1) {
+            completedModules.add(moduleName)
+            notifyItemChanged(index)
         }
     }
 }

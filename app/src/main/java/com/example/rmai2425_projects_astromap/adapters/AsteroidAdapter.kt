@@ -14,10 +14,12 @@ import com.example.rmai2425_projects_astromap.database.Asteroid
 class AsteroidAdapter(
     private val asteroids: List<Asteroid>,
     private val isUserLoggedIn: Boolean,
+    completedModules: Set<String>,
     private val onModuleComplete: (String) -> Unit
 ) : RecyclerView.Adapter<AsteroidAdapter.MyViewHolder>() {
 
     private val uniqueAsteroids = asteroids.distinctBy { it.ime.trim().lowercase() }
+    private val completedModules: MutableSet<String> = completedModules.toMutableSet()
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.asteroid_title)
@@ -39,9 +41,7 @@ class AsteroidAdapter(
         val asteroid = uniqueAsteroids[position]
         holder.title.text = asteroid.ime
         holder.asteroidInfo.text = asteroid.kratkiOpis
-
         val context = holder.itemView.context
-
         val dummyImage = when (asteroid.ime.trim().lowercase()) {
             "ceres" -> R.drawable.ceres
             "vesta" -> R.drawable.vesta
@@ -50,9 +50,7 @@ class AsteroidAdapter(
             "pallas" -> R.drawable.pallas
             else -> R.drawable.ceres
         }
-
         holder.asteroidImg.setImageResource(dummyImage)
-
         holder.menuIcon.setOnClickListener {
             val intent = Intent(context, AsteroidDetailActivity::class.java).apply {
                 putExtra("ime", asteroid.ime)
@@ -66,17 +64,29 @@ class AsteroidAdapter(
 
         if (isUserLoggedIn) {
             holder.completionButton.visibility = View.VISIBLE
-            holder.completionButton.text = "Označi kao dovršeno"
-            holder.completionButton.setTextColor(context.getColor(R.color.white))
-            holder.completionButton.isEnabled = true
-            holder.completionButton.setOnClickListener {
+            if (completedModules.contains(asteroid.ime)) {
                 holder.completionButton.text = "Dovršeno"
                 holder.completionButton.setTextColor(context.getColor(R.color.success_green))
                 holder.completionButton.isEnabled = false
-                onModuleComplete(asteroid.ime)
+            } else {
+                holder.completionButton.text = "Označi kao dovršeno"
+                holder.completionButton.setTextColor(context.getColor(R.color.white))
+                holder.completionButton.isEnabled = true
+                holder.completionButton.setOnClickListener {
+                    onModuleComplete(asteroid.ime)
+                    markModuleCompleted(asteroid.ime)
+                }
             }
         } else {
             holder.completionButton.visibility = View.GONE
+        }
+    }
+
+    fun markModuleCompleted(moduleName: String) {
+        val index = uniqueAsteroids.indexOfFirst { it.ime == moduleName }
+        if (index != -1) {
+            completedModules.add(moduleName)
+            notifyItemChanged(index)
         }
     }
 }

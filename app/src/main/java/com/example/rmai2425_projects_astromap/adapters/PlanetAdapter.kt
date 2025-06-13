@@ -14,10 +14,12 @@ import com.example.rmai2425_projects_astromap.database.Planet
 class PlanetAdapter(
     private val planets: List<Planet>,
     private val isUserLoggedIn: Boolean,
+    completedModules: Set<String>,
     private val onModuleComplete: (String) -> Unit
 ) : RecyclerView.Adapter<PlanetAdapter.MyViewHolder>() {
 
     private val uniquePlanets = planets.distinctBy { it.ime.trim().lowercase() }
+    private val completedModules: MutableSet<String> = completedModules.toMutableSet()
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
@@ -30,7 +32,8 @@ class PlanetAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.view_planet, parent, false)
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.view_planet, parent, false)
         return MyViewHolder(itemView)
     }
 
@@ -41,13 +44,11 @@ class PlanetAdapter(
         holder.title.text = planet.ime
         holder.planetInfo.text = planet.kratkiOpis
         holder.planetDiameter.text = "${planet.promjer} km"
-
         val context = holder.itemView.context
-
         val dummyImage = when (planet.ime.trim().lowercase()) {
             "merkur" -> R.drawable.mercury
             "venera" -> R.drawable.venus
-            "zemlja" -> R.drawable.earth
+            "zemlja" -> R.drawable.zemlja
             "mars" -> R.drawable.mars
             "jupiter" -> R.drawable.jupiter
             "saturn" -> R.drawable.saturn
@@ -55,9 +56,7 @@ class PlanetAdapter(
             "neptun" -> R.drawable.neptune
             else -> R.drawable.earth
         }
-
         holder.planetImg.setImageResource(dummyImage)
-
         holder.menuIcon.setOnClickListener {
             val intent = Intent(context, PlanetDetailActivity::class.java).apply {
                 putExtra("ime", planet.ime)
@@ -73,20 +72,29 @@ class PlanetAdapter(
 
         if (isUserLoggedIn) {
             holder.completionButton.visibility = View.VISIBLE
-
-            holder.completionButton.text = "Označi kao dovršeno"
-            holder.completionButton.setTextColor(context.getColor(R.color.white))
-            holder.completionButton.isEnabled = true
-
-            holder.completionButton.setOnClickListener {
-                holder.completionButton.text = "✓ Dovršeno"
+            if (completedModules.contains(planet.ime)) {
+                holder.completionButton.text = "Dovršeno"
                 holder.completionButton.setTextColor(context.getColor(R.color.success_green))
                 holder.completionButton.isEnabled = false
-
-                onModuleComplete(planet.ime)
+            } else {
+                holder.completionButton.text = "Označi kao dovršeno"
+                holder.completionButton.setTextColor(context.getColor(R.color.white))
+                holder.completionButton.isEnabled = true
+                holder.completionButton.setOnClickListener {
+                    onModuleComplete(planet.ime)
+                    markModuleCompleted(planet.ime)
+                }
             }
         } else {
             holder.completionButton.visibility = View.GONE
+        }
+    }
+
+    fun markModuleCompleted(moduleName: String) {
+        val index = uniquePlanets.indexOfFirst { it.ime == moduleName }
+        if (index != -1) {
+            completedModules.add(moduleName)
+            notifyItemChanged(index)
         }
     }
 }

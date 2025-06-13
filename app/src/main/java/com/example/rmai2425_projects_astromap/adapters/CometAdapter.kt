@@ -14,10 +14,12 @@ import com.example.rmai2425_projects_astromap.database.Komet
 class CometAdapter(
     private val kometi: List<Komet>,
     private val isUserLoggedIn: Boolean,
+    completedModules: Set<String>,
     private val onModuleComplete: (String) -> Unit
 ) : RecyclerView.Adapter<CometAdapter.MyViewHolder>() {
 
     private val uniqueKometi = kometi.distinctBy { it.ime.trim().lowercase() }
+    private val completedModules: MutableSet<String> = completedModules.toMutableSet()
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.comet_title)
@@ -39,9 +41,7 @@ class CometAdapter(
         val komet = uniqueKometi[position]
         holder.title.text = komet.ime
         holder.cometInfo.text = komet.kratkiOpis
-
         val context = holder.itemView.context
-
         val dummyImage = when (komet.ime.trim().lowercase()) {
             "halleyjev komet" -> R.drawable.halle
             "hale-bopp" -> R.drawable.halebopp
@@ -50,9 +50,7 @@ class CometAdapter(
             "enckeov komet" -> R.drawable.encke
             else -> R.drawable.halle
         }
-
         holder.cometImg.setImageResource(dummyImage)
-
         holder.menuIcon.setOnClickListener {
             val intent = Intent(context, CometDetailActivity::class.java).apply {
                 putExtra("ime", komet.ime)
@@ -68,17 +66,29 @@ class CometAdapter(
 
         if (isUserLoggedIn) {
             holder.completionButton.visibility = View.VISIBLE
-            holder.completionButton.text = "Označi kao dovršeno"
-            holder.completionButton.setTextColor(context.getColor(R.color.white))
-            holder.completionButton.isEnabled = true
-            holder.completionButton.setOnClickListener {
+            if (completedModules.contains(komet.ime)) {
                 holder.completionButton.text = "Dovršeno"
                 holder.completionButton.setTextColor(context.getColor(R.color.success_green))
                 holder.completionButton.isEnabled = false
-                onModuleComplete(komet.ime)
+            } else {
+                holder.completionButton.text = "Označi kao dovršeno"
+                holder.completionButton.setTextColor(context.getColor(R.color.white))
+                holder.completionButton.isEnabled = true
+                holder.completionButton.setOnClickListener {
+                    onModuleComplete(komet.ime)
+                    markModuleCompleted(komet.ime)
+                }
             }
         } else {
             holder.completionButton.visibility = View.GONE
+        }
+    }
+
+    fun markModuleCompleted(moduleName: String) {
+        val index = uniqueKometi.indexOfFirst { it.ime == moduleName }
+        if (index != -1) {
+            completedModules.add(moduleName)
+            notifyItemChanged(index)
         }
     }
 }

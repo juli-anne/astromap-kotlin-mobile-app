@@ -12,14 +12,14 @@ import com.example.rmai2425_projects_astromap.activities.ConstellationDetailActi
 import com.example.rmai2425_projects_astromap.database.Zvijezdje
 
 class ConstellationAdapter(
-    constellations: List<Zvijezdje>,
+    private val constellations: List<Zvijezdje>,
     private val isUserLoggedIn: Boolean,
+    completedModules: Set<String>,
     private val onModuleComplete: (String) -> Unit
 ) : RecyclerView.Adapter<ConstellationAdapter.MyViewHolder>() {
 
-    private val uniqueConstellations = constellations.distinctBy {
-        it.imeHr.trim().lowercase()
-    }
+    private val uniqueConstellations = constellations.distinctBy { it.imeHr.trim().lowercase() }
+    private val completedModules: MutableSet<String> = completedModules.toMutableSet()
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.constellation_title)
@@ -40,10 +40,8 @@ class ConstellationAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val constellation = uniqueConstellations[position]
         val context = holder.itemView.context
-
         holder.title.text = constellation.imeHr
         holder.constellationInfo.text = constellation.pozicija
-
         val dummyImage = when (constellation.imeHr.trim().lowercase()) {
             "orion" -> R.drawable.orion
             "veliki medvjed" -> R.drawable.ursa_major
@@ -51,15 +49,13 @@ class ConstellationAdapter(
             "kasiopeja" -> R.drawable.cassiopeia
             "lav" -> R.drawable.leo
             "vaga" -> R.drawable.libra
-            "škorpion" -> R.drawable.scorpius
+            "korpion" -> R.drawable.scorpius
             "strijelac" -> R.drawable.sagittarius
             "kentaur" -> R.drawable.centaurus
             "pješčani sat" -> R.drawable.hourglass
             else -> R.drawable.orion
         }
-
         holder.constellationImg.setImageResource(dummyImage)
-
         holder.menuIcon.setOnClickListener {
             val intent = Intent(context, ConstellationDetailActivity::class.java).apply {
                 putExtra("ime", constellation.imeHr)
@@ -74,17 +70,29 @@ class ConstellationAdapter(
 
         if (isUserLoggedIn) {
             holder.completionButton.visibility = View.VISIBLE
-            holder.completionButton.text = "Označi kao dovršeno"
-            holder.completionButton.setTextColor(context.getColor(R.color.white))
-            holder.completionButton.isEnabled = true
-            holder.completionButton.setOnClickListener {
+            if (completedModules.contains(constellation.imeHr)) {
                 holder.completionButton.text = "Dovršeno"
                 holder.completionButton.setTextColor(context.getColor(R.color.success_green))
                 holder.completionButton.isEnabled = false
-                onModuleComplete(constellation.imeHr)
+            } else {
+                holder.completionButton.text = "Označi kao dovršeno"
+                holder.completionButton.setTextColor(context.getColor(R.color.white))
+                holder.completionButton.isEnabled = true
+                holder.completionButton.setOnClickListener {
+                    onModuleComplete(constellation.imeHr)
+                    markModuleCompleted(constellation.imeHr)
+                }
             }
         } else {
             holder.completionButton.visibility = View.GONE
+        }
+    }
+
+    fun markModuleCompleted(moduleName: String) {
+        val index = uniqueConstellations.indexOfFirst { it.imeHr == moduleName }
+        if (index != -1) {
+            completedModules.add(moduleName)
+            notifyItemChanged(index)
         }
     }
 }

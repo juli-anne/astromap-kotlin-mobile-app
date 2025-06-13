@@ -15,10 +15,12 @@ class MoonAdapter(
     private val moons: List<Mjesec>,
     private val planetIdToNameMap: Map<Int, String>,
     private val isUserLoggedIn: Boolean,
+    completedModules: Set<String>,
     private val onModuleComplete: (String) -> Unit
 ) : RecyclerView.Adapter<MoonAdapter.MyViewHolder>() {
 
     private val uniqueMoons = moons.distinctBy { it.ime.trim().lowercase() }
+    private val completedModules: MutableSet<String> = completedModules.toMutableSet()
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.moon_title)
@@ -43,9 +45,7 @@ class MoonAdapter(
         holder.title.text = moon.ime
         holder.moonInfo.text = moon.kratkiOpis
         holder.moonDiameter.text = "${moon.velicina} km"
-
         val context = holder.itemView.context
-
         val dummyImage = when (moon.ime.trim().lowercase()) {
             "mjesec" -> R.drawable.earthmoon
             "europa" -> R.drawable.europamoon
@@ -56,9 +56,7 @@ class MoonAdapter(
             "miranda" -> R.drawable.mirandamoon
             else -> R.drawable.earthmoon
         }
-
         holder.moonImg.setImageResource(dummyImage)
-
         holder.menuIcon.setOnClickListener {
             val planetIme = planetIdToNameMap[moon.planetId] ?: "Nepoznato"
             val intent = Intent(context, MoonDetailActivity::class.java).apply {
@@ -74,17 +72,29 @@ class MoonAdapter(
 
         if (isUserLoggedIn) {
             holder.completionButton.visibility = View.VISIBLE
-            holder.completionButton.text = "Označi kao dovršeno"
-            holder.completionButton.setTextColor(context.getColor(R.color.white))
-            holder.completionButton.isEnabled = true
-            holder.completionButton.setOnClickListener {
+            if (completedModules.contains(moon.ime)) {
                 holder.completionButton.text = "Dovršeno"
                 holder.completionButton.setTextColor(context.getColor(R.color.success_green))
                 holder.completionButton.isEnabled = false
-                onModuleComplete(moon.ime)
+            } else {
+                holder.completionButton.text = "Označi kao dovršeno"
+                holder.completionButton.setTextColor(context.getColor(R.color.white))
+                holder.completionButton.isEnabled = true
+                holder.completionButton.setOnClickListener {
+                    onModuleComplete(moon.ime)
+                    markModuleCompleted(moon.ime)
+                }
             }
         } else {
             holder.completionButton.visibility = View.GONE
+        }
+    }
+
+    fun markModuleCompleted(moduleName: String) {
+        val index = uniqueMoons.indexOfFirst { it.ime == moduleName }
+        if (index != -1) {
+            completedModules.add(moduleName)
+            notifyItemChanged(index)
         }
     }
 }

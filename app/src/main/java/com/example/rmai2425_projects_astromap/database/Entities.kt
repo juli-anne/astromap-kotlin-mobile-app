@@ -131,3 +131,22 @@ data class Korisnik(
     val password: String,
     val datumRegistracije: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 )
+
+@Entity(tableName = "dovrseni_moduli")
+data class DovrseniModul(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val userId: Int,
+    val modulId: String,
+    val datumDovrsenja: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+)
+
+@Entity(tableName = "kviz_rezultati")
+data class KvizRezultat(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val userId: Int,
+    val kvizId: String,
+    val najboljiRezultat: Int,
+    val datum: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+)
