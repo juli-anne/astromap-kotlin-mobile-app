@@ -13,8 +13,8 @@ class EnemyComet(private val context: Context) {
     private val random = Random()
 
     init {
-        val scaledWidth = 80
-        val scaledHeight = 80
+        val scaledWidth = 200
+        val scaledHeight = 200
         enemyComet = Bitmap.createScaledBitmap(enemyComet, scaledWidth, scaledHeight, true)
         resetEnemyComet()
     }

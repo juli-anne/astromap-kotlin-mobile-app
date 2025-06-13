@@ -35,8 +35,8 @@ class SpaceShooter(context: Context) : View(context) {
     private var life = 3
     private var paused = false
 
-    private lateinit var comet: Comet
-    private lateinit var enemyComet: EnemyComet
+    private var comet: Comet
+    private var enemyComet: EnemyComet
     private val random = Random()
 
     private val cometShots = ArrayList<Shot>()
@@ -97,7 +97,11 @@ class SpaceShooter(context: Context) : View(context) {
             ) {
                 points += 100
                 cometShots.removeAt(i)
-                explosions.add(Explosion(context, enemyComet.x, enemyComet.y))
+                val expBmp = BitmapFactory.decodeResource(context.resources, R.drawable.explosion)
+                val explosionX = enemyComet.x + enemyComet.getEnemyCometWidth() / 2 - expBmp.width / 2
+                val explosionY = enemyComet.y + enemyComet.getEnemyCometHeight() / 2 - expBmp.height / 2
+                explosions.add(Explosion(context, explosionX, explosionY))
+
                 enemyComet.resetEnemyComet()
             } else if (shot.y <= 0) {
                 cometShots.removeAt(i)
@@ -108,7 +112,11 @@ class SpaceShooter(context: Context) : View(context) {
             enemyComet.y + enemyComet.getEnemyCometHeight() >= comet.y
         ) {
             life--
-            explosions.add(Explosion(context, comet.x, comet.y))
+            val expBmp = BitmapFactory.decodeResource(context.resources, R.drawable.explosion)
+            val explosionX = comet.x + comet.getCometWidth() / 2 - expBmp.width / 2
+            val explosionY = comet.y + comet.getCometHeight() / 2 - expBmp.height / 2
+            explosions.add(Explosion(context, explosionX, explosionY))
+
             enemyComet.resetEnemyComet()
         }
 
@@ -170,4 +178,5 @@ class SpaceShooter(context: Context) : View(context) {
             (it as? Activity)?.finish()
         }
     }
+
 }
