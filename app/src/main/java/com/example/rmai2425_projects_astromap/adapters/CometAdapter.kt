@@ -11,8 +11,11 @@ import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.activities.CometDetailActivity
 import com.example.rmai2425_projects_astromap.database.Komet
 
-class CometAdapter(private val kometi: List<Komet>) :
-    RecyclerView.Adapter<CometAdapter.MyViewHolder>() {
+class CometAdapter(
+    private val kometi: List<Komet>,
+    private val isUserLoggedIn: Boolean,
+    private val onModuleComplete: (String) -> Unit
+) : RecyclerView.Adapter<CometAdapter.MyViewHolder>() {
 
     private val uniqueKometi = kometi.distinctBy { it.ime.trim().lowercase() }
 
@@ -21,6 +24,7 @@ class CometAdapter(private val kometi: List<Komet>) :
         val cometImg: ImageView = view.findViewById(R.id.comet_img)
         val menuIcon: ImageView = view.findViewById(R.id.comet_menu_icon)
         val cometInfo: TextView = view.findViewById(R.id.cometinfo)
+        val completionButton: TextView = view.findViewById(R.id.completion_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -37,7 +41,6 @@ class CometAdapter(private val kometi: List<Komet>) :
         holder.cometInfo.text = komet.kratkiOpis
 
         val context = holder.itemView.context
-
 
         val dummyImage = when (komet.ime.trim().lowercase()) {
             "halleyjev komet" -> R.drawable.halle
@@ -61,6 +64,21 @@ class CometAdapter(private val kometi: List<Komet>) :
                 putExtra("imgRes", dummyImage)
             }
             context.startActivity(intent)
+        }
+
+        if (isUserLoggedIn) {
+            holder.completionButton.visibility = View.VISIBLE
+            holder.completionButton.text = "Označi kao dovršeno"
+            holder.completionButton.setTextColor(context.getColor(R.color.white))
+            holder.completionButton.isEnabled = true
+            holder.completionButton.setOnClickListener {
+                holder.completionButton.text = "Dovršeno"
+                holder.completionButton.setTextColor(context.getColor(R.color.success_green))
+                holder.completionButton.isEnabled = false
+                onModuleComplete(komet.ime)
+            }
+        } else {
+            holder.completionButton.visibility = View.GONE
         }
     }
 }

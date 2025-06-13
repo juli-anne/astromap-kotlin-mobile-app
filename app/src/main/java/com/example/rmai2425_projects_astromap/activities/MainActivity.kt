@@ -1,7 +1,10 @@
 package com.example.rmai2425_projects_astromap.activities
+
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -25,56 +28,89 @@ import com.example.rmai2425_projects_astromap.fragments.MoonsFragment
 import com.example.rmai2425_projects_astromap.fragments.ObjectsFragment
 import com.example.rmai2425_projects_astromap.fragments.PlanetsFragment
 import com.example.rmai2425_projects_astromap.fragments.SunFragment
+import com.example.rmai2425_projects_astromap.fragments.QuizFragment
+import com.example.rmai2425_projects_astromap.fragments.ProfileFragment
+import com.example.rmai2425_projects_astromap.utils.UserManager
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    private lateinit var drawerLayout:DrawerLayout
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var userManager: UserManager
+    private lateinit var navigationView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        userManager = UserManager(this)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.drawer_layout)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-
         }
-        drawerLayout = findViewById <DrawerLayout> (R.id.drawer_layout)
 
+        drawerLayout = findViewById(R.id.drawer_layout)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Sunčev sustav"
 
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
-        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar,
-            R.string.open_nav,
-            R.string.close_nav
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar,
+            R.string.open_nav, R.string.close_nav
         )
         drawerLayout.addDrawerListener(toggle)
+        drawerLayout.post { toggle.syncState() }
 
-        drawerLayout.post {
-            toggle.syncState()
-        }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                } else {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             replaceFragment(HomeFragment())
             navigationView.setCheckedItem(R.id.nav_home)
         }
 
-        val db = DatabaseProvider.getDatabase(this)
-        val dao = db.entitiesDao()
+        updateNavigationMenu()
+
         lifecycleScope.launch {
+            val dao = DatabaseProvider.getDatabase(this@MainActivity).entitiesDao()
             DatabaseInitializer.initDatabase(dao)
         }
 
+        // Podrška za restart igre iz GameOver ekrana
         if (intent.getBooleanExtra("restart_game", false)) {
             replaceFragment(GameFragment())
             supportActionBar?.title = "Igra"
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateNavigationMenu()
+    }
+
+    private fun updateNavigationMenu() {
+        val menu = navigationView.menu
+        val loginMenuItem = menu.findItem(R.id.nav_login)
+
+        if (userManager.isUserLoggedIn()) {
+            loginMenuItem?.title = "Moj profil"
+            loginMenuItem?.setIcon(R.drawable.baseline_person_24)
+        } else {
+            loginMenuItem?.title = "Prijava"
+            loginMenuItem?.setIcon(R.drawable.baseline_login_24)
         }
     }
 
@@ -110,11 +146,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_constellations -> {
                 replaceFragment(ConstellationsFragment())
-                supportActionBar?.title = "Zviježđa"
+                supportActionBar?.title = "Zvijezđa"
             }
             R.id.nav_game -> {
                 replaceFragment(GameFragment())
                 supportActionBar?.title = "Igra"
+            }
+            R.id.nav_quiz -> {
+                replaceFragment(QuizFragment())
+                supportActionBar?.title = "Kvizovi"
+            }
+            R.id.nav_login -> {
+                if (userManager.isUserLoggedIn()) {
+                    replaceFragment(ProfileFragment())
+                    supportActionBar?.title = "Moj profil"
+                } else {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -125,15 +174,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)
         transaction.commit()
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed(){
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-
     }
 }
