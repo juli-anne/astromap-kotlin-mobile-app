@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/deep_purple">
+    android:background="@color/white">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/register_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/deep_purple"
+        android:background="@color/primary"
         app:titleTextColor="@color/white"
-        app:navigationIcon="@drawable/baseline_arrow_back_24" />
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        app:navigationIconTint="@color/white" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,14 +32,14 @@
                 android:layout_height="80dp"
                 android:src="@drawable/baseline_person_add_24"
                 android:layout_marginBottom="32dp"
-                app:tint="@color/white" />
+                app:tint="@color/primary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Registracija"
                 android:textSize="28sp"
-                android:textColor="@color/white"
+                android:textColor="@color/primary"
                 android:textStyle="bold"
                 android:layout_marginBottom="32dp" />
 
@@ -49,10 +50,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Ime"
-                app:boxStrokeColor="@color/white"
-                app:hintTextColor="@color/white"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
                 app:placeholderText="ime"
-                app:placeholderTextColor="@color/placeholder_text"
+                app:placeholderTextColor="@color/placeholder_text_subtle"
                 app:placeholderTextAppearance="@style/PlaceholderTextStyle"
                 app:expandedHintEnabled="false"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -62,8 +63,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/placeholder_text"
+                    android:textColor="@color/deep_purple"
+                    android:textColorHint="@color/placeholder_text_subtle"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -75,10 +76,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Prezime"
-                app:boxStrokeColor="@color/white"
-                app:hintTextColor="@color/white"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
                 app:placeholderText="prezime"
-                app:placeholderTextColor="@color/placeholder_text"
+                app:placeholderTextColor="@color/placeholder_text_subtle"
                 app:placeholderTextAppearance="@style/PlaceholderTextStyle"
                 app:expandedHintEnabled="false"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -88,8 +89,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/placeholder_text"
+                    android:textColor="@color/deep_purple"
+                    android:textColorHint="@color/placeholder_text_subtle"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -101,10 +102,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="E-mail adresa"
-                app:boxStrokeColor="@color/white"
-                app:hintTextColor="@color/white"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
                 app:placeholderText="e-mail adresa"
-                app:placeholderTextColor="@color/placeholder_text"
+                app:placeholderTextColor="@color/placeholder_text_subtle"
                 app:placeholderTextAppearance="@style/PlaceholderTextStyle"
                 app:expandedHintEnabled="false"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -114,8 +115,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/placeholder_text"
+                    android:textColor="@color/deep_purple"
+                    android:textColorHint="@color/placeholder_text_subtle"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -127,14 +128,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Lozinka"
-                app:boxStrokeColor="@color/white"
-                app:hintTextColor="@color/white"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
                 app:placeholderText="unesite lozinku"
-                app:placeholderTextColor="@color/placeholder_text"
+                app:placeholderTextColor="@color/placeholder_text_subtle"
                 app:placeholderTextAppearance="@style/PlaceholderTextStyle"
                 app:expandedHintEnabled="false"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/white"
+                app:passwordToggleTint="@color/primary"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -142,8 +143,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/placeholder_text"
+                    android:textColor="@color/deep_purple"
+                    android:textColorHint="@color/placeholder_text_subtle"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -155,14 +156,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:hint="Potvrdi lozinku"
-                app:boxStrokeColor="@color/white"
-                app:hintTextColor="@color/white"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
                 app:placeholderText="ponovite lozinku"
-                app:placeholderTextColor="@color/placeholder_text"
+                app:placeholderTextColor="@color/placeholder_text_subtle"
                 app:placeholderTextAppearance="@style/PlaceholderTextStyle"
                 app:expandedHintEnabled="false"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/white"
+                app:passwordToggleTint="@color/primary"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -170,8 +171,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/placeholder_text"
+                    android:textColor="@color/deep_purple"
+                    android:textColorHint="@color/placeholder_text_subtle"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -193,7 +194,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="48dp"
                 android:text="Već imate račun? Prijavite se"
-                android:textColor="@color/placeholder_text"
+                android:textColor="@color/placeholder_text_subtle"
                 android:textSize="14sp"
                 android:clickable="true"
                 android:focusable="true"
