@@ -44,7 +44,7 @@ class AsteroidAdapter(
         val context = holder.itemView.context
         val dummyImage = when (asteroid.ime.trim().lowercase()) {
             "ceres" -> R.drawable.ceres
-            "vesta" -> R.drawable.vesta
+            "vesta" -> R.drawable.vesta1
             "eros" -> R.drawable.eros
             "itokawa" -> R.drawable.itokawa
             "pallas" -> R.drawable.pallas
