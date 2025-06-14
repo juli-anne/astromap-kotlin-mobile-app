@@ -1,5 +1,6 @@
 package com.example.rmai2425_projects_astromap.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -22,13 +23,11 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var emailInputLayout: TextInputLayout
     private lateinit var passwordInputLayout: TextInputLayout
     private lateinit var confirmPasswordInputLayout: TextInputLayout
-
     private lateinit var nameEditText: TextInputEditText
     private lateinit var surnameEditText: TextInputEditText
     private lateinit var emailEditText: TextInputEditText
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var confirmPasswordEditText: TextInputEditText
-
     private lateinit var registerButton: Button
     private lateinit var loginLink: TextView
     private lateinit var userManager: UserManager
@@ -57,13 +56,11 @@ class RegisterActivity : AppCompatActivity() {
         emailInputLayout = findViewById(R.id.email_input_layout)
         passwordInputLayout = findViewById(R.id.password_input_layout)
         confirmPasswordInputLayout = findViewById(R.id.confirm_password_input_layout)
-
         nameEditText = findViewById(R.id.name_edit_text)
         surnameEditText = findViewById(R.id.surname_edit_text)
         emailEditText = findViewById(R.id.email_edit_text)
         passwordEditText = findViewById(R.id.password_edit_text)
         confirmPasswordEditText = findViewById(R.id.confirm_password_edit_text)
-
         registerButton = findViewById(R.id.register_button)
         loginLink = findViewById(R.id.login_link)
     }
@@ -134,9 +131,9 @@ class RegisterActivity : AppCompatActivity() {
     private fun performRegistration(fullName: String, email: String, password: String) {
         lifecycleScope.launch {
             try {
-                val dao = DatabaseProvider.getDatabase(this@RegisterActivity).entitiesDao()
+                val database = DatabaseProvider.getDatabase(this@RegisterActivity)
+                val existingUser = database.korisnikDao().getByEmail(email)
 
-                val existingUser = dao.getUserByEmail(email)
                 if (existingUser != null) {
                     Toast.makeText(this@RegisterActivity, "Korisnik s tim emailom već postoji", Toast.LENGTH_SHORT).show()
                     return@launch
@@ -144,12 +141,15 @@ class RegisterActivity : AppCompatActivity() {
 
                 val hashedPassword = hashPassword(password)
                 val newUser = Korisnik(ime = fullName, email = email, password = hashedPassword)
-                val korisnikId = dao.insertUser(newUser)
-
+                val korisnikId = database.korisnikDao().insert(newUser)
                 val userWithId = newUser.copy(id = korisnikId.toInt())
-                userManager.saveUserSession(userWithId)
 
+                userManager.saveUserSession(userWithId)
                 Toast.makeText(this@RegisterActivity, "Uspješno ste se registrirali!", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
                 finish()
             } catch (e: Exception) {
                 Toast.makeText(this@RegisterActivity, "Greška pri registraciji: ${e.message}", Toast.LENGTH_SHORT).show()

@@ -17,16 +17,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HomeFragment : Fragment() {
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var homeAdapter: HomeAdapter
     private var sunSystemInfoList: List<SuncevSustavInfo> = listOf()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         recyclerView = view.findViewById(R.id.recycler_view_home)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -35,7 +30,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         lifecycleScope.launch {
             loadSunSystemInfo()
         }
@@ -43,10 +37,9 @@ class HomeFragment : Fragment() {
 
     private suspend fun loadSunSystemInfo() {
         val database = DatabaseProvider.getDatabase(requireContext())
-        val dao = database.entitiesDao()
 
         withContext(Dispatchers.IO) {
-            sunSystemInfoList = dao.getAllSunSystemInfo()
+            sunSystemInfoList = database.suncevSustavDao().getAll()
         }
 
         homeAdapter = HomeAdapter(sunSystemInfoList)

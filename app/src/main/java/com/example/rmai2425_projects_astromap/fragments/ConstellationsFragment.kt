@@ -13,13 +13,16 @@ import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.adapters.ConstellationAdapter
 import com.example.rmai2425_projects_astromap.database.DatabaseProvider
 import com.example.rmai2425_projects_astromap.database.Zvijezdje
+import com.example.rmai2425_projects_astromap.database.DovrseniModul
 import com.example.rmai2425_projects_astromap.utils.UserManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ConstellationsFragment : Fragment() {
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var constellationAdapter: ConstellationAdapter
     private lateinit var userManager: UserManager
@@ -36,16 +39,24 @@ class ConstellationsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch { loadConstellationsFromDatabase() }
+        lifecycleScope.launch {
+            loadConstellationsFromDatabase()
+        }
     }
 
     private suspend fun loadConstellationsFromDatabase() {
-        val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
+        val database = DatabaseProvider.getDatabase(requireContext())
         val userId = userManager.getCurrentUserId()
+
         withContext(Dispatchers.IO) {
-            constellationList = dao.getAllZvijezdja()
-            completedModules = if (userId != -1) dao.getDovrseneModule(userId).map { it.modulId }.toSet() else emptySet()
+            constellationList = database.zvijezdjeDao().getAll()
+            completedModules = if (userId != -1) {
+                database.dovrseniModulDao().getByUserId(userId).map { it.modulId }.toSet()
+            } else {
+                emptySet()
+            }
         }
+
         constellationAdapter = ConstellationAdapter(
             constellationList,
             userManager.isUserLoggedIn(),
@@ -53,12 +64,15 @@ class ConstellationsFragment : Fragment() {
         ) { constellationName ->
             showCompletionMessage("Naučili ste sve o zviježđu $constellationName!")
             lifecycleScope.launch {
-                dao.insertDovrseniModul(
-                    com.example.rmai2425_projects_astromap.database.DovrseniModul(
-                        userId = userId,
-                        modulId = constellationName
+                withContext(Dispatchers.IO) {
+                    database.dovrseniModulDao().insert(
+                        DovrseniModul(
+                            userId = userId,
+                            modulId = constellationName,
+                            datumDovrsenja = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                        )
                     )
-                )
+                }
                 constellationAdapter.markModuleCompleted(constellationName)
             }
         }

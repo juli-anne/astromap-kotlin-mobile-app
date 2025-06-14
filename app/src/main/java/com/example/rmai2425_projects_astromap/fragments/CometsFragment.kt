@@ -13,24 +13,23 @@ import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.adapters.CometAdapter
 import com.example.rmai2425_projects_astromap.database.DatabaseProvider
 import com.example.rmai2425_projects_astromap.database.Komet
+import com.example.rmai2425_projects_astromap.database.DovrseniModul
 import com.example.rmai2425_projects_astromap.utils.UserManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class CometsFragment : Fragment() {
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var cometAdapter: CometAdapter
     private lateinit var userManager: UserManager
     private var cometList: List<Komet> = listOf()
     private var completedModules: Set<String> = emptySet()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_comets, container, false)
         userManager = UserManager(requireContext())
         recyclerView = view.findViewById(R.id.recycler_view_comet)
@@ -40,16 +39,24 @@ class CometsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch { loadCometsFromDatabase() }
+        lifecycleScope.launch {
+            loadCometsFromDatabase()
+        }
     }
 
     private suspend fun loadCometsFromDatabase() {
-        val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
+        val database = DatabaseProvider.getDatabase(requireContext())
         val userId = userManager.getCurrentUserId()
+
         withContext(Dispatchers.IO) {
-            cometList = dao.getAllKometi()
-            completedModules = if (userId != -1) dao.getDovrseneModule(userId).map { it.modulId }.toSet() else emptySet()
+            cometList = database.kometDao().getAll()
+            completedModules = if (userId != -1) {
+                database.dovrseniModulDao().getByUserId(userId).map { it.modulId }.toSet()
+            } else {
+                emptySet()
+            }
         }
+
         cometAdapter = CometAdapter(
             cometList,
             userManager.isUserLoggedIn(),
@@ -57,12 +64,15 @@ class CometsFragment : Fragment() {
         ) { cometName ->
             showCompletionMessage("Naučili ste sve o kometu $cometName!")
             lifecycleScope.launch {
-                dao.insertDovrseniModul(
-                    com.example.rmai2425_projects_astromap.database.DovrseniModul(
-                        userId = userId,
-                        modulId = cometName
+                withContext(Dispatchers.IO) {
+                    database.dovrseniModulDao().insert(
+                        DovrseniModul(
+                            userId = userId,
+                            modulId = cometName,
+                            datumDovrsenja = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                        )
                     )
-                )
+                }
                 cometAdapter.markModuleCompleted(cometName)
             }
         }

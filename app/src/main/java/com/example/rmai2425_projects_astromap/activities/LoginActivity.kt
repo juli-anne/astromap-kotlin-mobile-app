@@ -17,10 +17,8 @@ import kotlinx.coroutines.launch
 import java.security.MessageDigest
 
 class LoginActivity : AppCompatActivity() {
-
     private lateinit var emailInputLayout: TextInputLayout
     private lateinit var passwordInputLayout: TextInputLayout
-
     private lateinit var emailEditText: TextInputEditText
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var loginButton: Button
@@ -48,7 +46,6 @@ class LoginActivity : AppCompatActivity() {
     private fun initViews() {
         emailInputLayout = findViewById(R.id.email_input_layout)
         passwordInputLayout = findViewById(R.id.password_input_layout)
-
         emailEditText = findViewById(R.id.email_edit_text)
         passwordEditText = findViewById(R.id.password_edit_text)
         loginButton = findViewById(R.id.login_button)
@@ -96,14 +93,17 @@ class LoginActivity : AppCompatActivity() {
     private fun performLogin(email: String, password: String) {
         lifecycleScope.launch {
             try {
-                val dao = DatabaseProvider.getDatabase(this@LoginActivity).entitiesDao()
+                val database = DatabaseProvider.getDatabase(this@LoginActivity)
                 val hashedPassword = hashPassword(password)
-                val korisnik = dao.getUserByEmailAndPassword(email, hashedPassword)
+                val korisnik = database.korisnikDao().getByEmailAndPassword(email, hashedPassword)
 
                 if (korisnik != null) {
                     userManager.saveUserSession(korisnik)
                     Toast.makeText(this@LoginActivity, "Dobrodošli, ${korisnik.ime}!", Toast.LENGTH_SHORT).show()
-                    finish()
+
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
                 } else {
                     Toast.makeText(this@LoginActivity, "Neispravni podaci za prijavu", Toast.LENGTH_SHORT).show()
                 }

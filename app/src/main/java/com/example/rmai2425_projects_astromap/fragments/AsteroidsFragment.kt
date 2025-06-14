@@ -13,13 +13,16 @@ import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.adapters.AsteroidAdapter
 import com.example.rmai2425_projects_astromap.database.Asteroid
 import com.example.rmai2425_projects_astromap.database.DatabaseProvider
+import com.example.rmai2425_projects_astromap.database.DovrseniModul
 import com.example.rmai2425_projects_astromap.utils.UserManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class AsteroidsFragment : Fragment() {
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var asteroidAdapter: AsteroidAdapter
     private lateinit var userManager: UserManager
@@ -36,16 +39,24 @@ class AsteroidsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch { loadAsteroidsFromDatabase() }
+        lifecycleScope.launch {
+            loadAsteroidsFromDatabase()
+        }
     }
 
     private suspend fun loadAsteroidsFromDatabase() {
-        val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
+        val database = DatabaseProvider.getDatabase(requireContext())
         val userId = userManager.getCurrentUserId()
+
         withContext(Dispatchers.IO) {
-            asteroidList = dao.getAllAsteroidi()
-            completedModules = if (userId != -1) dao.getDovrseneModule(userId).map { it.modulId }.toSet() else emptySet()
+            asteroidList = database.asteroidDao().getAll()
+            completedModules = if (userId != -1) {
+                database.dovrseniModulDao().getByUserId(userId).map { it.modulId }.toSet()
+            } else {
+                emptySet()
+            }
         }
+
         asteroidAdapter = AsteroidAdapter(
             asteroidList,
             userManager.isUserLoggedIn(),
@@ -53,12 +64,15 @@ class AsteroidsFragment : Fragment() {
         ) { asteroidName ->
             showCompletionMessage("Naučili ste sve o asteroidu $asteroidName!")
             lifecycleScope.launch {
-                dao.insertDovrseniModul(
-                    com.example.rmai2425_projects_astromap.database.DovrseniModul(
-                        userId = userId,
-                        modulId = asteroidName
+                withContext(Dispatchers.IO) {
+                    database.dovrseniModulDao().insert(
+                        DovrseniModul(
+                            userId = userId,
+                            modulId = asteroidName,
+                            datumDovrsenja = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                        )
                     )
-                )
+                }
                 asteroidAdapter.markModuleCompleted(asteroidName)
             }
         }

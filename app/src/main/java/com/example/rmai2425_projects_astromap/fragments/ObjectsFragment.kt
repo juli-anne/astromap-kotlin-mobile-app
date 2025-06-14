@@ -13,13 +13,16 @@ import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.adapters.ObjectAdapter
 import com.example.rmai2425_projects_astromap.database.DatabaseProvider
 import com.example.rmai2425_projects_astromap.database.ObjektSuncevogSustava
+import com.example.rmai2425_projects_astromap.database.DovrseniModul
 import com.example.rmai2425_projects_astromap.utils.UserManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ObjectsFragment : Fragment() {
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var objectAdapter: ObjectAdapter
     private lateinit var userManager: UserManager
@@ -36,16 +39,24 @@ class ObjectsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch { loadObjectsFromDatabase() }
+        lifecycleScope.launch {
+            loadObjectsFromDatabase()
+        }
     }
 
     private suspend fun loadObjectsFromDatabase() {
-        val dao = DatabaseProvider.getDatabase(requireContext()).entitiesDao()
+        val database = DatabaseProvider.getDatabase(requireContext())
         val userId = userManager.getCurrentUserId()
+
         withContext(Dispatchers.IO) {
-            objectList = dao.getAllObjekti()
-            completedModules = if (userId != -1) dao.getDovrseneModule(userId).map { it.modulId }.toSet() else emptySet()
+            objectList = database.objektSuncevogSustavaDao().getAll()
+            completedModules = if (userId != -1) {
+                database.dovrseniModulDao().getByUserId(userId).map { it.modulId }.toSet()
+            } else {
+                emptySet()
+            }
         }
+
         objectAdapter = ObjectAdapter(
             objectList,
             userManager.isUserLoggedIn(),
@@ -53,12 +64,15 @@ class ObjectsFragment : Fragment() {
         ) { objectName ->
             showCompletionMessage("Naučili ste sve o objektu $objectName!")
             lifecycleScope.launch {
-                dao.insertDovrseniModul(
-                    com.example.rmai2425_projects_astromap.database.DovrseniModul(
-                        userId = userId,
-                        modulId = objectName
+                withContext(Dispatchers.IO) {
+                    database.dovrseniModulDao().insert(
+                        DovrseniModul(
+                            userId = userId,
+                            modulId = objectName,
+                            datumDovrsenja = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                        )
                     )
-                )
+                }
                 objectAdapter.markModuleCompleted(objectName)
             }
         }
