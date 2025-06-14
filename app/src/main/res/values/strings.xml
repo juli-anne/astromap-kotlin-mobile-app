@@ -54,4 +54,15 @@
     <string name="register_button">Registriraj se</string>
     <string name="no_account">Nemate račun? Registrirajte se</string>
     <string name="have_account">Već imate račun? Prijavite se</string>
+
+    <string-array name="categories">
+        <item>Planeti</item>
+        <item>Mjeseci</item>
+        <item>Asteroidi</item>
+        <item>Kometi</item>
+        <item>Zviježđa</item>
+        <item>Sunce</item>
+        <item>Objekti Sunčevog sustava</item>
+    </string-array>
+
 </resources>
