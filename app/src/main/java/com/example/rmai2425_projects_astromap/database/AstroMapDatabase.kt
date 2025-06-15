@@ -7,6 +7,7 @@ import com.example.rmai2425_projects_astromap.database.interfaces.PlanetDao
 import com.example.rmai2425_projects_astromap.database.interfaces.SuncevSustavDao
 import com.example.rmai2425_projects_astromap.database.interfaces.AsteroidDao
 import com.example.rmai2425_projects_astromap.database.interfaces.DovrseniModulDao
+import com.example.rmai2425_projects_astromap.database.interfaces.HighScoreDao
 import com.example.rmai2425_projects_astromap.database.interfaces.KometDao
 import com.example.rmai2425_projects_astromap.database.interfaces.KorisnikDao
 import com.example.rmai2425_projects_astromap.database.interfaces.KvizPitanjeDao
@@ -30,9 +31,10 @@ import com.example.rmai2425_projects_astromap.database.interfaces.ZvijezdjeDao
         SuncevSustavInfo::class,
         Korisnik::class,
         DovrseniModul::class,
-        KvizRezultat::class
+        KvizRezultat::class,
+        HighScore::class
     ],
-    version = 6,
+    version = 7,
     exportSchema = false
 )
 abstract class AstroMapDatabase : RoomDatabase() {
@@ -49,4 +51,5 @@ abstract class AstroMapDatabase : RoomDatabase() {
     abstract fun korisnikDao(): KorisnikDao
     abstract fun dovrseniModulDao(): DovrseniModulDao
     abstract fun kvizRezultatDao(): KvizRezultatDao
+    abstract fun highScoreDao(): HighScoreDao
 }

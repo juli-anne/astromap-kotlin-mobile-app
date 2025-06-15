@@ -150,3 +150,12 @@ data class KvizRezultat(
     val najboljiRezultat: Int,
     val datum: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 )
+
+@Entity(tableName = "highscorevi")
+data class HighScore(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val userId: Int,
+    val score: Int,
+    val datum: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+)
