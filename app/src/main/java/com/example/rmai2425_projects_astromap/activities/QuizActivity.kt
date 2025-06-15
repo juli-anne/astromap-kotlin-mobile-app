@@ -15,11 +15,14 @@ import androidx.lifecycle.lifecycleScope
 import com.example.rmai2425_projects_astromap.R
 import com.example.rmai2425_projects_astromap.database.DatabaseProvider
 import com.example.rmai2425_projects_astromap.database.KvizPitanje
+import com.example.rmai2425_projects_astromap.database.KvizRezultat
 import com.example.rmai2425_projects_astromap.utils.UserManager
-import com.example.rmai2425_projects_astromap.utils.Progress
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class QuizActivity : AppCompatActivity() {
     private lateinit var questionTextView: TextView
@@ -33,7 +36,6 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var nextButton: Button
     private lateinit var quitButton: ImageButton
     private lateinit var userManager: UserManager
-    private lateinit var progress: Progress
 
     private var currentQuestionIndex = 0
     private var score = 0
@@ -46,7 +48,6 @@ class QuizActivity : AppCompatActivity() {
         setContentView(R.layout.activity_quiz)
 
         userManager = UserManager(this)
-        progress = Progress(this)
 
         questionTextView = findViewById(R.id.question_text)
         radioGroup = findViewById(R.id.options_radiogroup)
@@ -157,14 +158,34 @@ class QuizActivity : AppCompatActivity() {
         Toast.makeText(this, resultMessage, Toast.LENGTH_LONG).show()
 
         if (userManager.isUserLoggedIn()) {
-            lifecycleScope.launch {
-                progress.insertKvizRezultat(userManager.getCurrentUserId(), category, score)
-            }
+            spremiKvizRezultat(category, score)
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
             finish()
         }, 2000)
+    }
+
+    private fun spremiKvizRezultat(kvizId: String, rezultat: Int) {
+        lifecycleScope.launch {
+            try {
+                val database = DatabaseProvider.getDatabase(this@QuizActivity)
+                val kvizRezultat = KvizRezultat(
+                    userId = userManager.getCurrentUserId(),
+                    kvizId = kvizId,
+                    najboljiRezultat = rezultat,
+                    datum = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                )
+
+                withContext(Dispatchers.IO) {
+                    database.kvizRezultatDao().insert(kvizRezultat)
+                }
+
+                Toast.makeText(this@QuizActivity, "Rezultat spremljen!", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Toast.makeText(this@QuizActivity, "Greška pri spremanju: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun enableOptions(enable: Boolean) {
