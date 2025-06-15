@@ -48,6 +48,7 @@ class ObjectAdapter(
             "meteoroid" -> R.drawable.meteoroid
             "meteor" -> R.drawable.meteor
             "meteorit" -> R.drawable.meteorite
+            "svemirska prašina" -> R.drawable.space_dust
             else -> R.drawable.pluton
         }
         holder.objectImg.setImageResource(imageRes)
