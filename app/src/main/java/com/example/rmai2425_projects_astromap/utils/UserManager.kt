@@ -28,10 +28,6 @@ class UserManager(context: Context) {
 
     fun getCurrentUserId(): Int = prefs.getInt(KEY_USER_ID, -1)
 
-    fun getCurrentUserEmail(): String? = prefs.getString(KEY_USER_EMAIL, null)
-
-    fun getCurrentUserName(): String? = prefs.getString(KEY_USER_NAME, null)
-
     fun logout() {
         prefs.edit().clear().apply()
     }

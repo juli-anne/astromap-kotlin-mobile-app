@@ -112,7 +112,29 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/poppins_regular" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:letterSpacing="0.1"
+            android:text="Najbolji rezultat u igri"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_high_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Još nema odigranih igara"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp"
             android:fontFamily="@font/poppins_regular" />
 
         <Button

@@ -34,6 +34,7 @@ class ProfileFragment : Fragment() {
         val tvRegistrationDate = view.findViewById<TextView>(R.id.tv_registration_date)
         val tvDovrseniModuli = view.findViewById<TextView>(R.id.tv_dovrseni_moduli)
         val tvKvizRezultati = view.findViewById<TextView>(R.id.tv_kviz_rezultati)
+        val tvHighScore = view.findViewById<TextView>(R.id.tv_high_score)
         val btnLogout = view.findViewById<Button>(R.id.btn_logout)
         val spinnerCategory = view.findViewById<Spinner>(R.id.spinner_category)
 
@@ -43,7 +44,7 @@ class ProfileFragment : Fragment() {
             return
         }
 
-        val categories = listOf("Svi", "Planeti", "Sunce", "Mjeseci", "Asteroidi", "Kometi", "Objekti", "Zviježđa")
+        val categories = listOf("Svi", "Planeti", "Sunce", "Mjeseci", "Asteroidi", "Kometi", "Objekti", "Zvijezđa")
 
         suspend fun getObjectNamesForCategory(category: String): List<String> {
             val database = DatabaseProvider.getDatabase(requireContext())
@@ -55,13 +56,16 @@ class ProfileFragment : Fragment() {
                     "Asteroidi" -> database.asteroidDao().getAll().map { it.ime }
                     "Kometi" -> database.kometDao().getAll().map { it.ime }
                     "Objekti" -> database.objektSuncevogSustavaDao().getAll().map { it.ime }
-                    "Zviježđa" -> database.zvijezdjeDao().getAll().map { it.imeHr }
+                    "Zvijezđa" -> database.zvijezdjeDao().getAll().map { it.imeHr }
                     else -> emptyList()
                 }
             }
         }
 
-        suspend fun getModulesForCategory(category: String, allModules: List<com.example.rmai2425_projects_astromap.database.DovrseniModul>): List<com.example.rmai2425_projects_astromap.database.DovrseniModul> {
+        suspend fun getModulesForCategory(
+            category: String,
+            allModules: List<com.example.rmai2425_projects_astromap.database.DovrseniModul>
+        ): List<com.example.rmai2425_projects_astromap.database.DovrseniModul> {
             return if (category == "Svi") {
                 allModules
             } else {
@@ -78,30 +82,27 @@ class ProfileFragment : Fragment() {
             lifecycleScope.launch {
                 try {
                     val database = DatabaseProvider.getDatabase(requireContext())
-
                     val allModules = withContext(Dispatchers.IO) {
                         database.dovrseniModulDao().getByUserId(userId)
                     }
-
                     val filteredModules = getModulesForCategory(selectedCategory, allModules)
 
                     withContext(Dispatchers.Main) {
                         tvDovrseniModuli.text = if (filteredModules.isNotEmpty()) {
                             if (selectedCategory == "Svi") {
                                 val groupedText = StringBuilder()
-
                                 val planetModules = getModulesForCategory("Planeti", allModules)
                                 val sunModules = getModulesForCategory("Sunce", allModules)
                                 val moonModules = getModulesForCategory("Mjeseci", allModules)
                                 val asteroidModules = getModulesForCategory("Asteroidi", allModules)
                                 val cometModules = getModulesForCategory("Kometi", allModules)
                                 val objectModules = getModulesForCategory("Objekti", allModules)
-                                val constellationModules = getModulesForCategory("Zviježđa", allModules)
+                                val constellationModules = getModulesForCategory("Zvijezđa", allModules)
 
                                 if (planetModules.isNotEmpty()) {
                                     groupedText.append("🪐 PLANETI:\n")
                                     planetModules.forEach {
-                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                        groupedText.append("• ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
                                     }
                                     groupedText.append("\n")
                                 }
@@ -109,7 +110,7 @@ class ProfileFragment : Fragment() {
                                 if (sunModules.isNotEmpty()) {
                                     groupedText.append("☀️ SUNCE:\n")
                                     sunModules.forEach {
-                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                        groupedText.append("• ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
                                     }
                                     groupedText.append("\n")
                                 }
@@ -117,15 +118,15 @@ class ProfileFragment : Fragment() {
                                 if (moonModules.isNotEmpty()) {
                                     groupedText.append("🌙 MJESECI:\n")
                                     moonModules.forEach {
-                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                        groupedText.append("• ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
                                     }
                                     groupedText.append("\n")
                                 }
 
                                 if (asteroidModules.isNotEmpty()) {
-                                    groupedText.append("🪨 ASTEROIDI:\n")
+                                    groupedText.append("☄️ ASTEROIDI:\n")
                                     asteroidModules.forEach {
-                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                        groupedText.append("• ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
                                     }
                                     groupedText.append("\n")
                                 }
@@ -133,7 +134,7 @@ class ProfileFragment : Fragment() {
                                 if (cometModules.isNotEmpty()) {
                                     groupedText.append("☄️ KOMETI:\n")
                                     cometModules.forEach {
-                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                        groupedText.append("• ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
                                     }
                                     groupedText.append("\n")
                                 }
@@ -141,15 +142,15 @@ class ProfileFragment : Fragment() {
                                 if (objectModules.isNotEmpty()) {
                                     groupedText.append("🌌 OBJEKTI:\n")
                                     objectModules.forEach {
-                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                        groupedText.append("• ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
                                     }
                                     groupedText.append("\n")
                                 }
 
                                 if (constellationModules.isNotEmpty()) {
-                                    groupedText.append("⭐ ZVIJEŽĐA:\n")
+                                    groupedText.append("⭐ ZVIJEZĐA:\n")
                                     constellationModules.forEach {
-                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                        groupedText.append("• ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
                                     }
                                 }
 
@@ -159,13 +160,12 @@ class ProfileFragment : Fragment() {
                                     "Planeti" -> "🪐"
                                     "Sunce" -> "☀️"
                                     "Mjeseci" -> "🌙"
-                                    "Asteroidi" -> "🪨"
+                                    "Asteroidi" -> "☄️"
                                     "Kometi" -> "☄️"
                                     "Objekti" -> "🌌"
-                                    "Zviježđa" -> "⭐"
-                                    else -> "✓"
+                                    "Zvijezđa" -> "⭐"
+                                    else -> "•"
                                 }
-
                                 filteredModules.joinToString("\n") { modul ->
                                     "$emoji ${modul.modulId} (${modul.datumDovrsenja.substring(0, 10)})"
                                 }
@@ -174,7 +174,7 @@ class ProfileFragment : Fragment() {
                             if (selectedCategory == "Svi") {
                                 "Još nema riješenih modula"
                             } else {
-                                "Još nema riješenih modula u kategoriji: $selectedCategory"
+                                "Još nema riješenih modula u kategoriji $selectedCategory"
                             }
                         }
                     }
@@ -198,6 +198,7 @@ class ProfileFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 loadModuleData(categories[position])
             }
+
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
@@ -206,13 +207,14 @@ class ProfileFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 val database = DatabaseProvider.getDatabase(requireContext())
-
                 val user = withContext(Dispatchers.IO) {
                     database.korisnikDao().getById(userId)
                 }
-
                 val kvizovi = withContext(Dispatchers.IO) {
                     database.kvizRezultatDao().getByUserId(userId)
+                }
+                val highScore = withContext(Dispatchers.IO) {
+                    database.highScoreDao().getHighestScoreByUserId(userId)
                 }
 
                 withContext(Dispatchers.Main) {
@@ -226,10 +228,16 @@ class ProfileFragment : Fragment() {
 
                     tvKvizRezultati.text = if (kvizovi.isNotEmpty()) {
                         kvizovi.joinToString("\n") { kviz ->
-                            "🏆 ${kviz.kvizId}: ${kviz.najboljiRezultat}/10"
+                            "${kviz.kvizId}: ${kviz.najboljiRezultat}/10"
                         }
                     } else {
                         "Još nema riješenih kvizova"
+                    }
+
+                    tvHighScore.text = if (highScore != null && highScore > 0) {
+                        "Najbolji rezultat u igri: $highScore"
+                    } else {
+                        "Još nema odigranih igara"
                     }
                 }
             } catch (e: Exception) {
@@ -247,4 +255,3 @@ class ProfileFragment : Fragment() {
         }
     }
 }
-
