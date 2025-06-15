@@ -43,7 +43,7 @@ class ConstellationAdapter(
         holder.title.text = constellation.imeHr
         holder.constellationInfo.text = constellation.pozicija
         val dummyImage = when (constellation.imeHr.trim().lowercase()) {
-            "orion" -> R.drawable.orion
+            "lovac" -> R.drawable.orion
             "veliki medvjed" -> R.drawable.ursa_major
             "maleni medvjed" -> R.drawable.ursa_minor
             "kasiopeja" -> R.drawable.cassiopeia
