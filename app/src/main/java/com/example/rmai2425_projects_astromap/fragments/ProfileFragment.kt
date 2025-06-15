@@ -32,7 +32,7 @@ class ProfileFragment : Fragment() {
         val tvUserName = view.findViewById<TextView>(R.id.tv_username)
         val tvUserEmail = view.findViewById<TextView>(R.id.tv_user_email)
         val tvRegistrationDate = view.findViewById<TextView>(R.id.tv_registration_date)
-        val tvRezultatModuli = view.findViewById<TextView>(R.id.tv_rezultat_moduli)
+        val tvDovrseniModuli = view.findViewById<TextView>(R.id.tv_dovrseni_moduli)
         val tvKvizRezultati = view.findViewById<TextView>(R.id.tv_kviz_rezultati)
         val btnLogout = view.findViewById<Button>(R.id.btn_logout)
         val spinnerCategory = view.findViewById<Spinner>(R.id.spinner_category)
@@ -43,62 +43,145 @@ class ProfileFragment : Fragment() {
             return
         }
 
+        val categories = listOf("Svi", "Planeti", "Sunce", "Mjeseci", "Asteroidi", "Kometi", "Objekti", "Zviježđa")
 
-        val allCategories = resources.getStringArray(R.array.categories)
-        val categories = allCategories.filter { it.lowercase() != "svi" }
-
-        fun categoryToPrefix(category: String): String {
-            return when (category) {
-                "Planeti" -> "planeti"
-                "Mjeseci" -> "mjeseci"
-                "Asteroidi" -> "asteroidi"
-                "Kometi" -> "kometi"
-                "Zviježđa" -> "zviježđa"
-                "Sunce" -> "sunce"
-                "Objekti Sunčevog sustava" -> "objekti"
-                else -> ""
+        suspend fun getObjectNamesForCategory(category: String): List<String> {
+            val database = DatabaseProvider.getDatabase(requireContext())
+            return withContext(Dispatchers.IO) {
+                when (category) {
+                    "Planeti" -> database.planetDao().getAll().map { it.ime }
+                    "Sunce" -> database.sunceDao().getAll().map { it.ime }
+                    "Mjeseci" -> database.mjesecDao().getAll().map { it.ime }
+                    "Asteroidi" -> database.asteroidDao().getAll().map { it.ime }
+                    "Kometi" -> database.kometDao().getAll().map { it.ime }
+                    "Objekti" -> database.objektSuncevogSustavaDao().getAll().map { it.ime }
+                    "Zviježđa" -> database.zvijezdjeDao().getAll().map { it.imeHr }
+                    else -> emptyList()
+                }
             }
         }
 
-        fun loadData(selectedCategory: String) {
+        suspend fun getModulesForCategory(category: String, allModules: List<com.example.rmai2425_projects_astromap.database.DovrseniModul>): List<com.example.rmai2425_projects_astromap.database.DovrseniModul> {
+            return if (category == "Svi") {
+                allModules
+            } else {
+                val objectNames = getObjectNamesForCategory(category)
+                allModules.filter { modul ->
+                    objectNames.any { objectName ->
+                        modul.modulId.trim().equals(objectName.trim(), ignoreCase = true)
+                    }
+                }
+            }
+        }
+
+        fun loadModuleData(selectedCategory: String) {
             lifecycleScope.launch {
-                val database = DatabaseProvider.getDatabase(requireContext())
                 try {
-                    val moduli = withContext(Dispatchers.IO) {
+                    val database = DatabaseProvider.getDatabase(requireContext())
+
+                    val allModules = withContext(Dispatchers.IO) {
                         database.dovrseniModulDao().getByUserId(userId)
                     }
-                    val kvizovi = withContext(Dispatchers.IO) {
-                        database.kvizRezultatDao().getByUserId(userId)
-                    }
 
-                    val prefix = categoryToPrefix(selectedCategory).lowercase()
+                    val filteredModules = getModulesForCategory(selectedCategory, allModules)
 
-                    val filteredModuli = moduli.filter {
-                        it.modulId.trim().lowercase().startsWith(prefix)
-                    }
+                    withContext(Dispatchers.Main) {
+                        tvDovrseniModuli.text = if (filteredModules.isNotEmpty()) {
+                            if (selectedCategory == "Svi") {
+                                val groupedText = StringBuilder()
 
-                    val filteredKvizovi = kvizovi.filter {
-                        it.kvizId.trim().lowercase().startsWith(prefix)
-                    }
+                                val planetModules = getModulesForCategory("Planeti", allModules)
+                                val sunModules = getModulesForCategory("Sunce", allModules)
+                                val moonModules = getModulesForCategory("Mjeseci", allModules)
+                                val asteroidModules = getModulesForCategory("Asteroidi", allModules)
+                                val cometModules = getModulesForCategory("Kometi", allModules)
+                                val objectModules = getModulesForCategory("Objekti", allModules)
+                                val constellationModules = getModulesForCategory("Zviježđa", allModules)
 
-                    tvRezultatModuli.text = if (filteredModuli.isNotEmpty()) {
-                        filteredModuli.joinToString("\n") {
-                            "${it.modulId} (${it.datumDovrsenja})"
+                                if (planetModules.isNotEmpty()) {
+                                    groupedText.append("🪐 PLANETI:\n")
+                                    planetModules.forEach {
+                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                    }
+                                    groupedText.append("\n")
+                                }
+
+                                if (sunModules.isNotEmpty()) {
+                                    groupedText.append("☀️ SUNCE:\n")
+                                    sunModules.forEach {
+                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                    }
+                                    groupedText.append("\n")
+                                }
+
+                                if (moonModules.isNotEmpty()) {
+                                    groupedText.append("🌙 MJESECI:\n")
+                                    moonModules.forEach {
+                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                    }
+                                    groupedText.append("\n")
+                                }
+
+                                if (asteroidModules.isNotEmpty()) {
+                                    groupedText.append("🪨 ASTEROIDI:\n")
+                                    asteroidModules.forEach {
+                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                    }
+                                    groupedText.append("\n")
+                                }
+
+                                if (cometModules.isNotEmpty()) {
+                                    groupedText.append("☄️ KOMETI:\n")
+                                    cometModules.forEach {
+                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                    }
+                                    groupedText.append("\n")
+                                }
+
+                                if (objectModules.isNotEmpty()) {
+                                    groupedText.append("🌌 OBJEKTI:\n")
+                                    objectModules.forEach {
+                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                    }
+                                    groupedText.append("\n")
+                                }
+
+                                if (constellationModules.isNotEmpty()) {
+                                    groupedText.append("⭐ ZVIJEŽĐA:\n")
+                                    constellationModules.forEach {
+                                        groupedText.append("  ✓ ${it.modulId} (${it.datumDovrsenja.substring(0, 10)})\n")
+                                    }
+                                }
+
+                                groupedText.toString().trim()
+                            } else {
+                                val emoji = when(selectedCategory) {
+                                    "Planeti" -> "🪐"
+                                    "Sunce" -> "☀️"
+                                    "Mjeseci" -> "🌙"
+                                    "Asteroidi" -> "🪨"
+                                    "Kometi" -> "☄️"
+                                    "Objekti" -> "🌌"
+                                    "Zviježđa" -> "⭐"
+                                    else -> "✓"
+                                }
+
+                                filteredModules.joinToString("\n") { modul ->
+                                    "$emoji ${modul.modulId} (${modul.datumDovrsenja.substring(0, 10)})"
+                                }
+                            }
+                        } else {
+                            if (selectedCategory == "Svi") {
+                                "Još nema riješenih modula"
+                            } else {
+                                "Još nema riješenih modula u kategoriji: $selectedCategory"
+                            }
                         }
-                    } else {
-                        "Još nema riješenih modula"
                     }
-
-                    tvKvizRezultati.text = if (filteredKvizovi.isNotEmpty()) {
-                        filteredKvizovi.joinToString("\n") {
-                            "${it.kvizId}: ${it.najboljiRezultat}/10"
-                        }
-                    } else {
-                        "Još nema riješenih kvizova"
-                    }
-
                 } catch (e: Exception) {
-                    Toast.makeText(requireContext(), "Greška: ${e.message}", Toast.LENGTH_SHORT).show()
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Greška pri dohvaćanju modula: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -113,23 +196,46 @@ class ProfileFragment : Fragment() {
 
         spinnerCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                loadData(categories[position])
+                loadModuleData(categories[position])
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
         spinnerCategory.setSelection(0)
 
         lifecycleScope.launch {
-            val database = DatabaseProvider.getDatabase(requireContext())
-            val user = withContext(Dispatchers.IO) { database.korisnikDao().getById(userId) }
-            if (user != null) {
-                tvUserName.text = user.ime
-                tvUserEmail.text = user.email
-                tvRegistrationDate.text = "Registriran: ${user.datumRegistracije}"
-            } else {
-                Toast.makeText(requireContext(), "Korisnički podaci nisu pronađeni", Toast.LENGTH_SHORT).show()
+            try {
+                val database = DatabaseProvider.getDatabase(requireContext())
+
+                val user = withContext(Dispatchers.IO) {
+                    database.korisnikDao().getById(userId)
+                }
+
+                val kvizovi = withContext(Dispatchers.IO) {
+                    database.kvizRezultatDao().getByUserId(userId)
+                }
+
+                withContext(Dispatchers.Main) {
+                    if (user != null) {
+                        tvUserName.text = user.ime
+                        tvUserEmail.text = user.email
+                        tvRegistrationDate.text = "Registriran: ${user.datumRegistracije}"
+                    } else {
+                        Toast.makeText(requireContext(), "Korisnički podaci nisu pronađeni", Toast.LENGTH_SHORT).show()
+                    }
+
+                    tvKvizRezultati.text = if (kvizovi.isNotEmpty()) {
+                        kvizovi.joinToString("\n") { kviz ->
+                            "🏆 ${kviz.kvizId}: ${kviz.najboljiRezultat}/10"
+                        }
+                    } else {
+                        "Još nema riješenih kvizova"
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Greška pri dohvaćanju podataka: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
