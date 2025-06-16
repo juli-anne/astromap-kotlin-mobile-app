@@ -49,7 +49,7 @@ class ConstellationAdapter(
             "kasiopeja" -> R.drawable.cassiopeia
             "lav" -> R.drawable.leo
             "vaga" -> R.drawable.libra
-            "korpion" -> R.drawable.scorpius
+            "škorpion" -> R.drawable.scorpius
             "strijelac" -> R.drawable.sagittarius
             "kentaur" -> R.drawable.centaurus
             "pješčani sat" -> R.drawable.hourglass
