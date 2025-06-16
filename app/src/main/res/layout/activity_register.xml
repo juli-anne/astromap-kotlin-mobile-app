@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/register_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/secondary"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@drawable/ic_back" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="32dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/baseline_person_add_24"
+                android:layout_marginBottom="32dp"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Registracija"
+                android:textSize="28sp"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Ime polje -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Ime"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
+                app:placeholderText="ime"
+                app:placeholderTextColor="@color/placeholder_text_subtle"
+                app:placeholderTextAppearance="@style/PlaceholderTextStyle"
+                app:expandedHintEnabled="false"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/deep_purple"
+                    android:textColorHint="@color/placeholder_text_subtle"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Prezime polje -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/surname_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Prezime"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
+                app:placeholderText="prezime"
+                app:placeholderTextColor="@color/placeholder_text_subtle"
+                app:placeholderTextAppearance="@style/PlaceholderTextStyle"
+                app:expandedHintEnabled="false"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/surname_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/deep_purple"
+                    android:textColorHint="@color/placeholder_text_subtle"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Email polje -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="E-mail adresa"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
+                app:placeholderText="e-mail adresa"
+                app:placeholderTextColor="@color/placeholder_text_subtle"
+                app:placeholderTextAppearance="@style/PlaceholderTextStyle"
+                app:expandedHintEnabled="false"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/deep_purple"
+                    android:textColorHint="@color/placeholder_text_subtle"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Lozinka polje -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Lozinka"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
+                app:placeholderText="unesite lozinku"
+                app:placeholderTextColor="@color/placeholder_text_subtle"
+                app:placeholderTextAppearance="@style/PlaceholderTextStyle"
+                app:expandedHintEnabled="false"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/primary"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textColor="@color/deep_purple"
+                    android:textColorHint="@color/placeholder_text_subtle"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Potvrdi lozinku polje -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/confirm_password_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:hint="Potvrdi lozinku"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary"
+                app:placeholderText="ponovite lozinku"
+                app:placeholderTextColor="@color/placeholder_text_subtle"
+                app:placeholderTextAppearance="@style/PlaceholderTextStyle"
+                app:expandedHintEnabled="false"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/primary"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/confirm_password_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textColor="@color/deep_purple"
+                    android:textColorHint="@color/placeholder_text_subtle"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/register_button"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Registriraj se"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:backgroundTint="@color/secondary"
+                android:textColor="@color/white"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:id="@+id/login_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="Već imate račun? Prijavite se"
+                android:textColor="@color/placeholder_text_subtle"
+                android:textSize="14sp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

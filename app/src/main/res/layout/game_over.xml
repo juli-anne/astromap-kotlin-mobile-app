@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <Button
+        android:id="@+id/btnRestart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/white"
+        android:text="Restart"
+        android:textColor="@color/black"
+        android:textSize="18dp" />
+
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/white"
+        android:text="Exit"
+        android:textColor="@color/black"
+        android:textSize="18dp" />
+
+    <FrameLayout
+        android:layout_width="389dp"
+        android:layout_height="455dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Points:"
+            android:textColor="@color/white"
+            android:textSize="32sp" />
+        <TextView
+            android:id="@+id/tvGameOver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game Over"
+            android:textColor="@color/white"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="100dp"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+    </FrameLayout>
+
+
+</FrameLayout>

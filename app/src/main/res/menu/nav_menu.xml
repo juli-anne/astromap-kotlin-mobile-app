@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn ="navigation_view" >
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/baseline_home_24"
+            android:title="Početna"/>
+
+        <item
+            android:id="@+id/nav_planets"
+            android:icon="@drawable/baseline_circle_24"
+            android:title="Planeti" />
+
+        <item
+            android:id="@+id/nav_sun"
+            android:icon="@drawable/baseline_circle_24"
+            android:title="Sunce"/>
+
+        <item
+            android:id="@+id/nav_moons"
+            android:icon="@drawable/baseline_circle_24"
+            android:title="Mjeseci" />
+
+        <item
+            android:id="@+id/nav_asteroids"
+            android:icon="@drawable/baseline_circle_24"
+            android:title="Asteroidi" />
+
+        <item
+            android:id="@+id/nav_comets"
+            android:icon="@drawable/baseline_circle_24"
+            android:title="Kometi" />
+
+        <item
+            android:id="@+id/nav_objects"
+            android:icon="@drawable/baseline_circle_24"
+            android:title="Objekti Sunčevog sustava" />
+        <item
+            android:id="@+id/nav_constellations"
+            android:icon="@drawable/baseline_circle_24"
+            android:title="Zviježđa" />
+        <item
+            android:id="@+id/nav_game"
+            android:icon="@drawable/baseline_circle_24"
+            android:title="Igra" />
+        <item
+            android:id="@+id/nav_quiz"
+            android:icon="@drawable/baseline_circle_24"
+            android:title="Kvizovi" />
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/baseline_login_24"
+            android:title="Prijavi se" />
+    </group>
+
+
+</menu>

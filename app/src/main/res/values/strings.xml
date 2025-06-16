@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">rmai2425-projects-astromap</string>
+    <string name="open_nav">Open navigation drawer</string>
+    <string name="close_nav">Close navigation drawer</string>
+    <string name="planet_image_desc">Slika planeta</string>
+    <string name="menu_icon_desc">Meni za više informacija</string>
+    <string name="diameter_icon_desc">Ikona promjera planeta</string>
+    <string name="planet_name">Zemlja</string>
+    <string name="planet_info">Treći planet od Sunca</string>
+    <string name="planet_diameter">Promjer: 12 742 km</string>
+    <string name="education">Edukacija</string>
+    <string name="education_photo">Edukacija</string>
+    <string name="sun_title">Sunce</string>
+    <string name="planet_list_desc">Popis planeta</string>
+    <string name="back_button">Gumb za povratak</string>
+    <string name="sun_image_desc">Sunce</string>
+    <string name="sun_list_desc">Popis prikaza podataka o Suncu</string>
+    <string name="sun_menu_icon_desc">Meni za više informacija o Suncu</string>
+    <string name="sun_name">Sunce</string>
+    <string name="quiz_list_desc">Lista kvizova za testiranje znanja</string>
+    <string name="quiz_image_desc">slika kviza</string>
+    <string name="constellation_list_desc">Popis zviježđa</string>
+    <string name="constellation_image_desc">Slika zviježđa</string>
+    <string name="constellation_menu_icon_desc">Meni za više informacija o zviježđu</string>
+    <string name="constellation_name">Orion</string>
+    <string name="asteroid_list_desc">Popis asteroida</string>
+    <string name="asteroid_image_desc">Slika asteroida</string>
+    <string name="asteroid_menu_icon_desc">Meni za više informacija o asteroidu</string>
+    <string name="asteroid_name">Ceres</string>
+    <string name="comet_list_desc">Popis kometa</string>
+    <string name="comet_image_desc">Slika kometa</string>
+    <string name="comet_menu_icon_desc">Meni za više informacija o kometu</string>
+    <string name="comet_name">Halleyjev komet</string>
+    <string name="object_list_desc">Popis objekata</string>
+    <string name="object_image_desc">Slika objekata</string>
+    <string name="object_menu_icon_desc">Meni za više informacija o objektu</string>
+    <string name="object_name">Pluton</string>
+    <string name="moon_list_desc">Popis mjeseca</string>
+    <string name="moon_image_desc">Slika mjeseca</string>
+    <string name="moon_menu_icon_desc">Meni za više informacija o mjesecu</string>
+    <string name="moon_name">Mjesec</string>
+    <string name="moon_diameter_icon_desc">Ikona promjera mjeseca</string>
+    <string name="solarsystem">Sunčev sustav</string>
+    <string name="solar_image_desc">Slika sunčevog sustava</string>
+    <string name="solar_menu_icon_desc">Meni za više informacija o sunčevom sustavu</string>
+    <string name="solar_name">Sunčev sustav</string>
+    <string name="login_title">Prijava</string>
+    <string name="register_title">Registracija</string>
+    <string name="email_hint">Email adresa</string>
+    <string name="password_hint">Lozinka</string>
+    <string name="name_hint">Ime i prezime</string>
+    <string name="confirm_password_hint">Potvrdi lozinku</string>
+    <string name="login_button">Prijavi se</string>
+    <string name="register_button">Registriraj se</string>
+    <string name="no_account">Nemate račun? Registrirajte se</string>
+    <string name="have_account">Već imate račun? Prijavite se</string>
+
+    <string-array name="categories">
+        <item>Planeti</item>
+        <item>Mjeseci</item>
+        <item>Asteroidi</item>
+        <item>Kometi</item>
+        <item>Zviježđa</item>
+        <item>Sunce</item>
+        <item>Objekti Sunčevog sustava</item>
+    </string-array>
+
+</resources>

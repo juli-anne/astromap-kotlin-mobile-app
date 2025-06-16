@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="NavMenuTextStyle" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="PlaceholderTextStyle" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/placeholder_text</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:alpha">0.7</item>
+    </style>
+</resources>
