@@ -34,7 +34,7 @@ class ProfileFragment : Fragment() {
         val tvRegistrationDate = view.findViewById<TextView>(R.id.tv_registration_date)
         val tvDovrseniModuli = view.findViewById<TextView>(R.id.tv_dovrseni_moduli)
         val tvKvizRezultati = view.findViewById<TextView>(R.id.tv_kviz_rezultati)
-        val tvHighScore = view.findViewById<TextView>(R.id.tv_high_score)
+        val tvHighScore = view.findViewById<TextView>(R.id.tv_highscore)
         val btnLogout = view.findViewById<Button>(R.id.btn_logout)
         val spinnerCategory = view.findViewById<Spinner>(R.id.spinner_category)
 
